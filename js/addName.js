@@ -42,7 +42,7 @@ function plusName(element) {
   minusNow.addEventListener('click', () => {
     howManyCounter = howManyCounter - 1
     newNameWrap.remove()
-    
+
     const countOfNames = namesWrapNow.querySelectorAll('.manListItemCounter')
 
     countOfNames.forEach(function (item, i) {
@@ -54,7 +54,7 @@ function plusName(element) {
   })
 }
 
-function howManyInputPushValue(wrapperOfRequest){
+function howManyInputPushValue(wrapperOfRequest) {
   if (startChoice === 'vipuskniki') {
     const howManyProdsNow = wrapperOfRequest.querySelectorAll('.manListItemWrap').length
     const inputHowManyProds = wrapperOfRequest.querySelector('.howMany')

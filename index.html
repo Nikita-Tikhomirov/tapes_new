@@ -1,410 +1,407 @@
 <!DOCTYPE html>
 <html lang="en" data-scrapbook-source="https://picmaticweb.com/html/form-demo/formify/index-20.html"
-    data-scrapbook-create="20230421145901334" data-scrapbook-title="Formify">
+  data-scrapbook-create="20230421145901334" data-scrapbook-title="Formify">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/nice-select.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-1.css" rel="stylesheet">
-    <link href="css/responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/custom.css">
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/nice-select.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-1.css" rel="stylesheet">
+  <link href="css/responsive.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
 
 
-    <title>Калькулятор для лент1</title>
+  <title>Калькулятор для лент1</title>
 </head>
 
 <body>
-    <div class="body_wrapper frm-vh-md-100">
-        <div class="formify_body formify_signup_fullwidth formify_signup_fullwidth_two d-flex">
-            <div class="formify_left_fullwidth formify_left_top_logo frm-vh-md-100 d-flex align-items-center justify-content-center"
-                data-bg-color="#FFEFF9" style="background-color: rgb(255, 239, 249);">
-                <a href="https://picmaticweb.com/html/form-demo/formify/index.html" class="top_logo"><img
-                        src="img/logo.png" alt=""></a>
-                <img class="img-fluid" src="img/personal_img.png" alt="">
+  <div class="body_wrapper frm-vh-md-100">
+    <div class="formify_body formify_signup_fullwidth formify_signup_fullwidth_two d-flex">
+      <div
+        class="formify_left_fullwidth formify_left_top_logo frm-vh-md-100 d-flex align-items-center justify-content-center"
+        data-bg-color="#FFEFF9" style="background-color: rgb(255, 239, 249);">
+        <a href="https://picmaticweb.com/html/form-demo/formify/index.html" class="top_logo"><img src="img/logo.png"
+            alt=""></a>
+        <img class="img-fluid" src="img/personal_img.png" alt="">
+      </div>
+      <div class="formify_right_fullwidth d-flex align-items-center justify-content-center">
+        <div class="form_tab_two">
+          <ul class="nav nav-tabs form_tab" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active show" id="One-tab" data-toggle="tab" href="#One" role="tab" aria-controls="One"
+                aria-selected="true">
+                <span>1</span>
+                Для кого
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="Two-tab" data-toggle="tab" href="#Two" role="tab" aria-controls="Two"
+                aria-selected="false">
+                <span>2</span>
+                Основные параметры
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="Three-tab" data-toggle="tab" href="#Three" role="tab" aria-controls="Three"
+                aria-selected="false">
+                <span>3</span>
+                Дополнительные товары
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="Four-tab" data-toggle="tab" href="#Four" role="tab" aria-controls="Four"
+                aria-selected="false">
+                <span>4</span>
+                Заказать
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="One" role="tabpanel" aria-labelledby="One-tab">
+              <div class="formify_box">
+                <h4 class="form_title">Для кого <span>заказываем ленты</span></h4>
+                <div class="signup_form frstCsWrap">
+                  <div class="customRadioWrap" data-start="vipuskniki">
+                    <div class="customRadio"></div>
+                    <div class="customRadioText-wrap">
+                      <span>Выпускные ленты</span>
+                      <span>Выпускники школ</span>
+                    </div>
+                  </div>
+                  <div class="customRadioWrap" data-start="school">
+                    <div class="customRadio"></div>
+                    <div class="customRadioText-wrap">
+                      <span>Для начальной школы</span>
+
+                    </div>
+                  </div>
+                  <div class="customRadioWrap" data-start="todlers">
+                    <div class="customRadio"></div>
+                    <div class="customRadioText-wrap">
+                      <span>Для детского сада</span>
+
+                    </div>
+                  </div>
+                  <div class="customRadioWrap" data-start="firstclass">
+                    <div class="customRadio"></div>
+                    <div class="customRadioText-wrap">
+                      <span>Первоклассникам</span>
+
+                    </div>
+                  </div>
+                  <div class="customRadioWrap" data-start="acs">
+                    <div class="customRadio"></div>
+                    <div class="customRadioText-wrap">
+                      <span>Только аксессуары</span>
+                      <span>Без лент</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="next_button text-right">
+                  <button type="submit" class="btn thm_btn red_btn next_tab gender-button firstChoiseBtn">Дальше <i
+                      class="arrow_right"></i></button>
+                </div>
+              </div>
             </div>
-            <div class="formify_right_fullwidth d-flex align-items-center justify-content-center">
-                <div class="form_tab_two">
-                    <ul class="nav nav-tabs form_tab" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active show" id="One-tab" data-toggle="tab" href="#One" role="tab"
-                                aria-controls="One" aria-selected="true">
-                                <span>1</span>
-                                Для кого
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="Two-tab" data-toggle="tab" href="#Two" role="tab"
-                                aria-controls="Two" aria-selected="false">
-                                <span>2</span>
-                                Основные параметры
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="Three-tab" data-toggle="tab" href="#Three" role="tab"
-                                aria-controls="Three" aria-selected="false">
-                                <span>3</span>
-                                Дополнительные товары
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="Four-tab" data-toggle="tab" href="#Four" role="tab"
-                                aria-controls="Four" aria-selected="false">
-                                <span>4</span>
-                                Заказать
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-
-                        <div class="tab-pane fade show active" id="One" role="tabpanel" aria-labelledby="One-tab">
-                            <div class="formify_box">
-                                <h4 class="form_title">Для кого <span>заказываем ленты</span></h4>
-                                <div class="signup_form frstCsWrap">
-                                    <div class="customRadioWrap" data-start="vipuskniki">
-                                        <div class="customRadio"></div>
-                                        <div class="customRadioText-wrap">
-                                            <span>Выпускные ленты</span>
-                                            <span>Выпускники школ</span>
-                                        </div>
-                                    </div>
-                                    <div class="customRadioWrap" data-start="school">
-                                        <div class="customRadio"></div>
-                                        <div class="customRadioText-wrap">
-                                            <span>Для начальной школы</span>
-
-                                        </div>
-                                    </div>
-                                    <div class="customRadioWrap" data-start="todlers">
-                                        <div class="customRadio"></div>
-                                        <div class="customRadioText-wrap">
-                                            <span>Для детского сада</span>
-
-                                        </div>
-                                    </div>
-                                    <div class="customRadioWrap" data-start="firstclass">
-                                        <div class="customRadio"></div>
-                                        <div class="customRadioText-wrap">
-                                            <span>Первоклассникам</span>
-
-                                        </div>
-                                    </div>
-                                    <div class="customRadioWrap" data-start="acs">
-                                        <div class="customRadio"></div>
-                                        <div class="customRadioText-wrap">
-                                            <span>Только аксессуары</span>
-                                            <span>Без лент</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="next_button text-right">
-                                    <button type="submit"
-                                        class="btn thm_btn red_btn next_tab gender-button firstChoiseBtn">Дальше <i
-                                            class="arrow_right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                        <!-- Выпускники -->
-
-
-                        <div class="tab-pane fade show vipuskniki" id="" role="tabpanel" aria-labelledby="One-tab">
-                            <div class="formify_box">
-                                <h4 class="form_title">Выпускные <span>ленты</span></h4>
-                                <h3 class="form_subtitle">Выпускники школ, колледжей и т.д.</h3>
-
-                                <div class="signup_form row">
-                                    <div class="col-md-12">
-                                        <h5>Заявка № <span class="requestCount">1</span></h5>
-
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Количество</label>
-                                        <input type="number" class="form-control howMany" id="howMany" placeholder="10"
-                                            required="" value="0" min="0" readonly>
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Номер шаблона</label>
-                                        <select class="niceselect gender-select templateSelect">
-                                            <option value="1" selected="selected">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-
-
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Цвет ленты</label>
-                                        <select class="niceselect gender-select colorSelect">
-                                            <option value="Бордо" selected="selected">Бордо</option>
-                                            <option value="Золото">Золото</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Цвет печати</label>
-                                        <select class="niceselect gender-select printColor">
-                                            <option value="Золото" selected="selected">Золото</option>
-                                            <option value="Бордо">Бордо</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title" for="inputName">Дополнительно написать на ленте
-                                            <span>класс, школа, город и тд. Можно не указывать</span>
-                                        </label>
-                                        <textarea class="form-control" id="inputName"
-                                            placeholder="Дополнительно написать на ленте" required="" value="" cols="30"
-                                            rows="2" style="height:auto"></textarea>
-
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title" for="inputName">Список выпускников</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title" for="inputName">Список выпускниц</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group col-md-12 adultWrap">
-                                        <label class="input_title" for="inputName">Классный руководитель</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group col-md-12 adultWrap">
-                                        <label class="input_title" for="inputName">Первый учитель</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group col-md-12 adultWrap">
-                                        <label class="input_title" for="inputName">Директор</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="addrequestButton">Добавить заявку
-                                </div>
-
-                                <div class="next_button text-right">
-                                    <button
-                                        class="btn thm_btn red_btn next_tab gender-button buttonsToStepWithAcs">Дальше
-                                        <i class="arrow_right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!--Начальная школа  -->
-
-
-                        <div class="tab-pane fade show school" id="" role="tabpanel" aria-labelledby="One-tab">
-                            <div class="formify_box">
-                                <h4 class="form_title">Выпускные <span>ленты</span></h4>
-                                <h3 class="form_subtitle">Для начальной школы</h3>
-
-                                <div class="signup_form row">
-                                    <div class="col-md-12">
-                                        <h5>Заявка № <span class="requestCount">1</span></h5>
-
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Количество детских лент</label>
-                                        <input type="number" class="form-control howManySchoolChild howMany" id="howManySchoolChild" placeholder="10"
-                                            required="" value="0">
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Количество взрослых</label>
-                                        <input type="number" class="form-control howManySchoolAdult" id="howManySchoolAdult" placeholder="10"
-                                            required="" value="0">
-                                    </div>                                    
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Номер шаблона</label>
-                                        <select class="niceselect gender-select templateSelect">
-                                            <option value="1" selected="selected">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Цвет ленты</label>
-                                        <select class="niceselect gender-select colorSelect">
-                                            <option value="Бордо" selected="selected">Бордо</option>
-                                            <option value="Золото">Золото</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Цвет печати</label>
-                                        <select class="niceselect gender-select printColor">
-                                            <option value="Золото" selected="selected">Золото</option>
-                                            <option value="Бордо">Бордо</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title" for="inputName">Дополнительно написать на ленте
-                                            <span>класс, школа, город и тд. Можно не указывать</span>
-                                        </label>
-                                        <textarea class="form-control" id="inputName"
-                                            placeholder="Дополнительно написать на ленте" required="" value="" cols="30"
-                                            rows="2" style="height:auto"></textarea>
-
-                                    </div>
-
-                                    <div class="form-group col-md-12 mb-4">
-                                        <label class="input_title" for="inputName">Список выпускников</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group col-md-12 mb-4">
-                                        <label class="input_title" for="inputName">Список выпускниц</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group col-md-12 mb-4 adultWrap">
-                                        <label class="input_title" for="inputName">Классный руководитель</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group col-md-12 mb-4 adultWrap">
-                                        <label class="input_title" for="inputName">Первый учитель</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group col-md-12 mb-4 adultWrap">
-                                        <label class="input_title" for="inputName">Директор</label>
-                                        <input type="hidden" name="mansList">
-                                        <div class="mansList">
-                                            <div class="manListItems">
-
-                                            </div>
-
-                                            <div class="mansListAddBtn">
-                                                <span>Добавить </span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- <div class="form-group col-lg-12">
+
+
+
+
+            <!-- Выпускники -->
+
+
+            <div class="tab-pane fade show vipuskniki" id="" role="tabpanel" aria-labelledby="One-tab">
+              <div class="formify_box">
+                <h4 class="form_title">Выпускные <span>ленты</span></h4>
+                <h3 class="form_subtitle">Выпускники школ, колледжей и т.д.</h3>
+
+                <div class="signup_form row">
+                  <div class="col-md-12">
+                    <h5>Заявка № <span class="requestCount">1</span></h5>
+
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Количество</label>
+                    <input type="number" class="form-control howMany" id="howMany" placeholder="10" required=""
+                      value="0" min="0" readonly>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Номер шаблона</label>
+                    <select class="niceselect gender-select templateSelect">
+                      <option value="1" selected="selected">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+
+
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Цвет ленты</label>
+                    <select class="niceselect gender-select colorSelect">
+                      <option value="Бордо" selected="selected">Бордо</option>
+                      <option value="Золото">Золото</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Цвет печати</label>
+                    <select class="niceselect gender-select printColor">
+                      <option value="Золото" selected="selected">Золото</option>
+                      <option value="Бордо">Бордо</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title" for="inputName">Дополнительно написать на ленте
+                      <span>класс, школа, город и тд. Можно не указывать</span>
+                    </label>
+                    <textarea class="form-control" id="inputName" placeholder="Дополнительно написать на ленте"
+                      required="" value="" cols="30" rows="2" style="height:auto"></textarea>
+
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title" for="inputName">Список выпускников</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title" for="inputName">Список выпускниц</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group col-md-12 adultWrap">
+                    <label class="input_title" for="inputName">Классный руководитель</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group col-md-12 adultWrap">
+                    <label class="input_title" for="inputName">Первый учитель</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group col-md-12 adultWrap">
+                    <label class="input_title" for="inputName">Директор</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="addrequestButton">Добавить заявку
+                </div>
+
+                <div class="next_button text-right">
+                  <button class="btn thm_btn red_btn next_tab gender-button buttonsToStepWithAcs">Дальше
+                    <i class="arrow_right"></i></button>
+                </div>
+              </div>
+            </div>
+
+
+            <!--Начальная школа  -->
+
+
+            <div class="tab-pane fade show school" id="" role="tabpanel" aria-labelledby="One-tab">
+              <div class="formify_box">
+                <h4 class="form_title">Выпускные <span>ленты</span></h4>
+                <h3 class="form_subtitle">Для начальной школы</h3>
+
+                <div class="signup_form row">
+                  <div class="col-md-12">
+                    <h5>Заявка № <span class="requestCount">1</span></h5>
+
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Количество детских лент</label>
+                    <input type="number" class="form-control howManySchoolChild howMany" id="howManySchoolChild"
+                      placeholder="10" required="" value="0">
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Количество взрослых</label>
+                    <input type="number" class="form-control howManySchoolAdult" id="howManySchoolAdult"
+                      placeholder="10" required="" value="0">
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Номер шаблона</label>
+                    <select class="niceselect gender-select templateSelect">
+                      <option value="1" selected="selected">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Цвет ленты</label>
+                    <select class="niceselect gender-select colorSelect">
+                      <option value="Бордо" selected="selected">Бордо</option>
+                      <option value="Золото">Золото</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Цвет печати</label>
+                    <select class="niceselect gender-select printColor">
+                      <option value="Золото" selected="selected">Золото</option>
+                      <option value="Бордо">Бордо</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title" for="inputName">Дополнительно написать на ленте
+                      <span>класс, школа, город и тд. Можно не указывать</span>
+                    </label>
+                    <textarea class="form-control" id="inputName" placeholder="Дополнительно написать на ленте"
+                      required="" value="" cols="30" rows="2" style="height:auto"></textarea>
+
+                  </div>
+
+                  <div class="form-group col-md-12 mb-4">
+                    <label class="input_title" for="inputName">Список выпускников</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group col-md-12 mb-4">
+                    <label class="input_title" for="inputName">Список выпускниц</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group col-md-12 mb-4 adultWrap">
+                    <label class="input_title" for="inputName">Классный руководитель</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group col-md-12 mb-4 adultWrap">
+                    <label class="input_title" for="inputName">Первый учитель</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group col-md-12 mb-4 adultWrap">
+                    <label class="input_title" for="inputName">Директор</label>
+                    <input type="hidden" name="mansList">
+                    <div class="mansList">
+                      <div class="manListItems">
+
+                      </div>
+
+                      <div class="mansListAddBtn">
+                        <span>Добавить </span>
+                        <span></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- <div class="form-group col-lg-12">
                                         <label class="input_title" for="inputAddress1">Классный руководитель</label>
                                         <input type="text" class="form-control teachers" id="inputAddress1"
                                             placeholder="ФИО" required="">
@@ -419,354 +416,347 @@
                                         <input type="text" class="form-control teachers" id="inputAddress3"
                                             placeholder="ФИО" required="">
                                     </div> -->
-                                    
-                                </div>
 
-                                <div class="addrequestButton">Добавить заявку
-                                </div>
+                </div>
 
-                                <div class="next_button text-right">
-                                    <button
-                                        class="btn thm_btn red_btn next_tab gender-button buttonsToStepWithAcs">Дальше
-                                        <i class="arrow_right"></i></button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="addrequestButton">Добавить заявку
+                </div>
 
-
-
-                        <!--  -->
-
-
-                        <div class="tab-pane fade show slideWithAcs acs" id="" role="tabpanel"
-                            aria-labelledby="One-tab">
-                            <div class="formify_box">
-                                <h4 class="form_title">Дополнительные <span>товары</span></h4>
-                                <h3>Описание для допов</h3>
-                                <div class="signup_form row">
-                                    <div class="dops-wrap col-12">
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/700-nw.jpg" alt="">
-                                            </div>
-                                            <div class="dop__title">Колокольчик "Красивый"</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control bell" name=""
-                                                    id="" value="0" data-dopPriceForOne="" data-bell="1">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/700-nw.jpg" alt="">
-                                            </div>
-                                            <div class="dop__title">Колокольчик "Лучший выпуск"</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control bell" name=""
-                                                    id="" value="0" data-dopPriceForOne="" data-bell="2">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/700-nw.jpg" alt="">
-                                            </div>
-                                            <div class="dop__title">Колокольчик "МАЙ"</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control bell" name=""
-                                                    id="" value="0" data-dopPriceForOne="" data-bell="3">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-                                        <!-- БАБОЧКИ -->
-
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/btfl.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Бабочки "Элегант"</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control buterfly" name=""
-                                                    id="" value="0" data-dopPriceForOne="">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/btfl.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Бабочки "Выпускник"</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control buterfly" name=""
-                                                    id="" value="0" data-dopPriceForOne="">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/btfl.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Бабочки "Кашемир" Премиум</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control buterfly" name=""
-                                                    id="" value="0" data-dopPriceForOne="">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- БАНТЫ -->
-
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/bnt.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Банты "ТОП"(Пара)</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control bant" name=""
-                                                    id="" value="0" data-dopPriceForOne="350">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
+                <div class="next_button text-right">
+                  <button class="btn thm_btn red_btn next_tab gender-button buttonsToStepWithAcs">Дальше
+                    <i class="arrow_right"></i></button>
+                </div>
+              </div>
+            </div>
 
 
 
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/bnt.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Банты "ВИП"(Пара)</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control bant" name=""
-                                                    id="" value="0" data-dopPriceForOne="400">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
+            <!--  -->
 
 
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/bnt.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Бант на заколке(за 1шт)</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control bant" name=""
-                                                    id="" value="0" data-dopPriceForOne="180">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
+            <div class="tab-pane fade show slideWithAcs acs" id="" role="tabpanel" aria-labelledby="One-tab">
+              <div class="formify_box">
+                <h4 class="form_title">Дополнительные <span>товары</span></h4>
+                <h3>Описание для допов</h3>
+                <div class="signup_form row">
+                  <div class="dops-wrap col-12">
 
-                                        <!-- БУТОНЬЕРКИ -->
-
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/but.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Жемчуг</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control" name="" id=""
-                                                    value="0" data-dopPriceForOne="125">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="dop">
-                                            <div class="dop__img-wrap">
-                                                <img src="img/but.png" alt="">
-                                            </div>
-                                            <div class="dop__title">Лайт</div>
-                                            <div class="dop__controls-wrap">
-                                                <div class="dop__minus">-</div>
-                                                <input type="number" class="dop__counter form-control" name="" id=""
-                                                    value="0" data-dopPriceForOne="130">
-                                                <div class="dop__plus">+</div>
-                                            </div>
-                                        </div>
-
-
-
-
-
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="input_title">Пригласительные письма</label>
-                                    <input type="number" class="form-control mailsInput" id="" placeholder="10"
-                                        required="" value="" data-price="53">
-                                    <textarea class="form-control textToMail" id="" placeholder="Текст" required=""
-                                        value="" cols="10" rows="4"></textarea>
-                                </div>
-
-                                <div class="next_button text-right">
-                                    <button type="submit" class="btn thm_btn red_btn next_tab gender-button ">Дальше <i
-                                            class="arrow_right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                        <div class="tab-pane fade show" id="" role="tabpanel" aria-labelledby="One-tab">
-                            <form class="formify_box">
-                                <h4 class="form_title"><span>Заказать</span></h4>
-                                <div class="signup_form row">
-
-
-                                    <div class="form-group col-md-12">
-                                        <label class="input_title">Email</label>
-                                        <input type="Email" class="form-control" id="inputCol" placeholder="email"
-                                            required="" value="">
-
-                                    </div>
-
-
-
-                                </div>
-                                <div class="next_button text-right">
-                                    <button type="submit" class="btn thm_btn red_btn gender-button">Заказать <i
-                                            class="arrow_right"></i></button>
-                                </div>
-                            </form>
-                        </div>
-
-
-
-
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/700-nw.jpg" alt="">
+                      </div>
+                      <div class="dop__title">Колокольчик "Красивый"</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control bell" name="" id="" value="0"
+                          data-dopPriceForOne="" data-bell="1">
+                        <div class="dop__plus">+</div>
+                      </div>
                     </div>
 
-                    <div class="price">Цена: <span class="counter">0</span><span> Р</span></div>
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/700-nw.jpg" alt="">
+                      </div>
+                      <div class="dop__title">Колокольчик "Лучший выпуск"</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control bell" name="" id="" value="0"
+                          data-dopPriceForOne="" data-bell="2">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/700-nw.jpg" alt="">
+                      </div>
+                      <div class="dop__title">Колокольчик "МАЙ"</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control bell" name="" id="" value="0"
+                          data-dopPriceForOne="" data-bell="3">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+                    <!-- БАБОЧКИ -->
+
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/btfl.png" alt="">
+                      </div>
+                      <div class="dop__title">Бабочки "Элегант"</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control buterfly" name="" id="" value="0"
+                          data-dopPriceForOne="">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/btfl.png" alt="">
+                      </div>
+                      <div class="dop__title">Бабочки "Выпускник"</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control buterfly" name="" id="" value="0"
+                          data-dopPriceForOne="">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/btfl.png" alt="">
+                      </div>
+                      <div class="dop__title">Бабочки "Кашемир" Премиум</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control buterfly" name="" id="" value="0"
+                          data-dopPriceForOne="">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+
+                    <!-- БАНТЫ -->
+
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/bnt.png" alt="">
+                      </div>
+                      <div class="dop__title">Банты "ТОП"(Пара)</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control bant" name="" id="" value="0"
+                          data-dopPriceForOne="350">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/bnt.png" alt="">
+                      </div>
+                      <div class="dop__title">Банты "ВИП"(Пара)</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control bant" name="" id="" value="0"
+                          data-dopPriceForOne="400">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/bnt.png" alt="">
+                      </div>
+                      <div class="dop__title">Бант на заколке(за 1шт)</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control bant" name="" id="" value="0"
+                          data-dopPriceForOne="180">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+                    <!-- БУТОНЬЕРКИ -->
+
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/but.png" alt="">
+                      </div>
+                      <div class="dop__title">Жемчуг</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control" name="" id="" value="0"
+                          data-dopPriceForOne="125">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+
+                    <div class="dop">
+                      <div class="dop__img-wrap">
+                        <img src="img/but.png" alt="">
+                      </div>
+                      <div class="dop__title">Лайт</div>
+                      <div class="dop__controls-wrap">
+                        <div class="dop__minus">-</div>
+                        <input type="number" class="dop__counter form-control" name="" id="" value="0"
+                          data-dopPriceForOne="130">
+                        <div class="dop__plus">+</div>
+                      </div>
+                    </div>
+
+
+
+
+
+                  </div>
                 </div>
+                <div class="form-group col-md-12">
+                  <label class="input_title">Пригласительные письма</label>
+                  <input type="number" class="form-control mailsInput" id="" placeholder="10" required="" value=""
+                    data-price="53">
+                  <textarea class="form-control textToMail" id="" placeholder="Текст" required="" value="" cols="10"
+                    rows="4"></textarea>
+                </div>
+
+                <div class="next_button text-right">
+                  <button type="submit" class="btn thm_btn red_btn next_tab gender-button ">Дальше <i
+                      class="arrow_right"></i></button>
+                </div>
+              </div>
             </div>
+
+
+
+
+            <div class="tab-pane fade show" id="" role="tabpanel" aria-labelledby="One-tab">
+              <form class="formify_box">
+                <h4 class="form_title"><span>Заказать</span></h4>
+                <div class="signup_form row">
+
+
+                  <div class="form-group col-md-12">
+                    <label class="input_title">Email</label>
+                    <input type="Email" class="form-control" id="inputCol" placeholder="email" required="" value="">
+
+                  </div>
+
+
+
+                </div>
+                <div class="next_button text-right">
+                  <button type="submit" class="btn thm_btn red_btn gender-button">Заказать <i
+                      class="arrow_right"></i></button>
+                </div>
+              </form>
+            </div>
+
+
+
+
+          </div>
+
+          <div class="price">Цена: <span class="counter">0</span><span> Р</span></div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+
+
+  <div class="system">
+
+
+    <div class="bellPrice1">
+      <div>75</div>
+      <div>68</div>
+      <div>64</div>
+      <div>59</div>
+      <div>54</div>
     </div>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+    <div class="bellPrice2">
+      <div>100</div>
+      <div>93</div>
+      <div>89</div>
+      <div>84</div>
+      <div>79</div>
+      <!-- Надпись + 20р -->
+    </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-
-
-    <div class="system">
- 
-
-        <div class="bellPrice1">
-            <div>75</div>
-            <div>68</div>
-            <div>64</div>
-            <div>59</div>
-            <div>54</div>
-        </div>
-
-        <div class="bellPrice2">
-            <div>100</div>
-            <div>93</div>
-            <div>89</div>
-            <div>84</div>
-            <div>79</div>
-            <!-- Надпись + 20р -->
-        </div>
-
-        <div class="bellPrice3">
-            <div>55</div>
-            <div>53</div>
-            <div>50</div>
-            <div>45</div>
-            <div>42</div>
-        </div>
-
-
-        <div class="buterflyPrice1">
-            <div>260</div>
-            <div>210</div>
-            <div>190</div>
-            <div>170</div>
-            <div>150</div>
-        </div>
-
-        <div class="buterflyPrice2">
-            <div>350</div>
-            <div>330</div>
-            <div>310</div>
-            <div>290</div>
-            <div>270</div>
-        </div>
-        <div class="buterflyPrice3">
-            <div>500</div>
-            <div>480</div>
-            <div>470</div>
-            <div>450</div>
-            <div>440</div>
-        </div>
-
-        <div class="basePriceSchool">
-            <div>220</div>
-            <div>200</div>
-            <div>175</div>
-            <div>152</div>
-            <div>140</div>
-            <div>125</div>
-            <div>120</div>
-            <div>114</div>
-            <div>110</div>
-            <div>105</div>
-            <div>100</div>
-            <div>94</div>
-        </div>
-
-        <div class="basePricePrise">
-            <div>370</div> 
-            <div>310</div> 
-            <div>230</div> 
-            <div>165</div> 
-            <div>145</div> 
-            <div>135</div> 
-            <div>125</div> 
-            <div>120</div> 
-            <div>115</div> 
-            <div>110</div> 
-            <div>105</div> 
-        </div>
-
-
-        <div class="priceMaket">100</div>
+    <div class="bellPrice3">
+      <div>55</div>
+      <div>53</div>
+      <div>50</div>
+      <div>45</div>
+      <div>42</div>
     </div>
 
 
-    <script src="js/startVars.js"></script>
-    <script src="js/startChoise.js"></script>
-    <script src="js/nextSlide.js"></script>
-    <script src="js/addName.js"></script>
-    <script src="js/addRequest.js"></script>
-    <script src="js/dops.js"></script>
-    <script src="js/priceList.js"></script>
-    <script src="js/priceRebuild.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/colors.js"></script>
+    <div class="buterflyPrice1">
+      <div>260</div>
+      <div>210</div>
+      <div>190</div>
+      <div>170</div>
+      <div>150</div>
+    </div>
+
+    <div class="buterflyPrice2">
+      <div>350</div>
+      <div>330</div>
+      <div>310</div>
+      <div>290</div>
+      <div>270</div>
+    </div>
+    <div class="buterflyPrice3">
+      <div>500</div>
+      <div>480</div>
+      <div>470</div>
+      <div>450</div>
+      <div>440</div>
+    </div>
+
+    <div class="basePriceSchool">
+      <div>220</div>
+      <div>200</div>
+      <div>175</div>
+      <div>152</div>
+      <div>140</div>
+      <div>125</div>
+      <div>120</div>
+      <div>114</div>
+      <div>110</div>
+      <div>105</div>
+      <div>100</div>
+      <div>94</div>
+    </div>
+
+    <div class="basePricePrise">
+      <div>370</div>
+      <div>310</div>
+      <div>230</div>
+      <div>165</div>
+      <div>145</div>
+      <div>135</div>
+      <div>125</div>
+      <div>120</div>
+      <div>115</div>
+      <div>110</div>
+      <div>105</div>
+    </div>
 
 
+    <div class="priceMaket">100</div>
+  </div>
 
+
+  <script src="js/startVars.js"></script>
+  <script src="js/startChoise.js"></script>
+  <script src="js/nextSlide.js"></script>
+  <script src="js/addName.js"></script>
+  <script src="js/addRequest.js"></script>
+  <script src="js/dops.js"></script>
+  <script src="js/priceList.js"></script>
+  <script src="js/priceRebuild.js"></script>
+  <script src="js/main.js"></script>
+  <!-- <script src="js/colors.js"></script> -->
 </body>
-
 </html>

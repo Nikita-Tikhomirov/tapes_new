@@ -54,13 +54,9 @@ function priceRebuild() {
         } else if (howManyChildrens > 200) {
             priceForOneChild = basePriceArrChildrens[10]
         }
-
-        
         
     }else{
 
-
-        
         if (howManyCounter < 2) {
             priceForOne = basePriceArr[0]
         } else if (howManyCounter > 2 && howManyCounter <= 4) {
@@ -87,12 +83,7 @@ function priceRebuild() {
 
     }
 
-
-
-
-
     let allInputsBells = document.querySelectorAll('.bell')
-
 
     // Условия для основы(колоколчиков Красивый и Лучший выпуск)
 
@@ -141,8 +132,6 @@ function priceRebuild() {
         allInputsBells[1].setAttribute('data-dopPriceForOne', Number(bellPriceArr2[4].innerHTML))
     }
 
-
-
     // Условия для основы(колоколчиков МАЙ)
 
     if (allInputsBells[2].value <= 5) {
@@ -161,14 +150,7 @@ function priceRebuild() {
 
     }
 
-
-
-
-
-
-
     // Условие для бабочек
-
 
     let allInputsButerfly = document.querySelectorAll('.buterfly')
 
@@ -186,10 +168,7 @@ function priceRebuild() {
         allInputsButerfly[0].setAttribute('data-doppriceforone', Number(buterflyPriceArr1[4].innerHTML))
     }
 
-
-
     //  Бабочки "Выпускник"
-
 
     if (allInputsButerfly[1].value <= 3) {
         allInputsButerfly[1].setAttribute('data-doppriceforone', Number(buterflyPriceArr2[0].innerHTML))
@@ -203,10 +182,7 @@ function priceRebuild() {
         allInputsButerfly[1].setAttribute('data-doppriceforone', Number(buterflyPriceArr2[4].innerHTML))
     }
 
-
-
     // Бабочки "Кашемир" Премиум ( только бордо ):
-
 
     if (allInputsButerfly[2].value <= 3) {
         allInputsButerfly[2].setAttribute('data-doppriceforone', Number(buterflyPriceArr3[0].innerHTML))
@@ -220,12 +196,7 @@ function priceRebuild() {
         allInputsButerfly[2].setAttribute('data-doppriceforone', Number(buterflyPriceArr3[4].innerHTML))
     }
 
-
-
-
-
     // mails
-
 
     // TOTAL 
     const totalOuter = document.querySelector('.counter')

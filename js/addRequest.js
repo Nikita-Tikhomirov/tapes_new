@@ -1,153 +1,109 @@
 //  Добавить заявку
 
-
-let addRequestButtons = document.querySelectorAll('.addrequestButton')
+const addRequestButtons = document.querySelectorAll('.addrequestButton')
 
 let arrOfColorsTofilter = []
 
 
 addRequestButtons.forEach(item => {
-    item.addEventListener('click', () => {
-        const copyForm = item.previousElementSibling.cloneNode(true)
+  item.addEventListener('click', () => {
+    const copyForm = item.previousElementSibling.cloneNode(true)
 
-        const namesForClear = copyForm.querySelectorAll('.manListItemWrap')
-        namesForClear.forEach(element => {
-            element.remove()
-        });
-  
-        const inputsForClear = copyForm.querySelectorAll('input')
-        inputsForClear.forEach(element => {
-            element.value = ''
-        });
-      
-        const textareaForClear = copyForm.querySelectorAll('textarea')
-        textareaForClear.forEach(element => {
-            element.value = ''
-        });
+    const namesForClear = copyForm.querySelectorAll('.manListItemWrap')
+    namesForClear.forEach(element => {
+      element.remove()
+    });
 
-        const requestCounter = copyForm.querySelector('.requestCount')
+    const inputsForClear = copyForm.querySelectorAll('input')
+    inputsForClear.forEach(element => {
+      element.value = ''
+    });
 
-        const allRequestArr = item.previousElementSibling.parentElement.querySelectorAll('.signup_form')
-        requestCounter.innerHTML = allRequestArr.length + 1
+    const textareaForClear = copyForm.querySelectorAll('textarea')
+    textareaForClear.forEach(element => {
+      element.value = ''
+    });
 
-        item.before(copyForm)
+    const requestCounter = copyForm.querySelector('.requestCount')
 
-        // пересчет цветов печати и макетов
-        const allColorsSelects = document.querySelectorAll('.colorSelect')
+    const allRequestArr = item.previousElementSibling.parentElement.querySelectorAll('.signup_form')
+    requestCounter.innerHTML = allRequestArr.length + 1
 
-        // пересчет макетов 
-        howManyRequests = document.querySelectorAll(`.${startChoice} .signup_form`).length
-        // console.log(howManyRequests);
+    item.before(copyForm)
 
+    // пересчет цветов печати и макетов
+    const allColorsSelects = document.querySelectorAll('.colorSelect')
 
-        // если меньше 20 лент в заказе (Доплата за макет)
-        if (howManyCounter < 20) {
-
-            let allTemplatesSelect = document.querySelectorAll(`.${startChoice} .templateSelect`)
-
-            let selectedValues = []
-
-            allTemplatesSelect.forEach(select => {
-                let options = Array.from(select.selectedOptions)
-                options.forEach(option => {
-                    selectedValues.push(option.value)
-                })
-            })
-
-            let uniqueValues = selectedValues.filter((value, index, array) => {
-                return array.indexOf(value) === index
-            })
-
-            if (uniqueValues.length > 3) {
-                howManyMakets = uniqueValues.length - 3
-                priceRebuild()
-            }
-
-        }
+    // пересчет макетов 
+    howManyRequests = document.querySelectorAll(`.${startChoice} .signup_form`).length
+    // console.log(howManyRequests);
 
 
+    // если меньше 20 лент в заказе (Доплата за макет)
+    if (howManyCounter < 20) {
 
-        // Нужно вынести это условие и проверять его при нажатии кнопок + и - !!!! 
+      const allTemplatesSelect = document.querySelectorAll(`.${startChoice} .templateSelect`)
 
-        let howManyRequestHeare = document.querySelectorAll(`.${startChoice} .signup_form`).length
+      let selectedValues = []
 
+      allTemplatesSelect.forEach(select => {
+        const options = Array.from(select.selectedOptions)
+        options.forEach(option => selectedValues.push(option.value))
+      })
 
-        if (howManyRequestHeare >= 2) {
+      const uniqueValues = selectedValues.filter((value, index, array) => {
+        return array.indexOf(value) === index
+      })
 
-           
-            let allRequests = document.querySelectorAll(`.${startChoice} .signup_form`)
-            // allRequests отфильтровать только те где меньше 20 лент
+      if (uniqueValues.length > 3) {
+        howManyMakets = uniqueValues.length - 3
+        priceRebuild()
+      }
+    }
 
+    // Нужно вынести это условие и проверять его при нажатии кнопок + и - !!!! 
 
-
-            colorsFilter(allRequests, arrOfColorsTofilter)
-
-
-
-            let selectsOfColors = document.querySelectorAll(`.${startChoice} .colorSelect`)
-
-            selectsOfColors.forEach(element => {
-                element.addEventListener('change', () => {
-                    colorsFilter(allRequests, arrOfColorsTofilter)
-                })
-
-            });
-
-
-            let selectsOfPrint = document.querySelectorAll(`.${startChoice} .printColor`)
-
-            selectsOfPrint.forEach(element => {
-                element.addEventListener('change', () => {
-                    colorsFilter(allRequests, arrOfColorsTofilter)
-                })
-
-            });
+    const howManyRequestHeare = document.querySelectorAll(`.${startChoice} .signup_form`).length
 
 
+    if (howManyRequestHeare >= 2) {
+      const allRequests = document.querySelectorAll(`.${startChoice} .signup_form`)
+      // allRequests отфильтровать только те где меньше 20 лент
 
-        }
+      colorsFilter(allRequests, arrOfColorsTofilter)
 
+      const selectsOfColors = document.querySelectorAll(`.${startChoice} .colorSelect`)
 
+      selectsOfColors.forEach(element => {
+        element.addEventListener('change', colorsFilter(allRequests, arrOfColorsTofilter))
+      });
 
+      const selectsOfPrint = document.querySelectorAll(`.${startChoice} .printColor`)
 
-    })
-
-
-
-
-
+      selectsOfPrint.forEach(element => {
+        element.addEventListener('change', colorsFilter(allRequests, arrOfColorsTofilter))
+      });
+    }
+  })
 });
 
 // получаем количество уникальных сочетаний цвета и печати
 
 function colorsFilter(reqstArr, arrToFilter) {
-    arrOfColorsTofilter = []
-    reqstArr.forEach(function (item, i, arr) {
-        // arrOfColorsTofilter.push
-        let selectColor = item.querySelector('.colorSelect').value
-        let selectPrintColor = item.querySelector('.printColor').value
+  arrOfColorsTofilter = []
 
-        let colorStringToPush = selectColor + selectPrintColor
+  reqstArr.forEach(item => {
+    // arrOfColorsTofilter.push
+    const selectColor = item.querySelector('.colorSelect').value
+    const selectPrintColor = item.querySelector('.printColor').value
+    arrToFilter.push(selectColor + selectPrintColor)
+  });
 
-        arrToFilter.push(colorStringToPush)
+  console.log(arrToFilter);
 
-    });
+  const uniqueValues = arrToFilter.filter((value, index, array) => {
+    return array.indexOf(value) === index;
+  });
 
-    console.log(arrToFilter);
-
-
-    let uniqueValues = arrToFilter.filter((value, index, array) => {
-        return array.indexOf(value) === index;
-    });
-
-    console.log(uniqueValues.length);
-
-
-
+  console.log(uniqueValues.length);
 }
-
-
-
-
-
-
