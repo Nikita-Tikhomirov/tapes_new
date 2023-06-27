@@ -24,7 +24,7 @@ let howManyCounterKids = 0
 let priceForOneChild = 0
 
 
-const priceMaket = Number(document.querySelector('.priceMaket').innerHTML)
+let priceMaket = 100
 
 let howManyMakets = 0
 
