@@ -6,46 +6,44 @@ let addRequestButtons = document.querySelectorAll('.addrequestButton')
 let arrOfColorsTofilter = []
 
 
-addRequestButtons.forEach(function (item, i, arr) {
+addRequestButtons.forEach(item => {
     item.addEventListener('click', () => {
-        let copyForm = item.previousElementSibling.cloneNode(true)
-        let namesForClear = copyForm.querySelectorAll('.manListItemWrap')
+        const copyForm = item.previousElementSibling.cloneNode(true)
+
+        const namesForClear = copyForm.querySelectorAll('.manListItemWrap')
         namesForClear.forEach(element => {
             element.remove()
         });
-        let inputsForClear = copyForm.querySelectorAll('input')
+  
+        const inputsForClear = copyForm.querySelectorAll('input')
         inputsForClear.forEach(element => {
             element.value = ''
         });
-        let textareaForClear = copyForm.querySelectorAll('textarea')
+      
+        const textareaForClear = copyForm.querySelectorAll('textarea')
         textareaForClear.forEach(element => {
             element.value = ''
         });
-        let requestCounter = copyForm.querySelector('.requestCount')
-        let allRequestArr = item.previousElementSibling.parentElement.querySelectorAll('.signup_form')
+
+        const requestCounter = copyForm.querySelector('.requestCount')
+
+        const allRequestArr = item.previousElementSibling.parentElement.querySelectorAll('.signup_form')
         requestCounter.innerHTML = allRequestArr.length + 1
 
         item.before(copyForm)
-        allButtonsAddName = document.querySelectorAll('.mansListAddBtn')
-        plusName(allButtonsAddName)
 
         // пересчет цветов печати и макетов
-        allColorsSelects = document.querySelectorAll('.colorSelect')
+        const allColorsSelects = document.querySelectorAll('.colorSelect')
 
         // пересчет макетов 
-        howManyRequests = document.querySelectorAll(`.` + `${startChoice}` + ` .signup_form`).length
+        howManyRequests = document.querySelectorAll(`.${startChoice} .signup_form`).length
         // console.log(howManyRequests);
 
-
-
-
-
-       
 
         // если меньше 20 лент в заказе (Доплата за макет)
         if (howManyCounter < 20) {
 
-            let allTemplatesSelect = document.querySelectorAll(`.` + `${startChoice}` + ` .templateSelect`)
+            let allTemplatesSelect = document.querySelectorAll(`.${startChoice} .templateSelect`)
 
             let selectedValues = []
 
@@ -71,13 +69,13 @@ addRequestButtons.forEach(function (item, i, arr) {
 
         // Нужно вынести это условие и проверять его при нажатии кнопок + и - !!!! 
 
-        let howManyRequestHeare = document.querySelectorAll(`.` + `${startChoice}` + ` .signup_form`).length
+        let howManyRequestHeare = document.querySelectorAll(`.${startChoice} .signup_form`).length
 
 
         if (howManyRequestHeare >= 2) {
 
            
-            let allRequests = document.querySelectorAll(`.` + `${startChoice}` + ` .signup_form`)
+            let allRequests = document.querySelectorAll(`.${startChoice} .signup_form`)
             // allRequests отфильтровать только те где меньше 20 лент
 
 
@@ -86,7 +84,7 @@ addRequestButtons.forEach(function (item, i, arr) {
 
 
 
-            let selectsOfColors = document.querySelectorAll(`.` + `${startChoice}` + ` .colorSelect`)
+            let selectsOfColors = document.querySelectorAll(`.${startChoice} .colorSelect`)
 
             selectsOfColors.forEach(element => {
                 element.addEventListener('change', () => {
@@ -96,7 +94,7 @@ addRequestButtons.forEach(function (item, i, arr) {
             });
 
 
-            let selectsOfPrint = document.querySelectorAll(`.` + `${startChoice}` + ` .printColor`)
+            let selectsOfPrint = document.querySelectorAll(`.${startChoice} .printColor`)
 
             selectsOfPrint.forEach(element => {
                 element.addEventListener('change', () => {

@@ -1,7 +1,7 @@
 
 
 function mailsInput1() {
-    let mailCounterNow = Number(mailsPriceArr[0].innerHTML)
+    let mailCounterNow = mailsPriceArr[0]
     if (textToMail.value == '') {
         mailsInputCounter = Number(mailCounterNow) * mailsInput.value
         priceRebuild()
@@ -20,7 +20,7 @@ mailsInput.addEventListener('input', () => {
             priceRebuild()
 
         } else {
-            let mailCounterNow = Number(mailsPriceArr[0].innerHTML)
+            let mailCounterNow = mailsPriceArr[0]
             if (textToMail.value == '') {
                 mailsInputCounter = Number(mailCounterNow) * mailsInput.value
                 priceRebuild()
@@ -39,7 +39,7 @@ mailsInput.addEventListener('input', () => {
 
 
     } else if (mailsInput.value > 3 && mailsInput.value <= 10) {
-        let mailCounterNow = Number(mailsPriceArr[1].innerHTML)
+        let mailCounterNow = mailsPriceArr[1]
         mailsInputCounter = mailCounterNow
         priceRebuild()
         textToMail.addEventListener('change', () => {
@@ -53,7 +53,7 @@ mailsInput.addEventListener('input', () => {
 
         })
     } else if (mailsInput.value > 10 && mailsInput.value <= 30) {
-        let mailCounterNow = Number(mailsPriceArr[2].innerHTML)
+        let mailCounterNow = mailsPriceArr[2]
         mailsInputCounter = mailCounterNow
         priceRebuild()
         textToMail.addEventListener('change', () => {
@@ -67,7 +67,7 @@ mailsInput.addEventListener('input', () => {
 
         })
     } else if (mailsInput.value > 30 && mailsInput.value <= 70) {
-        let mailCounterNow = Number(mailsPriceArr[3].innerHTML)
+        let mailCounterNow = mailsPriceArr[3]
         mailsInputCounter = mailCounterNow
         priceRebuild()
         textToMail.addEventListener('change', () => {
@@ -81,7 +81,7 @@ mailsInput.addEventListener('input', () => {
 
         })
     } else if (mailsInput.value > 70 && mailsInput.value <= 100) {
-        let mailCounterNow = Number(mailsPriceArr[4].innerHTML)
+        let mailCounterNow = mailsPriceArr[4]
         mailsInputCounter = mailCounterNow
         priceRebuild()
         textToMail.addEventListener('change', () => {
@@ -95,7 +95,7 @@ mailsInput.addEventListener('input', () => {
 
         })
     } else if (mailsInput.value > 100) {
-        let mailCounterNow = Number(mailsPriceArr[5].innerHTML)
+        let mailCounterNow = mailsPriceArr[5]
         mailsInputCounter = mailCounterNow
         priceRebuild()
         textToMail.addEventListener('change', () => {

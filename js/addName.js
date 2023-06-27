@@ -1,122 +1,73 @@
-let allButtonsAddName = document.querySelectorAll('.mansListAddBtn')
-let allButtonsMinus = document.querySelectorAll('.manListItemMinus')
+document.body.addEventListener('click', e => {
+  const target = e.target
 
-function plusName(buttonsAddArr) {
-    buttonsAddArr.forEach(function (element, i, arr) {
-        element.addEventListener('click', () => {
-            let namesWrapNow = element.previousElementSibling
-            let newNameWrap = document.createElement('div')
-            newNameWrap.classList.add('manListItemWrap')
-            namesWrapNow.appendChild(newNameWrap)
-            let countNow = document.createElement('div')
-            countNow.classList.add('manListItemCounter')
+  if (target.classList.contains('mansListAddBtn')) {
+    plusName(target)
+  }
+})
 
-            newNameWrap.appendChild(countNow)
-            let manListItemNow = document.createElement('div')
-            manListItemNow.classList.add('manListItem')
-            manListItemNow.setAttribute('contenteditable', 'true')
-            newNameWrap.appendChild(manListItemNow)
-            let minusNow = document.createElement('div')
-            minusNow.classList.add('manListItemMinus')
-            newNameWrap.appendChild(minusNow)
-            // allButtonsMinus = document.querySelectorAll('.manListItemMinus')
+function plusName(element) {
+  const namesWrapNow = element.previousElementSibling
 
+  const newNameWrap = document.createElement('div')
+  newNameWrap.classList.add('manListItemWrap')
+  namesWrapNow.appendChild(newNameWrap)
 
-            const howManyNamesNow = namesWrapNow.querySelectorAll('.manListItemWrap').length
+  const countNow = document.createElement('div')
+  countNow.classList.add('manListItemCounter')
+  newNameWrap.appendChild(countNow)
 
+  const manListItemNow = document.createElement('div')
+  manListItemNow.classList.add('manListItem')
+  manListItemNow.setAttribute('contenteditable', 'true')
+  newNameWrap.appendChild(manListItemNow)
 
-            countNow.innerHTML = (howManyNamesNow) + ' )'
+  const minusNow = document.createElement('div')
+  minusNow.classList.add('manListItemMinus')
+  newNameWrap.appendChild(minusNow)
 
-            howManyCounter++
+  const howManyNamesNow = namesWrapNow.querySelectorAll('.manListItemWrap').length
 
+  countNow.textContent = `${howManyNamesNow})`
 
-            if (startChoice === 'vipuskniki') {
-                // Получаем инпут с количеством в этом слайде
-                let howManyPeoplesOnSlideInput = namesWrapNow.parentElement.parentElement.parentElement.querySelector('.howMany')
-                console.log(howManyPeoplesOnSlideInput);
+  howManyCounter++
 
+  // Получаем текущую заявку(обертку)
+  const requestWrap = namesWrapNow.parentElement.parentElement.parentElement
+  howManyInputPushValue(requestWrap)
 
+  priceRebuild()
 
-                // howManyPeoplesOnSlideInput.value = howManyCounter
+  // Нажатие на минус
+  minusNow.addEventListener('click', () => {
+    howManyCounter = howManyCounter - 1
+    newNameWrap.remove()
+    
+    const countOfNames = namesWrapNow.querySelectorAll('.manListItemCounter')
 
-
-                // Получаем текущую заявку(обертку)
-                let requestWrap = newNameWrap.parentElement.parentElement.parentElement.parentElement
-                howManyInputPushValue(requestWrap)
-
-
-                priceRebuild()
-
-                // Нажатие на минус
-                minusNow.addEventListener('click', () => {
-                    howManyCounter = howManyCounter - 1
-                    newNameWrap.remove()
-
-
-                    // howManyPeoplesOnSlideInput.value = howManyCounter
-
-
-
-                    let countOfNames = namesWrapNow.querySelectorAll('.manListItemCounter')
-                    countOfNames.forEach(function (item, i, arr) {
-                        item.innerHTML = (i + 1) + ')'
-                    });
-                    howManyInputPushValue(requestWrap)
-                    priceRebuild()
-                })
-            } else {
-                let howManyAdultsInput = namesWrapNow.parentElement.parentElement.parentElement.querySelector('.howManySchoolAdult')
-                let howManyChildrensInput = namesWrapNow.parentElement.parentElement.parentElement.querySelector('.howManySchoolChild')
-
-                howManyAdults = document.querySelectorAll(`.` + `${startChoice}`+' '+'.adultWrap .manListItem').length
-                
-                howManyChildrens = howManyCounter - howManyAdults
-
-
-
-                // ИСПРАВИТЬ
-                // howManyAdultsInput.value = howManyAdults
-                // howManyChildrensInput.value = howManyChildrens
-
-
-
-                priceRebuild()
-
-
-                minusNow.addEventListener('click', () => {
-                    howManyCounter = howManyCounter - 1
-                    newNameWrap.remove()
-
-
-                    // howManyPeoplesOnSlideInput.value = howManyCounter
-
-
-                    let countOfNames = namesWrapNow.querySelectorAll('.manListItemCounter')
-                    countOfNames.forEach(function (item, i, arr) {
-                        item.innerHTML = (i + 1) + ')'
-                    });
-                    priceRebuild()
-                })
-
-                console.log(howManyAdults);
-                console.log(howManyChildrens);
-            }
-
-
-            
-
-
-        })
+    countOfNames.forEach(function (item, i) {
+      item.textContent = `${i + 1})`
     });
-}
-plusName(allButtonsAddName)
 
-// для взрослых(Нет детских лент)
+    howManyInputPushValue(requestWrap)
+    priceRebuild()
+  })
+}
 
 function howManyInputPushValue(wrapperOfRequest){
-    let howManyProdsNow = wrapperOfRequest.querySelectorAll('.manListItemWrap').length
-    let inputHowManyProds = wrapperOfRequest.querySelector('.howMany')
+  if (startChoice === 'vipuskniki') {
+    const howManyProdsNow = wrapperOfRequest.querySelectorAll('.manListItemWrap').length
+    const inputHowManyProds = wrapperOfRequest.querySelector('.howMany')
+
     inputHowManyProds.value = howManyProdsNow
+  } else {
+    const howManyAdultsInput = wrapperOfRequest.querySelector('.howManySchoolAdult')
+    const howManyChildrensInput = wrapperOfRequest.querySelector('.howManySchoolChild')
+
+    howManyAdults = document.querySelectorAll(`.${startChoice} .adultWrap .manListItem`).length
+    howManyChildrens = howManyCounter - howManyAdults
+
+    howManyAdultsInput.value = howManyAdults
+    howManyChildrensInput.value = howManyChildrens
+  }
 }
-
-

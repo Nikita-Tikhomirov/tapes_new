@@ -8,51 +8,51 @@ function priceRebuild() {
 
     if (startChoice !== 'vipuskniki') {
         if (howManyAdults < 2) {
-            priceForOne = Number(basePriceArr[0].innerHTML)
+            priceForOne = basePriceArr[0]
         } else if (howManyAdults > 2 && howManyAdults <= 4) {
-            priceForOne = Number(basePriceArr[1].innerHTML)
+            priceForOne = basePriceArr[1]
         } else if (howManyAdults > 4 && howManyAdults <= 7) {
-            priceForOne = Number(basePriceArr[2].innerHTML)
+            priceForOne = basePriceArr[2]
         } else if (howManyAdults > 7 && howManyAdults <= 9) {
-            priceForOne = Number(basePriceArr[3].innerHTML)
+            priceForOne = basePriceArr[3]
         } else if (howManyAdults > 9 && howManyAdults <= 15) {
-            priceForOne = Number(basePriceArr[4].innerHTML)
+            priceForOne = basePriceArr[4]
         } else if (howManyAdults > 15 && howManyAdults <= 19) {
-            priceForOne = Number(basePriceArr[5].innerHTML)
+            priceForOne = basePriceArr[5]
         } else if (howManyAdults > 19 && howManyAdults <= 50) {
-            priceForOne = Number(basePriceArr[6].innerHTML)
+            priceForOne = basePriceArr[6]
         } else if (howManyAdults > 50 && howManyAdults <= 100) {
-            priceForOne = Number(basePriceArr[7].innerHTML)
+            priceForOne = basePriceArr[7]
         } else if (howManyAdults > 100 && howManyAdults <= 150) {
-            priceForOne = Number(basePriceArr[8].innerHTML)
+            priceForOne = basePriceArr[8]
         } else if (howManyAdults > 150 && howManyAdults <= 200) {
-            priceForOne = Number(basePriceArr[9].innerHTML)
+            priceForOne = basePriceArr[9]
         } else if (howManyAdults > 200) {
-            priceForOne = Number(basePriceArr[10].innerHTML)
+            priceForOne = basePriceArr[10]
         }
 
         if (howManyChildrens < 2) {
-            priceForOneChild = Number(basePriceArrChildrens[0].innerHTML)
+            priceForOneChild = basePriceArrChildrens[0]
         } else if (howManyChildrens > 2 && howManyChildrens <= 4) {
-            priceForOneChild = Number(basePriceArrChildrens[1].innerHTML)
+            priceForOneChild = basePriceArrChildrens[1]
         } else if (howManyChildrens > 4 && howManyChildrens <= 7) {
-            priceForOneChild = Number(basePriceArrChildrens[2].innerHTML)
+            priceForOneChild = basePriceArrChildrens[2]
         } else if (howManyChildrens > 7 && howManyChildrens <= 9) {
-            priceForOneChild = Number(basePriceArrChildrens[3].innerHTML)
+            priceForOneChild = basePriceArrChildrens[3]
         } else if (howManyChildrens > 9 && howManyChildrens <= 15) {
-            priceForOneChild = Number(basePriceArrChildrens[4].innerHTML)
+            priceForOneChild = basePriceArrChildrens[4]
         } else if (howManyChildrens > 15 && howManyChildrens <= 19) {
-            priceForOneChild = Number(basePriceArrChildrens[5].innerHTML)
+            priceForOneChild = basePriceArrChildrens[5]
         } else if (howManyChildrens > 19 && howManyChildrens <= 50) {
-            priceForOneChild = Number(basePriceArrChildrens[6].innerHTML)
+            priceForOneChild = basePriceArrChildrens[6]
         } else if (howManyChildrens > 50 && howManyChildrens <= 100) {
-            priceForOneChild = Number(basePriceArrChildrens[7].innerHTML)
+            priceForOneChild = basePriceArrChildrens[7]
         } else if (howManyChildrens > 100 && howManyChildrens <= 150) {
-            priceForOneChild = Number(basePriceArrChildrens[8].innerHTML)
+            priceForOneChild = basePriceArrChildrens[8]
         } else if (howManyChildrens > 150 && howManyChildrens <= 200) {
-            priceForOneChild = Number(basePriceArrChildrens[9].innerHTML)
+            priceForOneChild = basePriceArrChildrens[9]
         } else if (howManyChildrens > 200) {
-            priceForOneChild = Number(basePriceArrChildrens[10].innerHTML)
+            priceForOneChild = basePriceArrChildrens[10]
         }
 
         
@@ -62,29 +62,29 @@ function priceRebuild() {
 
         
         if (howManyCounter < 2) {
-            priceForOne = Number(basePriceArr[0].innerHTML)
+            priceForOne = basePriceArr[0]
         } else if (howManyCounter > 2 && howManyCounter <= 4) {
-            priceForOne = Number(basePriceArr[1].innerHTML)
+            priceForOne = basePriceArr[1]
         } else if (howManyCounter > 4 && howManyCounter <= 7) {
-            priceForOne = Number(basePriceArr[2].innerHTML)
+            priceForOne = basePriceArr[2]
         } else if (howManyCounter > 7 && howManyCounter <= 9) {
-            priceForOne = Number(basePriceArr[3].innerHTML)
+            priceForOne = basePriceArr[3]
         } else if (howManyCounter > 9 && howManyCounter <= 15) {
-            priceForOne = Number(basePriceArr[4].innerHTML)
+            priceForOne = basePriceArr[4]
         } else if (howManyCounter > 15 && howManyCounter <= 19) {
-            priceForOne = Number(basePriceArr[5].innerHTML)
+            priceForOne = basePriceArr[5]
         } else if (howManyCounter > 19 && howManyCounter <= 50) {
-            priceForOne = Number(basePriceArr[6].innerHTML)
+            priceForOne = basePriceArr[6]
         } else if (howManyCounter > 50 && howManyCounter <= 100) {
-            priceForOne = Number(basePriceArr[7].innerHTML)
+            priceForOne = basePriceArr[7]
         } else if (howManyCounter > 100 && howManyCounter <= 150) {
-            priceForOne = Number(basePriceArr[8].innerHTML)
+            priceForOne = basePriceArr[8]
         } else if (howManyCounter > 150 && howManyCounter <= 200) {
-            priceForOne = Number(basePriceArr[9].innerHTML)
+            priceForOne = basePriceArr[9]
         } else if (howManyCounter > 200) {
-            priceForOne = Number(basePriceArr[10].innerHTML)
+            priceForOne = basePriceArr[10]
         }
-    
+
     }
 
 

@@ -136,6 +136,9 @@ border-bottom: 1px solid #0055fb;
     justify-content: flex-start;
     cursor: pointer;
 }
+.mansListAddBtn * {
+  pointer-events: none;
+}
 .mansListAddBtn span:first-child{
     font-weight: 600;
 }
