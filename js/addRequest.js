@@ -6,6 +6,7 @@ let arrOfColorsTofilter = []
 
 
 addRequestButtons.forEach(item => {
+  
   item.addEventListener('click', () => {
     const copyForm = item.previousElementSibling.cloneNode(true)
 

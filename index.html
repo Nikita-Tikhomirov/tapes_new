@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-scrapbook-source="https://picmaticweb.com/html/form-demo/formify/index-20.html"
-  data-scrapbook-create="20230421145901334" data-scrapbook-title="Formify">
-
+<html lang="en">
 <head>
-  <!-- Required meta tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Калькулятор для лент1</title>
 
   <!-- Bootstrap CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -14,9 +12,6 @@
   <link href="css/style-1.css" rel="stylesheet">
   <link href="css/responsive.css" rel="stylesheet">
   <link rel="stylesheet" href="css/custom.css">
-
-
-  <title>Калькулятор для лент1</title>
 </head>
 
 <body>
@@ -25,8 +20,9 @@
       <div
         class="formify_left_fullwidth formify_left_top_logo frm-vh-md-100 d-flex align-items-center justify-content-center"
         data-bg-color="#FFEFF9" style="background-color: rgb(255, 239, 249);">
-        <a href="https://picmaticweb.com/html/form-demo/formify/index.html" class="top_logo"><img src="img/logo.png"
-            alt=""></a>
+        <a href="https://picmaticweb.com/html/form-demo/formify/index.html" class="top_logo">
+          <img src="img/logo.png" alt="">
+        </a>
         <img class="img-fluid" src="img/personal_img.png" alt="">
       </div>
       <div class="formify_right_fullwidth d-flex align-items-center justify-content-center">
@@ -110,11 +106,7 @@
               </div>
             </div>
 
-
-
-
             <!-- Выпускники -->
-
 
             <div class="tab-pane fade show vipuskniki" id="" role="tabpanel" aria-labelledby="One-tab">
               <div class="formify_box">
@@ -142,24 +134,22 @@
                       <option value="4">4</option>
                       <option value="5">5</option>
                       <option value="6">6</option>
-
-
                     </select>
                   </div>
 
                   <div class="form-group col-md-12">
                     <label class="input_title">Цвет ленты</label>
                     <select class="niceselect gender-select colorSelect">
-                      <option value="Бордо" selected="selected">Бордо</option>
-                      <option value="Золото">Золото</option>
+                      <option value="Бордо" selected="selected" data-color="false">Не Цветная</option>
+                      <option value="Золото" data-color="true">Цветная</option>
                     </select>
                   </div>
 
                   <div class="form-group col-md-12">
                     <label class="input_title">Цвет печати</label>
                     <select class="niceselect gender-select printColor">
-                      <option value="Золото" selected="selected">Золото</option>
-                      <option value="Бордо">Бордо</option>
+                      <option value="Золото" selected="selected" data-color="false">Не Цветная</option>
+                      <option value="Бордо" data-color="true">Цветная</option>
                     </select>
                   </div>
 
@@ -169,90 +159,70 @@
                     </label>
                     <textarea class="form-control" id="inputName" placeholder="Дополнительно написать на ленте"
                       required="" value="" cols="30" rows="2" style="height:auto"></textarea>
-
                   </div>
 
                   <div class="form-group col-md-12">
                     <label class="input_title" for="inputName">Список выпускников</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
                         <span>Добавить </span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
 
                   <div class="form-group col-md-12">
                     <label class="input_title" for="inputName">Список выпускниц</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
                         <span>Добавить </span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
+
                   <div class="form-group col-md-12 adultWrap">
                     <label class="input_title" for="inputName">Классный руководитель</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
                         <span>Добавить </span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
+
                   <div class="form-group col-md-12 adultWrap">
                     <label class="input_title" for="inputName">Первый учитель</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
-                        <span>Добавить </span>
+                        <span>Добавить</span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
+
                   <div class="form-group col-md-12 adultWrap">
                     <label class="input_title" for="inputName">Директор</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
-                        <span>Добавить </span>
+                        <span>Добавить</span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
                 </div>
 
-                <div class="addrequestButton">Добавить заявку
-                </div>
-
+                <div class="addrequestButton">Добавить заявку</div>
                 <div class="next_button text-right">
                   <button class="btn thm_btn red_btn next_tab gender-button buttonsToStepWithAcs">Дальше
                     <i class="arrow_right"></i></button>
@@ -260,9 +230,7 @@
               </div>
             </div>
 
-
             <!--Начальная школа  -->
-
 
             <div class="tab-pane fade show school" id="" role="tabpanel" aria-labelledby="One-tab">
               <div class="formify_box">
@@ -302,16 +270,16 @@
                   <div class="form-group col-md-12">
                     <label class="input_title">Цвет ленты</label>
                     <select class="niceselect gender-select colorSelect">
-                      <option value="Бордо" selected="selected">Бордо</option>
-                      <option value="Золото">Золото</option>
+                      <option value="Бордо" selected="selected" data-color="false">Не Цветная</option>
+                      <option value="Золото" data-color="true">Цветная</option>
                     </select>
                   </div>
 
                   <div class="form-group col-md-12">
                     <label class="input_title">Цвет печати</label>
                     <select class="niceselect gender-select printColor">
-                      <option value="Золото" selected="selected">Золото</option>
-                      <option value="Бордо">Бордо</option>
+                      <option value="Золото" selected="selected" data-color="false">Не Цветная</option>
+                      <option value="Бордо" data-color="true">Цветная</option>
                     </select>
                   </div>
 
@@ -321,51 +289,39 @@
                     </label>
                     <textarea class="form-control" id="inputName" placeholder="Дополнительно написать на ленте"
                       required="" value="" cols="30" rows="2" style="height:auto"></textarea>
-
                   </div>
 
-                  <div class="form-group col-md-12 mb-4">
+                  <div class="form-group col-md-12 mb-4 childWrap">
                     <label class="input_title" for="inputName">Список выпускников</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
-                        <span>Добавить </span>
+                        <span>Добавить</span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
 
-                  <div class="form-group col-md-12 mb-4">
+                  <div class="form-group col-md-12 mb-4 childWrap">
                     <label class="input_title" for="inputName">Список выпускниц</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
-                        <span>Добавить </span>
+                        <span>Добавить</span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
 
                   <div class="form-group col-md-12 mb-4 adultWrap">
                     <label class="input_title" for="inputName">Классный руководитель</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
-                        <span>Добавить </span>
+                        <span>Добавить</span>
                         <span></span>
                       </div>
                     </div>
@@ -375,53 +331,43 @@
                     <label class="input_title" for="inputName">Первый учитель</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
                         <span>Добавить </span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
+
                   <div class="form-group col-md-12 mb-4 adultWrap">
                     <label class="input_title" for="inputName">Директор</label>
                     <input type="hidden" name="mansList">
                     <div class="mansList">
-                      <div class="manListItems">
-
-                      </div>
-
+                      <div class="manListItems"></div>
                       <div class="mansListAddBtn">
-                        <span>Добавить </span>
+                        <span>Добавить</span>
                         <span></span>
                       </div>
                     </div>
-
                   </div>
                   <!-- <div class="form-group col-lg-12">
-                                        <label class="input_title" for="inputAddress1">Классный руководитель</label>
-                                        <input type="text" class="form-control teachers" id="inputAddress1"
-                                            placeholder="ФИО" required="">
-                                    </div>
-                                    <div class="form-group col-lg-12">
-                                        <label class="input_title" for="inputAddress2">Первый учитель</label>
-                                        <input type="text" class="form-control teachers" id="inputAddress2"
-                                            placeholder="ФИО" required="">
-                                    </div>
-                                    <div class="form-group col-lg-12">
-                                        <label class="input_title" for="inputAddress3">Директор</label>
-                                        <input type="text" class="form-control teachers" id="inputAddress3"
-                                            placeholder="ФИО" required="">
-                                    </div> -->
-
+                      <label class="input_title" for="inputAddress1">Классный руководитель</label>
+                      <input type="text" class="form-control teachers" id="inputAddress1"
+                          placeholder="ФИО" required="">
+                  </div>
+                  <div class="form-group col-lg-12">
+                      <label class="input_title" for="inputAddress2">Первый учитель</label>
+                      <input type="text" class="form-control teachers" id="inputAddress2"
+                          placeholder="ФИО" required="">
+                  </div>
+                  <div class="form-group col-lg-12">
+                      <label class="input_title" for="inputAddress3">Директор</label>
+                      <input type="text" class="form-control teachers" id="inputAddress3"
+                          placeholder="ФИО" required="">
+                  </div> -->
                 </div>
 
-                <div class="addrequestButton">Добавить заявку
-                </div>
-
+                <div class="addrequestButton">Добавить заявку</div>
                 <div class="next_button text-right">
                   <button class="btn thm_btn red_btn next_tab gender-button buttonsToStepWithAcs">Дальше
                     <i class="arrow_right"></i></button>
@@ -429,10 +375,7 @@
               </div>
             </div>
 
-
-
             <!--  -->
-
 
             <div class="tab-pane fade show slideWithAcs acs" id="" role="tabpanel" aria-labelledby="One-tab">
               <div class="formify_box">
@@ -483,7 +426,6 @@
 
                     <!-- БАБОЧКИ -->
 
-
                     <div class="dop">
                       <div class="dop__img-wrap">
                         <img src="img/btfl.png" alt="">
@@ -510,7 +452,6 @@
                       </div>
                     </div>
 
-
                     <div class="dop">
                       <div class="dop__img-wrap">
                         <img src="img/btfl.png" alt="">
@@ -524,9 +465,7 @@
                       </div>
                     </div>
 
-
                     <!-- БАНТЫ -->
-
 
                     <div class="dop">
                       <div class="dop__img-wrap">
@@ -541,8 +480,6 @@
                       </div>
                     </div>
 
-
-
                     <div class="dop">
                       <div class="dop__img-wrap">
                         <img src="img/bnt.png" alt="">
@@ -555,7 +492,6 @@
                         <div class="dop__plus">+</div>
                       </div>
                     </div>
-
 
                     <div class="dop">
                       <div class="dop__img-wrap">
@@ -572,7 +508,6 @@
 
                     <!-- БУТОНЬЕРКИ -->
 
-
                     <div class="dop">
                       <div class="dop__img-wrap">
                         <img src="img/but.png" alt="">
@@ -586,7 +521,6 @@
                       </div>
                     </div>
 
-
                     <div class="dop">
                       <div class="dop__img-wrap">
                         <img src="img/but.png" alt="">
@@ -599,11 +533,7 @@
                         <div class="dop__plus">+</div>
                       </div>
                     </div>
-
-
-
-
-
+                
                   </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -615,42 +545,30 @@
                 </div>
 
                 <div class="next_button text-right">
-                  <button type="submit" class="btn thm_btn red_btn next_tab gender-button ">Дальше <i
-                      class="arrow_right"></i></button>
+                  <button type="submit" class="btn thm_btn red_btn next_tab gender-button ">
+                    Дальше <i class="arrow_right"></i></button>
                 </div>
               </div>
             </div>
-
-
-
 
             <div class="tab-pane fade show" id="" role="tabpanel" aria-labelledby="One-tab">
               <form class="formify_box">
                 <h4 class="form_title"><span>Заказать</span></h4>
                 <div class="signup_form row">
-
-
                   <div class="form-group col-md-12">
                     <label class="input_title">Email</label>
                     <input type="Email" class="form-control" id="inputCol" placeholder="email" required="" value="">
-
                   </div>
-
-
-
                 </div>
                 <div class="next_button text-right">
-                  <button type="submit" class="btn thm_btn red_btn gender-button">Заказать <i
-                      class="arrow_right"></i></button>
+                  <button type="submit" class="btn thm_btn red_btn gender-button">
+                    Заказать <i class="arrow_right"></i>
+                  </button>
                 </div>
               </form>
             </div>
-
-
-
-
+          
           </div>
-
           <div class="price">Цена: <span class="counter">0</span><span> Р</span></div>
         </div>
       </div>
@@ -660,7 +578,6 @@
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
-
 
   <div class="system">
     <div class="basePriceSchool">

@@ -8,6 +8,7 @@ firstChoiseBtn.addEventListener('click', () => {
     document.querySelector(`.${startChoice}`).classList.add('active')
     document.getElementById('Two-tab').classList.add('active')
     if (startChoice === 'acs') document.getElementById('Three-tab').classList.add('active')
+    priceRebuild()
     return
   }
   

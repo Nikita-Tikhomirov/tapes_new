@@ -17,3 +17,4 @@ let bellTextPrice = 0
 let mailsInputCounter = 0
 let howManyMails = 0
 
+
