@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const type = useSelectedTab()
+const activeTab = useActiveTab()
 </script>
 
 <template>
@@ -11,19 +11,19 @@ const type = useSelectedTab()
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" :class="{ 'active': type !== 'start'  }">
+    <a class="nav-link" :class="{ 'active': activeTab !== 'start'  }">
       <span>2</span>
       Основные параметры
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" :class="{ 'active': type === 'acs' || type === 'delivery' }">
+    <a class="nav-link" :class="{ 'active': activeTab === 'acs' || activeTab === 'delivery' }">
       <span>3</span>
       Дополнительные товары
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" :class="{ 'active': type === 'delivery' }">
+    <a class="nav-link" :class="{ 'active': activeTab === 'delivery' }">
       <span>4</span>
       Заказать
     </a>

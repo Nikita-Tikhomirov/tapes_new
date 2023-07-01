@@ -3,7 +3,7 @@ defineProps<{
   request: number
 }>()
 
-const activeTab = useSelectedTab()
+const activeTab = useActiveTab()
 const isPriceColor = usePriceColor()
 const isPricePrint = usePricePrint()
 
@@ -39,20 +39,14 @@ const print = ref()
 const AllAdultRequst = ref(0)
 const AllChildRequst = ref(0)
 
-function add () {
-  if (activeTab.value === 'vipuskniki') {
-    AllAdultRequst.value++
-  } else {
-    AllChildRequst.value++
-  }
+function add (isChild:boolean) {
+  if (isChild && activeTab.value !== 'vipuskniki') AllChildRequst.value++
+  else AllAdultRequst.value++
 }
 
-function remove () {
-  if (activeTab.value === 'vipuskniki') {
-    AllAdultRequst.value--
-  } else {
-    AllChildRequst.value--
-  }
+function remove (isChild:boolean) {
+  if (isChild && activeTab.value !== 'vipuskniki') AllChildRequst.value--
+  else AllAdultRequst.value--
 }
 
 function changeColor() {
@@ -128,8 +122,8 @@ function changePrint() {
     v-for="people in listPeople"
     :isChild="people.isChild"
     :title="people.title"
-    @add="add"
-    @remove="remove"
+    @add="add(people.isChild)"
+    @remove="remove(people.isChild)"
   ></ListPeople>
 
 </div>

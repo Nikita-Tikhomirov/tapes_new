@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const tab = useSelectedTab()
+const activeTab = useActiveTab()
 const requests = ref<number>(1)
 </script>
 
@@ -22,11 +22,11 @@ const requests = ref<number>(1)
         <div class="tab-content" id="myTabContent">
 
           <TabWrap>
-            <TabStart v-if="tab === 'start'"></TabStart>
+            <TabStart v-if="activeTab === 'start'"></TabStart>
 
-            <TabAcs v-else-if="tab === 'acs'"></TabAcs>
+            <TabAcs v-else-if="activeTab === 'acs'"></TabAcs>
 
-            <TabDelivery v-else-if="tab === 'delivery'"></TabDelivery>
+            <TabDelivery v-else-if="activeTab === 'delivery'"></TabDelivery>
 
             <template v-else>
               <TabForm v-for="request in requests" :key="request" :request="request"></TabForm>
@@ -37,7 +37,6 @@ const requests = ref<number>(1)
         </div>
 
         <TotalPrice></TotalPrice>
-
       </div>
     </div>
   </div>

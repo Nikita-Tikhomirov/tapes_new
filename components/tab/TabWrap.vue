@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const tab = useSelectedTab()
+const tab = useActiveTab()
 const nextTab = useNextTab()
 
 const title = computed(() => {

@@ -9,7 +9,7 @@ const emits = defineEmits<{
   remove: []
 }>()
 
-const type = useSelectedTab()
+const activeTab = useActiveTab()
 
 const adult = useAllAdult()
 const child = useAllChild()
@@ -20,7 +20,7 @@ function add() {
   countPeople.value++
   emits('add')
 
-  if (props.isChild && type.value !== 'vipuskniki') child.value++
+  if (props.isChild && activeTab.value !== 'vipuskniki') child.value++
   else adult.value++
 }
 
@@ -28,7 +28,7 @@ function remove() {
   countPeople.value--
   emits('remove')
 
-  if (props.isChild && type.value !== 'vipuskniki') child.value--
+  if (props.isChild && activeTab.value !== 'vipuskniki') child.value--
   else adult.value--
 }
 </script>
