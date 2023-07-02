@@ -317,7 +317,7 @@ button:focus {
 
 .signup_form .form-group .form-control:focus {
   outline: none;
-  box-shadow: 0 10px 10px rgba(0, 123, 255, 0.09);
+  /* box-shadow: 0 10px 10px rgba(0, 123, 255, 0.09); */
 }
 
 .signup_form .form-group .top_text {
@@ -1532,7 +1532,7 @@ button:focus {
 }
 
 .formify_box_four .formify_content_right .formify_box .signup_form .form-group .form-control:focus {
-  box-shadow: 0 4px 11px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0 4px 11px rgba(0, 0, 0, 0.25); */
 }
 
 .formify_box_four .formify_content_right .formify_box .signup_form .form-group textarea.form-control {

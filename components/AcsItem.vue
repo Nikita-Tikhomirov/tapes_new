@@ -7,7 +7,7 @@ const props = defineProps<{
 }>()
 
 const totalPriceAcs = useAllPricesAcs()
-const itemCounter = ref(0)
+const itemCounter = ref<number>(0)
 
 const oneItemPrice = computed(()=> {
   if (props.prices.length === 1) return props.prices[0]
@@ -20,7 +20,7 @@ function selectPriceDop(pricesArr:number[], arr:number[] = [3, 9, 29, 49]):numbe
   else if (itemCounter.value <= arr[1]) return pricesArr[1]
   else if (itemCounter.value <= arr[2]) return pricesArr[2]
   else if (itemCounter.value <= arr[3]) return pricesArr[3]
-  else return pricesArr[4]
+  return pricesArr[4]
 }
 
 function removeItem() {
@@ -29,6 +29,7 @@ function removeItem() {
     totalPriceAcs.value[props.id] = itemCounter.value * oneItemPrice.value
   }
 }
+
 function addItem() {
   itemCounter.value++
   totalPriceAcs.value[props.id] = itemCounter.value * oneItemPrice.value
@@ -37,7 +38,6 @@ function addItem() {
 function change() {
   totalPriceAcs.value[props.id] = itemCounter.value * oneItemPrice.value
   console.log(totalPriceAcs.value)
-  
 }
 </script>
 

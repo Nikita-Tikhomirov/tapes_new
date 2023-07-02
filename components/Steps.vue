@@ -3,7 +3,7 @@ const activeTab = useActiveTab()
 </script>
 
 <template>
-<ul class="nav nav-tabs form_tab" id="myTab" role="tablist">
+<ul class="nav nav-tabs form_tab" role="tablist">
   <li class="nav-item">
     <a class="nav-link show active">
       <span>1</span>

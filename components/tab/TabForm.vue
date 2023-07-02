@@ -1,52 +1,56 @@
 <script setup lang="ts">
-defineProps<{
-  request: number
+import type { TypeRequest } from "~/composables/types"
+
+const props = defineProps<{
+  index: number
+  request: TypeRequest
 }>()
 
 const activeTab = useActiveTab()
 const isPriceColor = usePriceColor()
 const isPricePrint = usePricePrint()
+const color = ref()
+const print = ref()
 
 const listPeople = computed(()=> {
   if (activeTab.value === 'vipuskniki' || activeTab.value === 'school') {
     return [
-      {isChild: true, title: 'Список выпускников'},
-      {isChild: true, title: 'Список выпускниц'},
-      {isChild: false, title: 'Классный руководитель'},
-      {isChild: false, title: 'Первый учитель'},
-      {isChild: false, title: 'Директор'},
+      {isChild: true, title: 'Список выпускников', slug: 'graduatesMale'},
+      {isChild: true, title: 'Список выпускниц', slug: 'graduatesFemale'},
+      {isChild: false, title: 'Классный руководитель', slug: 'teacher'},
+      {isChild: false, title: 'Первый учитель', slug: 'firstTeacher'},
+      {isChild: false, title: 'Директор', slug: 'director'},
     ]
   } else if (activeTab.value === 'todlers') {
     return [
-      {isChild: true, title: 'Список выпускников'},
-      {isChild: true, title: 'Список выпускниц'},
-      {isChild: false, title: 'Воспитатель'},
-      {isChild: false, title: 'Помошник воспитателя'},
-      {isChild: false, title: 'Младший воспитатель'},
+      {isChild: true, title: 'Список выпускников', slug: 'graduatesMale'},
+      {isChild: true, title: 'Список выпускниц', slug: 'graduatesFemale'},
+      {isChild: false, title: 'Воспитатель', slug: 'caregiver'},
+      {isChild: false, title: 'Помошник воспитателя', slug: 'assistant'},
+      {isChild: false, title: 'Младший воспитатель', slug: 'juniorCaregiver'},
     ]
   } else if (activeTab.value === 'firstclass') {
     return [
-      {isChild: true, title: 'Список первоклассников'},
-      {isChild: true, title: 'Список первоклассниц'},
-      {isChild: false, title: 'Первый учитель'},
+      {isChild: true, title: 'Список первоклассников', slug: 'graduatesMale'},
+      {isChild: true, title: 'Список первоклассниц', slug: 'graduatesFemale'},
+      {isChild: false, title: 'Первый учитель', slug: 'firstTeacher'},
+    ]
+  } else if (activeTab.value === 'award') {
+    return [
+      {isChild: true, title: 'Список детских наминаций', slug: 'awardChild'},
+      {isChild: false, title: 'Список взрослых наминаций', slug: 'awardAdult'}
     ]
   }
 })
 
-const color = ref()
-const print = ref()
-
-const AllAdultRequst = ref(0)
-const AllChildRequst = ref(0)
-
-function add (isChild:boolean) {
-  if (isChild && activeTab.value !== 'vipuskniki') AllChildRequst.value++
-  else AllAdultRequst.value++
+function add(isChild:boolean) {
+  if (isChild && activeTab.value !== 'vipuskniki') props.request.childCount++
+  else props.request.adultCount++
 }
 
-function remove (isChild:boolean) {
-  if (isChild && activeTab.value !== 'vipuskniki') AllChildRequst.value--
-  else AllAdultRequst.value--
+function remove(isChild:boolean) {
+  if (isChild && activeTab.value !== 'vipuskniki') props.request.childCount--
+  else props.request.adultCount--
 }
 
 function changeColor() {
@@ -56,6 +60,7 @@ function changeColor() {
     isPriceColor.value = false
   }
 }
+
 function changePrint() {
   if (print.value.options[color.value.options.selectedIndex].getAttribute('data-color') === 'true') {
     isPricePrint.value = true
@@ -68,23 +73,23 @@ function changePrint() {
 <template>
 <div class="signup_form row">
   <div class="col-md-12">
-    <h5>Заявка № <span class="requestCount">{{ request }}</span></h5>
+    <h5>Заявка № <span class="requestCount">{{ index + 1 }}</span></h5>
   </div>
 
   <div class="form-group col-md-12" v-if="activeTab !== 'vipuskniki'">
     <label class="input_title">Количество детских лент</label>
-    <input type="number" class="form-control" placeholder="10" required :value="AllChildRequst" min="0">
+    <input type="number" class="form-control" placeholder="10" required v-model="request.childCount" min="0">
   </div>
 
   <div class="form-group col-md-12">
     <label class="input_title" v-if="activeTab === 'vipuskniki'">Количество</label>
     <label class="input_title" v-else>Количество взрослых</label>
-    <input type="number" class="form-control" placeholder="10" required :value="AllAdultRequst" min="0">
+    <input type="number" class="form-control" placeholder="10" required v-model="request.adultCount" min="0">
   </div>
 
   <div class="form-group col-md-12">
     <label class="input_title">Номер шаблона</label>
-    <select class="niceselect gender-select templateSelect">
+    <select class="niceselect gender-select templateSelect" v-model="request.template">
       <option value="1" selected>1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -96,7 +101,7 @@ function changePrint() {
 
   <div class="form-group col-md-12">
     <label class="input_title">Цвет ленты</label>
-    <select class="niceselect gender-select colorSelect" ref="color" @change="changeColor">
+    <select class="niceselect gender-select" ref="color" @change="changeColor">
       <option value="Бордо" selected data-color="false">Не Цветная</option>
       <option value="Золото" data-color="true">Цветная</option>
     </select>
@@ -104,7 +109,7 @@ function changePrint() {
 
   <div class="form-group col-md-12">
     <label class="input_title">Цвет печати</label>
-    <select class="niceselect gender-select printColor" ref="print" @change="changePrint">
+    <select class="niceselect gender-select" ref="print" @change="changePrint">
       <option value="Золото" selected data-color="false">Не Цветная</option>
       <option value="Бордо" data-color="true">Цветная</option>
     </select>
@@ -114,14 +119,21 @@ function changePrint() {
     <label class="input_title" for="inputName">Дополнительно написать на ленте
       <span>класс, школа, город и тд. Можно не указывать</span>
     </label>
-    <textarea class="form-control" id="inputName" placeholder="Дополнительно написать на ленте"
-      required value="" cols="30" rows="2" style="height:auto"></textarea>
+    <textarea
+      class="form-control"
+      placeholder="Дополнительная написать на ленте"
+      cols="30" rows="2" style="height:auto"
+      v-model="request.text"
+    ></textarea>
   </div>
 
   <ListPeople
     v-for="people in listPeople"
+    :key="people.slug"
     :isChild="people.isChild"
     :title="people.title"
+    :list="request.names"
+    :slug="people.slug"
     @add="add(people.isChild)"
     @remove="remove(people.isChild)"
   ></ListPeople>

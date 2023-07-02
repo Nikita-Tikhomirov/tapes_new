@@ -1,6 +1,19 @@
 <script setup lang="ts">
 const activeTab = useActiveTab()
-const requests = ref<number>(1)
+const requests = useRequests()
+
+function addRequest() {
+  requests.value.push({
+    price: 0,
+    adultCount: 0,
+    childCount: 0,
+    template: 1,
+    color: '',
+    print: '',
+    text: '',
+    names: {}
+  })
+}
 </script>
 
 <template>
@@ -12,6 +25,7 @@ const requests = ref<number>(1)
       <a class="top_logo">
         <img src="/img/logo.png" alt="">
       </a>
+      <!-- <pre> {{ requests }} </pre> -->
       <img class="img-fluid" src="/img/personal_img.png" alt="">
     </div>
     <div class="formify_right_fullwidth d-flex align-items-center justify-content-center">
@@ -29,14 +43,19 @@ const requests = ref<number>(1)
             <TabDelivery v-else-if="activeTab === 'delivery'"></TabDelivery>
 
             <template v-else>
-              <TabForm v-for="request in requests" :key="request" :request="request"></TabForm>
-              <div class="addrequestButton" @click="requests++">Добавить заявку</div>
+              <TabForm
+                v-for="(request, i) in requests"
+                :key="i"
+                :index="i"
+                :request="request"
+              ></TabForm>
+              <div class="addrequestButton" @click="addRequest">Добавить заявку</div>
             </template>
           </TabWrap>
 
         </div>
 
-        <TotalPrice></TotalPrice>
+        <TotalPrice v-if="activeTab !== 'start'"></TotalPrice>
       </div>
     </div>
   </div>

@@ -1,19 +1,17 @@
 <script setup lang="ts">
 defineProps<{
-  tab: string
+  active: string
   title: string
   subtitle?: string
 }>()
-
-const nextTab = useNextTab()
 </script>
 
 <template>
-<div class="customRadioWrap" :class="{ 'active' : tab === nextTab } ">
+<div class="customRadioWrap" :class="{ 'active' : active} ">
   <div class="customRadio"></div>
   <div class="customRadioText-wrap">
     <span>{{ title }}</span>
-    <span v-if="subtitle">{{ subtitle }}</span>
+    <span v-if="subtitle" v-html="subtitle"></span>
   </div>
 </div>
 </template>

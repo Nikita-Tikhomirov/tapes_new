@@ -1,9 +1,6 @@
 <script setup lang="ts">
-const adult = useAllAdult()
-const child = useAllChild()
-
-const adultPrices = useBasePrices()
-const childPrices = useBasePricesChildren()
+const activeTab = useActiveTab()
+const requests = useRequests()
 
 const isPriceColor = usePriceColor()
 const isPricePrint = usePricePrint()
@@ -15,16 +12,34 @@ const acsAllPrice = computed(() => {
 })
 
 const price = computed(() => {
-  const adultOnePrice = selectPrice(adult.value, adultPrices.value)
-  const childOnePrice = selectPrice(child.value, childPrices.value)
-  const colorPrice = isPriceColor.value ? (adult.value + child.value) * 25 : 0
-  const printPrice = isPricePrint.value ? (adult.value + child.value) * 25 : 0
+  const adultPrices = activeTab.value === 'award' ? useAwardPrices() : useBasePrices()
+  const childPrices = activeTab.value === 'award' ? useAwardPricesChildren() : useBasePricesChildren()
+
+  let allAdult = 0
+  let allChild = 0
+
+  requests.value.forEach(request => {
+    allAdult += request.adultCount
+    allChild += request.childCount
+  })
+
+  const adultOnePrice = selectOnePrice(allAdult, adultPrices.value)
+  const childOnePrice = selectOnePrice(allChild, childPrices.value)
+
+  const colorPrice = isPriceColor.value ? (allAdult + allChild) * 25 : 0
+  const printPrice = isPricePrint.value ? (allAdult + allChild) * 25 : 0
+
+  requests.value.forEach(request => {
+    request.price = (request.adultCount * adultOnePrice) + (request.childCount * childOnePrice)
+  })
   
-  return (adult.value * adultOnePrice) + (child.value * childOnePrice) + acsAllPrice.value + colorPrice + printPrice
+  
+  return (allAdult * adultOnePrice) + (allChild * childOnePrice) + acsAllPrice.value + colorPrice + printPrice
 })
 
-
-function selectPrice(number:number, prices:number[]) {
+function selectOnePrice(number:number, prices:number[], quantity:number[] = [2,4,7,9,15,19,50,100,150,200]) {
+  // quantity.forEach(item => {})
+  
   if (number <= 2) return prices[0]
   else if (number <= 4) return prices[1]
   else if (number <= 7) return prices[2]

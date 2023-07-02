@@ -5,32 +5,39 @@ const nextTab = useNextTab()
 <template>
 <div class="signup_form frstCsWrap">
   <Radio
-    tab="vipuskniki"
+    :active="nextTab === 'vipuskniki'"
     title="Выпускные ленты"
     subtitle="Выпускники школ"
     @click="nextTab = 'vipuskniki'"
   ></Radio>
 
   <Radio
-    tab="school"
+    :active="nextTab === 'school'"
     title="Для начальной школы"
     @click="nextTab = 'school'"
   ></Radio>
 
   <Radio
-    tab="todlers"
+    :active="nextTab === 'todlers'"
     title="Для детского сада"
     @click="nextTab = 'todlers'"
   ></Radio>
 
   <Radio
-    tab="firstclass"
+    :active="nextTab === 'firstclass'"
     title="Первоклассникам"
     @click="nextTab = 'firstclass'"
   ></Radio>
 
   <Radio
-    tab="acs"
+    :active="nextTab === 'award'"
+    title="Наградные"
+    subtitle="Для мероприятий, праздников"
+    @click="nextTab = 'award'"
+  ></Radio>
+
+  <Radio
+    :active="nextTab === 'acs'"
     title="Только аксессуары"
     subtitle="Без лент"
     @click="nextTab = 'acs'"
