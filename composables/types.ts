@@ -6,6 +6,5 @@ export interface TypeRequest {
   color: string
   print: string
   text: string
-  names: {}
-
+  names: { [key: string]: string[] }
 }

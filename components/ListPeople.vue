@@ -1,12 +1,8 @@
 <script setup lang="ts">
-interface romanType {
-  [key: string]: string[]
-}
-
 const props = defineProps<{
   title: string
-  isChild: boolean,
-  list: romanType
+  isChild: boolean
+  list: { [key: string]: string[] }
   slug: string
 }>()
 
@@ -24,8 +20,8 @@ function add() {
   emits('add')
 }
 
-function remove(name:number) {
-  props.list[props.slug] = props.list[props.slug].filter((el, i) => i !== name)
+function remove(index:number) {
+  props.list[props.slug] = props.list[props.slug].filter((el, i) => i !== index)
   emits('remove')
 }
 </script>
@@ -44,8 +40,7 @@ function remove(name:number) {
 
     </div>
     <div class="mansListAddBtn" @click="add">
-      <span>Добавить</span>
-      <span></span>
+      <span>Добавить</span><span></span>
     </div>
   </div>
 </div>

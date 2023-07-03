@@ -1,105 +1,94 @@
 <script setup lang="ts">
 // const {data} = await useFetch<any>('https://old.schmied.ru/wp-json/wp/v2/posts?_embed')
+
+const mails = useMails()
 </script>
 
-<template>
-<div>
-  <div class="signup_form row">
-    <div class="dops-wrap col-12">
-      <!-- <AcsItem
-        v-for="post in data"
-        :id="post.id"
-        :prices="[75, 68, 64, 59, 54]"
-        img=""
-        :title="post.title.rendered"
-      ></AcsItem> -->
+<template lang="pug">
+div
+  .signup_form.row
+    .dops-wrap.col-12
 
-      <!-- Колокольчики -->
+      //- Колокольчики
 
-      <AcsItem
+      AcsItem(
         :id="0"
         :prices="[75, 68, 64, 59, 54]"
         img="700-nw.jpg"
         title='Колокольчик "Красивый"'
-      ></AcsItem>
-      <AcsItem
+      )
+      AcsItem(
         :id="1"
         :prices="[100, 93, 89, 84, 79]"
         img="700-nw.jpg"
         title='Колокольчик "Лучший выпуск"'
-      ></AcsItem>
-      <AcsItem
+      )
+      AcsItem(
         :id="2"
         :prices="[55, 53, 50, 45, 42]"
         img="700-nw.jpg"
         title='Колокольчик "МАЙ"'
-      ></AcsItem>
+      )
 
-      <!-- БАБОЧКИ -->
+      //- БАБОЧКИ
 
-      <AcsItem
+      AcsItem(
         :id="3"
         :prices="[260, 210, 190, 170, 150]"
         img="btfl.png"
         title='Бабочки "Элегант"'
-      ></AcsItem>
-      <AcsItem
+      )
+      AcsItem(
         :id="4"
         :prices="[350, 330, 310, 290, 270]"
         img="btfl.png"
         title='Бабочки "Выпускник"'
-      ></AcsItem>
-      <AcsItem
+      )
+      AcsItem(
         :id="5"
         :prices="[500, 480, 470, 450, 440]"
         img="btfl.png"
         title='Бабочки "Кашемир" Премиум'
-      ></AcsItem>
+      )
 
-      <!-- БАНТЫ -->
+      //- БАНТЫ
 
-      <AcsItem
+      AcsItem(
         :id="6"
         :prices="[350]"
         img="bnt.png"
         title='Банты "ТОП"(Пара)'
-      ></AcsItem>
-      <AcsItem
+      )
+      AcsItem(
         :id="7"
         :prices="[400]"
         img="bnt.png"
         title='Банты "ВИП"(Пара)'
-      ></AcsItem>
-      <AcsItem
+      )
+      AcsItem(
         :id="8"
         :prices="[180]"
         img="bnt.png"
         title='Бант на заколке(за 1шт)'
-      ></AcsItem>
+      )
 
-      <!-- БУТОНЬЕРКИ -->
+      //- БУТОНЬЕРКИ
 
-      <AcsItem
+      AcsItem(
         :id="9"
         :prices="[125]"
         img="but.png"
         title='Жемчуг'
-      ></AcsItem>
-      <AcsItem
+      )
+      AcsItem(
         :id="10"
         :prices="[130]"
         img="but.png"
         title='Лайт'
-      ></AcsItem>
+      )
 
-    </div>
-  </div>
-  <div class="form-group col-md-12">
-    <label class="input_title">Пригласительные письма</label>
-    <input type="number" class="form-control mailsInput" id="" placeholder="10" required value=""
-      data-price="53">
-    <textarea class="form-control textToMail" id="" placeholder="Текст" required value="" cols="10"
-      rows="4"></textarea>
-  </div>
-</div>
+  .form-group.col-md-12
+    label.input_title Пригласительные письма
+    input.form-control.mailsInput(type="number" placeholder="10" v-model="mails.count")
+    textarea.form-control.textToMail(placeholder="Текст" cols="10" rows="4" v-model='mails.text')
 </template>

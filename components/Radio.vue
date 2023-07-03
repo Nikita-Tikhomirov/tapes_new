@@ -1,17 +1,15 @@
 <script setup lang="ts">
 defineProps<{
-  active: string
+  active: boolean
   title: string
   subtitle?: string
 }>()
 </script>
 
-<template>
-<div class="customRadioWrap" :class="{ 'active' : active} ">
-  <div class="customRadio"></div>
-  <div class="customRadioText-wrap">
-    <span>{{ title }}</span>
-    <span v-if="subtitle" v-html="subtitle"></span>
-  </div>
-</div>
+<template lang="pug">
+.customRadioWrap(:class="{ 'active' : active}")
+  .customRadio
+  .customRadioText-wrap
+    span {{ title }}
+    span(v-if="subtitle" v-html="subtitle")
 </template>

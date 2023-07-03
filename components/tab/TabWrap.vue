@@ -27,19 +27,14 @@ function next() {
 }
 </script>
 
-<template>
-<div>
-  <div class="formify_box">
-    <h4 class="form_title" v-html="title"></h4>
-    <h3 class="form_subtitle" v-if="subtitle">{{ subtitle }}</h3>
+<template lang="pug">
+.formify_box
+  h4.form_title(v-html="title")
+  h3.form_subtitle(v-if="subtitle") {{ subtitle }}
 
-    <slot></slot>
+  slot
 
-    <div class="next_button text-right">
-      <button class="btn thm_btn red_btn next_tab gender-button buttonsToStepWithAcs" @click="next">
-        Дальше <i class="arrow_right"></i>
-      </button>
-    </div>
-  </div>
-</div>
+  .next_button.text-right
+    button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="next") Дальше 
+      i.arrow_right
 </template>

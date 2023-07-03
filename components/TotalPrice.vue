@@ -1,9 +1,71 @@
 <script setup lang="ts">
+import type { TypeRequest } from '~/composables/types';
+
 const activeTab = useActiveTab()
 const requests = useRequests()
 
 const isPriceColor = usePriceColor()
 const isPricePrint = usePricePrint()
+
+//-------------------- Цена за ленты --------------------//
+
+const allAdult = computed(()=> requests.value.reduce((a,b)=> a+b.adultCount, 0))
+const allChild = computed(()=> requests.value.reduce((a,b)=> a+b.childCount, 0))
+
+const tapesPrice = computed(()=> {
+  const adultPrices = activeTab.value === 'award' ? useAwardPrices() : useBasePrices()
+  const childPrices = activeTab.value === 'award' ? useAwardPricesChildren() : useBasePricesChildren()
+
+
+  let adultOnePrice = selectOnePrice(allAdult.value, adultPrices.value, [2,4,7,9,15,19,50,100,150,200])
+  let childOnePrice = selectOnePrice(allChild.value, childPrices.value, [2,4,7,9,15,19,50,100,150,200])
+
+  let allPrice = 0
+
+  requests.value.forEach(request => {    
+    if (request.color === 'true' && request.print === 'true') {
+      adultOnePrice += 50
+      childOnePrice += 50
+    } else if (request.color === 'true' || request.print === 'true') {
+      adultOnePrice += 25
+      childOnePrice += 25
+    }
+  
+    request.price = (request.adultCount * adultOnePrice) + (request.childCount * childOnePrice)
+    console.log(request.price);
+    
+    allPrice += request.price
+  })
+  // console.log(allPrice)
+  
+  return allPrice
+})
+
+//-------------------- Цена за макеты --------------------//
+
+const templates = computed(()=> {
+  return requests.value.reduce((acc:number[], item:TypeRequest):number[] => {       
+    return [...acc, +item.template]
+  }, [])
+})
+
+const templatesPrice = computed(()=> {
+  const uniqueTemplate = templates.value.filter((item, pos) => {
+    return templates.value.indexOf(item) == pos;
+  })
+  if (uniqueTemplate.length > 3 && (allAdult.value + allChild.value) < 20) return 100 * (uniqueTemplate.length - 3)
+  return 0
+})
+
+//-------------------- Цена за цвет печати --------------------//
+
+const colorPrintPrice = computed(()=> {
+  const colorPrice = isPriceColor.value ? (allAdult.value + allChild.value) * 25 : 0
+  const printPrice = isPricePrint.value ? (allAdult.value + allChild.value) * 25 : 0
+  return colorPrice + printPrice
+})
+
+//-------------------- Цена аксессуаров --------------------//
 
 const totalPriceAcs = useAllPricesAcs()
 const acsAllPrice = computed(() => {
@@ -11,49 +73,25 @@ const acsAllPrice = computed(() => {
   return 0
 })
 
-const price = computed(() => {
-  const adultPrices = activeTab.value === 'award' ? useAwardPrices() : useBasePrices()
-  const childPrices = activeTab.value === 'award' ? useAwardPricesChildren() : useBasePricesChildren()
+//-------------------- Цена Писем --------------------//
 
-  let allAdult = 0
-  let allChild = 0
-
-  requests.value.forEach(request => {
-    allAdult += request.adultCount
-    allChild += request.childCount
-  })
-
-  const adultOnePrice = selectOnePrice(allAdult, adultPrices.value)
-  const childOnePrice = selectOnePrice(allChild, childPrices.value)
-
-  const colorPrice = isPriceColor.value ? (allAdult + allChild) * 25 : 0
-  const printPrice = isPricePrint.value ? (allAdult + allChild) * 25 : 0
-
-  requests.value.forEach(request => {
-    request.price = (request.adultCount * adultOnePrice) + (request.childCount * childOnePrice)
-  })
-  
-  
-  return (allAdult * adultOnePrice) + (allChild * childOnePrice) + acsAllPrice.value + colorPrice + printPrice
+const mailsPrices = useMailsPrices()
+const mails = useMails()
+const mailsPrice = computed(() => {
+  let onePrice = selectOnePrice(mails.value.count, mailsPrices.value, [3, 10, 30, 70, 100])
+  if (mails.value.text) onePrice += 20 
+  return onePrice * mails.value.count
 })
 
-function selectOnePrice(number:number, prices:number[], quantity:number[] = [2,4,7,9,15,19,50,100,150,200]) {
-  // quantity.forEach(item => {})
-  
-  if (number <= 2) return prices[0]
-  else if (number <= 4) return prices[1]
-  else if (number <= 7) return prices[2]
-  else if (number <= 9) return prices[3]
-  else if (number <= 15) return prices[4]
-  else if (number <= 19) return prices[5]
-  else if (number <= 50) return prices[6]
-  else if (number <= 100) return prices[7]
-  else if (number <= 150) return prices[8]
-  else if (number <= 200) return prices[9]
-  else return prices[10]
-}
+//-------------------- Общая цена --------------------//
+
+const price = computed(() => { 
+  return tapesPrice.value + templatesPrice.value + acsAllPrice.value + colorPrintPrice.value + mailsPrice.value
+})
 </script>
 
-<template>
-<div class="price">Цена: <span class="counter">{{ price }}</span><span> Р</span></div>
+<template lang="pug">
+.price Цена: 
+  span.counter  {{ price }} 
+  span  Р
 </template>

@@ -55,17 +55,17 @@ function remove(isChild:boolean) {
 
 function changeColor() {
   if (color.value.options[color.value.options.selectedIndex].getAttribute('data-color') === 'true') {
-    isPriceColor.value = true
+    props.request.color = 'true'
   } else {
-    isPriceColor.value = false
+    props.request.color = 'false'
   }
 }
 
 function changePrint() {
-  if (print.value.options[color.value.options.selectedIndex].getAttribute('data-color') === 'true') {
-    isPricePrint.value = true
+  if (print.value.options[print.value.options.selectedIndex].getAttribute('data-color') === 'true') {
+    props.request.print = 'true'
   } else {
-    isPricePrint.value = false
+    props.request.print = 'false'
   }
 }
 </script>
@@ -121,7 +121,7 @@ function changePrint() {
     </label>
     <textarea
       class="form-control"
-      placeholder="Дополнительная написать на ленте"
+      placeholder="Дополнительная надпись на ленте"
       cols="30" rows="2" style="height:auto"
       v-model="request.text"
     ></textarea>
