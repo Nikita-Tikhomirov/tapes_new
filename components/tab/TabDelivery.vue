@@ -11,6 +11,16 @@ const acsAllPrice = computed(() => {
   return 0
 })
 
+//-------------------- Цена Писем --------------------//
+
+const mailsPrices = useMailsPrices()
+const mails = useMails()
+const mailsPrice = computed(() => {
+  let onePrice = selectOnePrice(mails.value.count, mailsPrices.value, [3, 10, 30, 70, 100])
+  if (mails.value.text) onePrice += 20 
+  return onePrice * mails.value.count
+})
+
 </script>
 
 <template>
@@ -45,11 +55,28 @@ const acsAllPrice = computed(() => {
   </div>
 
   <p class="input_title">Стоимость вашего заказа</p>
-  <div v-for="(request, i) in requests">
-    <p>Заявка №{{ i + 1 }}</p>
-    <p>Цена: {{ request.price }}</p>
-  </div>
-  <p class="input_title">Стоимость аксессуаров</p>
-  <p>Цена: {{ acsAllPrice }}</p>
+  <template v-for="(request, i) in requests">
+      <p v-if="request.price > 0">
+        Заявка №{{ i + 1 }}: <b> {{ request.price }}</b> р.
+      </p>
+  </template>
+
+  <template v-if="acsAllPrice > 0">
+    <p>
+      Аксессуары: <b> {{ acsAllPrice }}</b> р.
+    </p>
+  </template>
+  
+  <template v-if="mailsPrice > 0">
+    <p>
+      Пригласительные: <b> {{ mailsPrice }}</b> р.
+    </p>
+  </template>
 </form>
 </template>
+
+<style scoped>
+b {
+  margin-left: 8px;
+}
+</style>
