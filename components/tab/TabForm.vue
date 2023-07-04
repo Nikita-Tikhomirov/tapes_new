@@ -7,8 +7,6 @@ const props = defineProps<{
 }>()
 
 const activeTab = useActiveTab()
-const isPriceColor = usePriceColor()
-const isPricePrint = usePricePrint()
 const color = ref()
 const print = ref()
 
@@ -37,8 +35,8 @@ const listPeople = computed(()=> {
     ]
   } else if (activeTab.value === 'award') {
     return [
-      {isChild: true, title: 'Список детских наминаций', slug: 'awardChild'},
-      {isChild: false, title: 'Список взрослых наминаций', slug: 'awardAdult'}
+      {isChild: false, title: 'Список взрослых наминаций', slug: 'awardAdult'},
+      {isChild: true, title: 'Список детских наминаций', slug: 'awardChild'}
     ]
   }
 })
@@ -75,18 +73,18 @@ function changePrint() {
   <div class="col-md-12">
     <h5>Заявка № <span class="requestCount">{{ index + 1 }}</span></h5>
   </div>
+  <div class="col-md-12 auto-col-2">
+    <div class="form-group" v-if="activeTab !== 'vipuskniki'">
+      <label class="input_title">Количество детских лент</label>
+      <input type="number" class="form-control" placeholder="10" required v-model="request.childCount" min="0">
+    </div>
 
-  <div class="form-group col-md-12" v-if="activeTab !== 'vipuskniki'">
-    <label class="input_title">Количество детских лент</label>
-    <input type="number" class="form-control" placeholder="10" required v-model="request.childCount" min="0">
+    <div class="form-group" :class="{ 'order' : activeTab === 'award' }">
+      <label class="input_title" v-if="activeTab === 'vipuskniki'">Количество</label>
+      <label class="input_title" v-else>Количество взрослых</label>
+      <input type="number" class="form-control" placeholder="10" required v-model="request.adultCount" min="0">
+    </div>
   </div>
-
-  <div class="form-group col-md-12">
-    <label class="input_title" v-if="activeTab === 'vipuskniki'">Количество</label>
-    <label class="input_title" v-else>Количество взрослых</label>
-    <input type="number" class="form-control" placeholder="10" required v-model="request.adultCount" min="0">
-  </div>
-
   <div class="form-group col-md-12">
     <label class="input_title">Номер шаблона</label>
     <select class="niceselect gender-select templateSelect" v-model="request.template">
@@ -99,20 +97,22 @@ function changePrint() {
     </select>
   </div>
 
-  <div class="form-group col-md-12">
-    <label class="input_title">Цвет ленты</label>
-    <select class="niceselect gender-select" ref="color" @change="changeColor">
-      <option value="Бордо" selected data-color="false">Не Цветная</option>
-      <option value="Золото" data-color="true">Цветная</option>
-    </select>
-  </div>
+  <div class="col-md-12 auto-col-2">
+    <div class="form-group">
+      <label class="input_title">Цвет ленты</label>
+      <select class="niceselect gender-select" ref="color" @change="changeColor">
+        <option value="Бордо" selected data-color="false">Не Цветная</option>
+        <option value="Золото" data-color="true">Цветная</option>
+      </select>
+    </div>
 
-  <div class="form-group col-md-12">
-    <label class="input_title">Цвет печати</label>
-    <select class="niceselect gender-select" ref="print" @change="changePrint">
-      <option value="Золото" selected data-color="false">Не Цветная</option>
-      <option value="Бордо" data-color="true">Цветная</option>
-    </select>
+    <div class="form-group">
+      <label class="input_title">Цвет печати</label>
+      <select class="niceselect gender-select" ref="print" @change="changePrint">
+        <option value="Золото" selected data-color="false">Не Цветная</option>
+        <option value="Бордо" data-color="true">Цветная</option>
+      </select>
+    </div>
   </div>
 
   <div class="form-group col-md-12">
@@ -140,3 +140,15 @@ function changePrint() {
 
 </div>
 </template>
+
+<style scoped>
+.order {
+  order: -1
+}
+
+.auto-col-2 {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+</style>

@@ -11,11 +11,8 @@ const emits = defineEmits<{
   remove: []
 }>()
 
-onMounted(()=> {
-  props.list[props.slug] = []
-})
-
 function add() {
+  if (!props.list[props.slug]) props.list[props.slug] = []
   props.list[props.slug].push('')
   emits('add')
 }
@@ -26,22 +23,17 @@ function remove(index:number) {
 }
 </script>
 
-<template>
-<div class="form-group col-md-12 mb-4">
-  <label class="input_title">{{ title }}</label>
-  <div class="mansList">
-    <div class="manListItems">
-
-      <div class="manListItemWrap" v-for="(name, i) in list[slug]" :key="i">
-        <div class="manListItemCounter">{{ i+1 }})</div>
+<template lang="pug">
+.form-group.col-md-12.mb-4
+  label.input_title {{ title }}
+  .mansList
+    .manListItems
+      .manListItemWrap(v-for="(name, i) in list[slug]" :key="i")
+        .manListItemCounter {{ i+1 }})
         <input type="text" class="form-control" v-model="list[slug][i]">
-        <div class="manListItemMinus" @click="remove(i)"></div>
-      </div>
-
-    </div>
-    <div class="mansListAddBtn" @click="add">
-      <span>Добавить</span><span></span>
-    </div>
-  </div>
-</div>
+        .manListItemMinus(@click="remove(i)")
+  
+    .mansListAddBtn(@click="add")
+      span Добавить
+      span
 </template>

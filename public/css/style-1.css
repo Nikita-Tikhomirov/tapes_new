@@ -1389,11 +1389,11 @@ button:focus {
 /*============== formify_form_tab  css ============*/
 /*============== formify_signup_fullwidth_two  css ============*/
 .formify_signup_fullwidth_two .formify_left_fullwidth {
-  width: 44.2%;
+  width: 44%;
 }
 
 .formify_signup_fullwidth_two .formify_right_fullwidth {
-  width: 55.8%;
+  width: 56%;
 }
 
 .formify_signup_fullwidth_two .formify_right_fullwidth .formify_box {

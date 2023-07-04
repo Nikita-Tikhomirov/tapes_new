@@ -8,6 +8,11 @@ const props = defineProps<{
 
 const totalPriceAcs = useAllPricesAcs()
 const itemCounter = ref<number>(0)
+const selectedAcs = useSelectedAcs()
+
+watchEffect(() => {
+  if (selectedAcs.value[props.title]) itemCounter.value = selectedAcs.value[props.title]
+})
 
 const oneItemPrice = computed(()=> {
   if (props.prices.length === 1) return props.prices[0]
@@ -18,16 +23,19 @@ const oneItemPrice = computed(()=> {
 function removeItem() {
   if (itemCounter.value !== 0) {
     itemCounter.value--
-    totalPriceAcs.value[props.id] = itemCounter.value * oneItemPrice.value
+    selectedAcs.value[props.title] = itemCounter.value
+    totalPriceAcs.value[props.id] = itemCounter.value * oneItemPrice.value 
   }
 }
 
 function addItem() {
   itemCounter.value++
+  selectedAcs.value[props.title] = itemCounter.value
   totalPriceAcs.value[props.id] = itemCounter.value * oneItemPrice.value
 }
 
 function change() {
+  selectedAcs.value[props.title] = itemCounter.value
   totalPriceAcs.value[props.id] = itemCounter.value * oneItemPrice.value
 }
 </script>
@@ -41,6 +49,7 @@ function change() {
 
   .dop__controls-wrap
     .dop__minus(@click="removeItem") -
-    input.dop__counter.form-control.bell(type="number" v-model="itemCounter" @input="change")
+    input.dop__counter.form-control.bell(v-if="selectedAcs[title]" type="number" v-model="selectedAcs[title]" @input="change")
+    input.dop__counter.form-control.bell(v-else type="number" v-model="itemCounter" @input="change")
     .dop__plus(@click="addItem") +
 </template>

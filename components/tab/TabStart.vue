@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const nextTab = useNextTab()
+const requests = useRequests()
 
 const tabs = [
   { tabName: 'vipuskniki', title: 'Выпускные ленты', subtitle: 'Выпускники школ' },
@@ -9,6 +10,20 @@ const tabs = [
   { tabName: 'award', title: 'Наградные', subtitle: 'Для мероприятий, праздников' },
   { tabName: 'acs', title: 'Только аксессуары', subtitle: 'Без лент' }
 ]
+
+function selectTab(name:string) {
+  nextTab.value = name
+  requests.value = [{
+    price: 0,
+    adultCount: 0,
+    childCount: 0,
+    template: '1',
+    color: '',
+    print: '',
+    text: '',
+    names: {}
+  }]
+}
 </script>
 
 <template lang="pug">
@@ -19,6 +34,6 @@ const tabs = [
     :active="nextTab === tab.tabName"
     :title="tab.title"
     :subtitle="tab.subtitle"
-    @click="nextTab = tab.tabName"
+    @click="selectTab(tab.tabName)"
   )
 </template>

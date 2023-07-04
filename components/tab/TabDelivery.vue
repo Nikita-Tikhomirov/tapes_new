@@ -3,6 +3,14 @@ const requests = useRequests()
 
 const delivery = ref<string>('')
 
+const fastPrint = useFastPrint()
+const fastPrintPrices = useFastPrintPrices()
+const allTapes = useAllTapes()
+
+const fastPrintPrice = computed(() => {
+  const onePrice = selectOnePrice(allTapes.value, fastPrintPrices.value, [1, 3, 5, 10, 15, 20, 50, 100, 200])
+  return allTapes.value * onePrice
+})
 //-------------------- Цена аксессуаров --------------------//
 
 const totalPriceAcs = useAllPricesAcs()
@@ -20,13 +28,11 @@ const mailsPrice = computed(() => {
   if (mails.value.text) onePrice += 20 
   return onePrice * mails.value.count
 })
-
 </script>
 
 <template>
 <form class="formify_box">
   <div class="signup_form row">
-
     <div class="form-group col-md-12">
       <label class="input_title">Отправка в город</label>
       <input type="text" class="form-control" placeholder="Город" required>
@@ -55,23 +61,27 @@ const mailsPrice = computed(() => {
   </div>
 
   <p class="input_title">Стоимость вашего заказа</p>
+
   <template v-for="(request, i) in requests">
-      <p v-if="request.price > 0">
-        Заявка №{{ i + 1 }}: <b> {{ request.price }}</b> р.
-      </p>
+    <p v-if="request.price > 0">
+      Заявка №{{ i + 1 }}: <b> {{ request.price }}</b> р.
+    </p>
   </template>
 
-  <template v-if="acsAllPrice > 0">
-    <p>
-      Аксессуары: <b> {{ acsAllPrice }}</b> р.
-    </p>
-  </template>
+  <p v-if="acsAllPrice > 0">
+    Аксессуары: <b> {{ acsAllPrice }}</b> р.
+  </p>
   
-  <template v-if="mailsPrice > 0">
-    <p>
-      Пригласительные: <b> {{ mailsPrice }}</b> р.
-    </p>
-  </template>
+  <p v-if="mailsPrice > 0">
+    Пригласительные: <b> {{ mailsPrice }}</b> р.
+  </p>
+
+  <Radio
+    :active="fastPrint"
+    title="Экспресс печать"
+    :subtitle="`+${fastPrintPrice}р.`"
+    @click="fastPrint = !fastPrint"
+  ></Radio>
 </form>
 </template>
 

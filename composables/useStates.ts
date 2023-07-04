@@ -11,7 +11,7 @@ export const useRequests = () => useState<TypeRequest[]>('request', () => [{
   price: 0,
   adultCount: 0,
   childCount: 0,
-  template: 1,
+  template: '1',
   color: '',
   print: '',
   text: '',
@@ -25,8 +25,11 @@ export const useBasePricesChildren = () => useState<number[]>('basePricesChildre
 export const useAwardPrices = () => useState<number[]>('awardPrices', () => [370, 310, 230, 165, 145, 135, 125, 120, 115, 110, 105])
 export const useAwardPricesChildren = () => useState<number[]>('awardPricesChildren', () => [370, 310, 230, 165, 145, 135, 125, 120, 115, 110, 105])
 
+export const useAllTapes = () => useState<number>('allTapes', () => 0)
+
 //-------------------- Дополнительные товары --------------------//
 
+export const useSelectedAcs = () => useState<object>('selectedAcs', () => { return {} })
 export const useAllPricesAcs = () => useState<number[]>('acsPrices', () => [])
 export const useMails = () => useState<{count: number, text: string}>('mails', () => { return { count: 0, text: '' } })
 
@@ -34,8 +37,7 @@ export const useMails = () => useState<{count: number, text: string}>('mails', (
 
 export const useMailsPrices = () => useState<number[]>('mailsPrices', () => [53, 50, 45, 40, 37, 35])
 
+//-------------------- Цены на экспресс печать --------------------//
 
-// ---
-export const usePriceColor = () => useState<boolean>('priceColor', () => false)
-export const usePricePrint = () => useState<boolean>('pricePrint', () => false)
-
+export const useFastPrint = () => useState<boolean>('fastPrint', () => false)
+export const useFastPrintPrices = () => useState<number[]>('fastPrintPrices', () => [150, 120, 100, 70, 55, 45, 35, 25, 20, 15])

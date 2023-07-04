@@ -35,6 +35,8 @@ function next() {
   slot
 
   .next_button.text-right
-    button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="next") Дальше 
-      i.arrow_right
+    button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="next")
+      span(v-if="tab !== 'delivery'") Дальше
+      span(v-if="tab === 'delivery'") Заказать 
+      i.arrow_right(v-if="tab !== 'delivery'")
 </template>

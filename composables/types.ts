@@ -2,7 +2,7 @@ export interface TypeRequest {
   price: number
   adultCount: number
   childCount: number
-  template: number
+  template: string
   color: string
   print: string
   text: string

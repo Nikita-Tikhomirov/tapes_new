@@ -7,7 +7,7 @@ function addRequest() {
     price: 0,
     adultCount: 0,
     childCount: 0,
-    template: 1,
+    template: '1',
     color: '',
     print: '',
     text: '',
