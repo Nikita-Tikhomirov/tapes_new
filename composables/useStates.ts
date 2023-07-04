@@ -29,7 +29,7 @@ export const useAllTapes = () => useState<number>('allTapes', () => 0)
 
 //-------------------- Дополнительные товары --------------------//
 
-export const useSelectedAcs = () => useState<object>('selectedAcs', () => { return {} })
+export const useSelectedAcs = () => useState<{ [key: string]: number }>('selectedAcs', () => { return {} })
 export const useAllPricesAcs = () => useState<number[]>('acsPrices', () => [])
 export const useMails = () => useState<{count: number, text: string}>('mails', () => { return { count: 0, text: '' } })
 
