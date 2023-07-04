@@ -15,8 +15,8 @@ onMounted(()=> {
 
 const oneItemPrice = computed(()=> {
   if (props.prices.length === 1) return props.prices[0]
-  else if (props.title === 'Колокольчик "МАЙ"') return selectOnePrice(selectedAcs.value[props.title], props.prices, [5, 19, 29, 49])
-  else return selectOnePrice(selectedAcs.value[props.title], props.prices, [3, 9, 29, 49])
+  if (props.title === 'Колокольчик "МАЙ"') return selectOnePrice(selectedAcs.value[props.title], props.prices, [5, 19, 29, 49])
+  return selectOnePrice(selectedAcs.value[props.title], props.prices, [3, 9, 29, 49])
 })
 
 function change() {
@@ -25,13 +25,13 @@ function change() {
 
 function addItem() {
   selectedAcs.value[props.title]++
-  totalPriceAcs.value[props.id] = selectedAcs.value[props.title] * oneItemPrice.value
+  change()
 }
 
 function removeItem() {
   if (selectedAcs.value[props.title] !== 0) {
     selectedAcs.value[props.title]--
-    totalPriceAcs.value[props.id] = selectedAcs.value[props.title] * oneItemPrice.value
+    change()
   }
 }
 </script>
@@ -39,12 +39,18 @@ function removeItem() {
 <template lang="pug">
 .dop
   .dop__img-wrap
-    img(:src="`/img/${img}`" alt="")
+    img(:src="`/img/${img}`" alt="" loading="lazy")
 
   .dop__title {{ title }}
 
   .dop__controls-wrap
     .dop__minus(@click="removeItem") -
-    input.dop__counter.form-control.bell(type="number" min="0" placeholder="0" v-model="selectedAcs[title]" @input="change")
+    input.dop__counter.form-control.bell(
+      type="number"
+      min="0"
+      placeholder="0"
+      v-model="selectedAcs[title]"
+      @input="change"
+    )
     .dop__plus(@click="addItem") +
 </template>

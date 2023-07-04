@@ -30,59 +30,47 @@ const mailsPrice = computed(() => {
 })
 </script>
 
-<template>
-<form class="formify_box">
-  <div class="signup_form row">
-    <div class="form-group col-md-12">
-      <label class="input_title">Отправка в город</label>
-      <input type="text" class="form-control" placeholder="Город" required>
-    </div>
-  </div>
+<template lang="pug">
+form.formify_box
+  .signup_form.row
+    .form-group.col-md-12
+      label.input_title Отправка в город
+      input.form-control(type="text" placeholder="Город" required)
 
-  <Radio
+  Radio(
     :active="delivery === 'sdek'"
     title="СДЭК"
     subtitle="50% предоплата (За ваш заказ)<br>50% при получении + стоимость доставки"
     @click="delivery = 'sdek'"
-  ></Radio>
+  )
 
-  <Radio
+  Radio(
     :active="delivery === 'post'"
     title="Почта"
     subtitle="Оплата за заказ, и за доставку до заказа - 100%"
     @click="delivery = 'post'"
-  ></Radio>
+  )
 
-  <div class="signup_form row">
-    <div class="form-group col-md-12">
-      <label class="input_title">Получатель</label>
-      <input type="text" class="form-control" placeholder="ФИО, телефон" required>
-    </div>
-  </div>
+  .signup_form.row
+    .form-group.col-md-12
+      label.input_title Получатель
+      input.form-control(type="text" placeholder="ФИО, телефон" required)
 
-  <p class="input_title">Стоимость вашего заказа</p>
+  .input_title Стоимость вашего заказа
 
-  <template v-for="(request, i) in requests">
-    <p v-if="request.price > 0">
-      Заявка №{{ i + 1 }}: <b> {{ request.price }}</b> р.
-    </p>
-  </template>
+  template(v-for="(request, i) in requests")
+    p(v-if="request.price > 0") Заявка №{{ i + 1 }}: <b> {{ request.price }}</b> р.
 
-  <p v-if="acsAllPrice > 0">
-    Аксессуары: <b> {{ acsAllPrice }}</b> р.
-  </p>
+  p(v-if="acsAllPrice > 0") Аксессуары: <b> {{ acsAllPrice }}</b> р.
   
-  <p v-if="mailsPrice > 0">
-    Пригласительные: <b> {{ mailsPrice }}</b> р.
-  </p>
+  p(v-if="mailsPrice > 0") Пригласительные: <b> {{ mailsPrice }}</b> р.
 
-  <Radio
+  Radio(
     :active="fastPrint"
     title="Экспресс печать"
     :subtitle="`+${fastPrintPrice}р.`"
     @click="fastPrint = !fastPrint"
-  ></Radio>
-</form>
+  )
 </template>
 
 <style scoped>
