@@ -28,15 +28,16 @@ function next() {
 </script>
 
 <template lang="pug">
-.formify_box
-  h4.form_title(v-html="title")
-  h3.form_subtitle(v-if="subtitle") {{ subtitle }}
+.tab-content
+  .formify_box
+    h4.form_title(v-html="title")
+    h3.form_subtitle(v-if="subtitle") {{ subtitle }}
 
-  slot
+    slot
 
-  .next_button.text-right
-    button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="next")
-      span(v-if="tab !== 'delivery'") Дальше
-      span(v-if="tab === 'delivery'") Заказать 
-      i.arrow_right(v-if="tab !== 'delivery'")
+    .next_button.text-right
+      button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="next")
+        span(v-if="tab !== 'delivery'") Дальше
+        span(v-if="tab === 'delivery'") Заказать 
+        i.arrow_right(v-if="tab !== 'delivery'")
 </template>

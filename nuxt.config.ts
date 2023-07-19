@@ -10,7 +10,10 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'css/style-1.css' },
         { rel: 'stylesheet', href: 'css/responsive.css' },
         { rel: 'stylesheet', href: 'css/custom.css' }
-      ]
+      ],
+      script: [
+        { src: "widjet.js",  async: true, },
+      ],
     },
   },
   

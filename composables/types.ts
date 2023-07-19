@@ -6,5 +6,15 @@ export interface TypeRequest {
   color: string
   print: string
   text: string
-  names: { [key: string]: string[] }
+  names: {
+    child: number
+    adult: number
+    [key: string]: string[] | number
+  }
+}
+
+export interface TypeMails {
+  countStandart: number
+  countEdit: number
+  countNames: number
 }

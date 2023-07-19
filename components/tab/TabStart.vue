@@ -3,26 +3,16 @@ const nextTab = useNextTab()
 const requests = useRequests()
 
 const tabs = [
-  { tabName: 'vipuskniki', title: 'Выпускные ленты', subtitle: 'Выпускники школ' },
-  { tabName: 'school', title: 'Для начальной школы' },
-  { tabName: 'todlers', title: 'Для детского сада' },
-  { tabName: 'firstclass', title: 'Первоклассникам' },
-  { tabName: 'award', title: 'Наградные', subtitle: 'Для мероприятий, праздников' },
-  { tabName: 'acs', title: 'Только аксессуары', subtitle: 'Без лент' }
+  { tabName: 'vipuskniki', title: 'Выпускные именные ленты' },
+  { tabName: 'school', title: 'Именные ленты для начальной школы' },
+  { tabName: 'todlers', title: 'Именные ленты для детского сада' },
+  { tabName: 'firstclass', title: 'Именные ленты первоклассникам' },
+  { tabName: 'award', title: 'Наградные ленты' },
+  { tabName: 'acs', title: 'Только аксессуары без лент' }
 ]
 
 function selectTab(name:string) {
   nextTab.value = name
-  requests.value = [{
-    price: 0,
-    adultCount: 0,
-    childCount: 0,
-    template: '1',
-    color: '',
-    print: '',
-    text: '',
-    names: {}
-  }]
 }
 </script>
 

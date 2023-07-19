@@ -8,10 +8,13 @@ function addRequest() {
     adultCount: 0,
     childCount: 0,
     template: '1',
-    color: '',
+    color: 'Темно-бежевый',
     print: '',
     text: '',
-    names: {}
+    names: {
+      child: 0,
+      adult: 0
+    }
   })
 }
 </script>
@@ -26,24 +29,37 @@ function addRequest() {
       .top_logo
         img(src="/img/logo.png" alt="" loading="lazy")
      
-      //- pre {{ requests }}
       img.img-fluid(src="/img/personal_img.png" alt="" loading="lazy")
 
     .formify_right_fullwidth.d-flex.align-items-center.justify-content-center
       .form_tab_two
         Steps
-        .tab-content
-          TabWrap
-            TabStart(v-if="activeTab === 'start'")
-            TabAcs(v-else-if="activeTab === 'acs'")
-            TabDelivery(v-else-if="activeTab === 'delivery'")
-            template(v-else)
-              TabForm(
-                v-for="(request, i) in requests"
-                :key="i"
-                :index="i"
-                :request="request"
-              )
-              .addrequestButton(@click="addRequest") Добавить заявку
+        TabWrap
+          TabStart(v-if="activeTab === 'start'")
+          TabAcs(v-else-if="activeTab === 'acs'")
+          TabDelivery(v-else-if="activeTab === 'delivery'")
+          template(v-else)
+            TabForm(
+              v-for="(request, i) in requests"
+              :key="i"
+              :index="i"
+              :request="request"
+            )
+            .addrequestButton(@click="addRequest") Добавить заявку
         TotalPrice(v-if="activeTab !== 'start'")
 </template>
+
+<style>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
+  appearance: none;
+  -moz-appearance: number-input;
+}
+</style>
