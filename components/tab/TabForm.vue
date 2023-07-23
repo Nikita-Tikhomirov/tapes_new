@@ -12,24 +12,24 @@ const print = ref()
 const listPeople = computed(()=> {
   if (activeTab.value === 'vipuskniki' || activeTab.value === 'school') {
     return [
-      {isChild: true, title: 'Список выпускников', slug: 'graduatesMale'},
-      {isChild: true, title: 'Список выпускниц', slug: 'graduatesFemale'},
+      {isChild: true, title: 'Список выпускников', countTitle: 'Выпускники', slug: 'graduatesMale'},
+      {isChild: true, title: 'Список выпускниц', countTitle: 'Выпускницы', slug: 'graduatesFemale'},
       {isChild: false, title: 'Классный руководитель', slug: 'teacher'},
       {isChild: false, title: 'Первый учитель', slug: 'firstTeacher'},
       {isChild: false, title: 'Директор', slug: 'director'},
     ]
   } else if (activeTab.value === 'todlers') {
     return [
-      {isChild: true, title: 'Список выпускников', slug: 'graduatesMale'},
-      {isChild: true, title: 'Список выпускниц', slug: 'graduatesFemale'},
+      {isChild: true, title: 'Список выпускников', countTitle: 'Выпускники', slug: 'graduatesMale'},
+      {isChild: true, title: 'Список выпускниц', countTitle: 'Выпускницы', slug: 'graduatesFemale'},
       {isChild: false, title: 'Воспитатель', slug: 'caregiver'},
       {isChild: false, title: 'Помошник воспитателя', slug: 'assistant'},
       {isChild: false, title: 'Младший воспитатель', slug: 'juniorCaregiver'},
     ]
   } else if (activeTab.value === 'firstclass') {
     return [
-      {isChild: true, title: 'Список первоклассников', slug: 'graduatesMale'},
-      {isChild: true, title: 'Список первоклассниц', slug: 'graduatesFemale'},
+      {isChild: true, title: 'Список первоклассников', countTitle: 'Первокласники', slug: 'graduatesMale'},
+      {isChild: true, title: 'Список первоклассниц', countTitle: 'Первокласницы', slug: 'graduatesFemale'},
       {isChild: false, title: 'Первый учитель', slug: 'firstTeacher'},
     ]
   } else if (activeTab.value === 'award') {
@@ -39,14 +39,6 @@ const listPeople = computed(()=> {
     ]
   }
 })
-
-function changePrint() {
-  if (print.value.options[print.value.options.selectedIndex].getAttribute('data-color') === 'true') {
-    props.request.print = 'true'
-  } else {
-    props.request.print = 'false'
-  }
-}
 </script>
 
 <template lang="pug">
@@ -55,20 +47,27 @@ function changePrint() {
     h5 Заявка № 
       span.requestCount  {{ index + 1 }}
   .col-md-12.auto-col-2
-    .form-group(v-if="activeTab !== 'vipuskniki'")
-      label.input_title Количество детских лент
-      p(style="font-size:14px; margin-bottom:6px" v-if="activeTab === 'award'") Ширина 8 см, длина 150 см
-      input.form-control(type="number" placeholder="10" v-model="request.childCount" min="0")
+    inputEL(
+      v-if="activeTab !== 'vipuskniki'"
+      type="number"
+      placeholder="0"
+      title="Количество детских лент"
+      subtitle="Ширина 8 см, длина 150 см"
+      v-model="request.childCount"
+    )
 
-    .form-group(:class="{ 'order' : activeTab === 'award' }")
-      label.input_title(v-if="activeTab === 'vipuskniki'") Количество
-      label.input_title(v-else) Количество взрослых
-      p(style="font-size:14px; margin-bottom:6px" v-if="activeTab === 'award'") Ширина 10 см, длина 190 см +-1 см
-      input.form-control(type="number" placeholder="10" v-model="request.adultCount" min="0")
+    inputEL(
+      :class="{ 'order' : activeTab === 'award' }"
+      type="number"
+      placeholder="0"
+      :title="activeTab === 'vipuskniki' ? 'Количество' : 'Количество взрослых'"
+      :subtitle="activeTab === 'vipuskniki' ? 'Общее количество лент в заказе, включая учителей' : 'Ширина 10 см, длина 190 см +-1 см'"
+      v-model="request.adultCount"
+    )
 
   .form-group.col-md-12
     label.input_title Номер шаблона
-    select.niceselect.gender-select.templateSelect(v-model="request.template")
+    select.niceselect.templateSelect(v-model="request.template")
       option(value="1" selected) 1
       option(value="2") 2
       option(value="3") 3
@@ -79,7 +78,7 @@ function changePrint() {
   .col-md-12.auto-col-2
     .form-group
       label.input_title Цвет ленты
-      select.niceselect.gender-select(v-model="request.color")
+      select.niceselect(v-model="request.color")
         option(value="Темно-бежевый" selected) Темно-бежевый
         option(value="Золотистый") Золотистый
         option(value="Малиновый") Малиновый
@@ -111,7 +110,7 @@ function changePrint() {
 
     .form-group
       label.input_title Цвет печати
-      select.niceselect.gender-select(ref="print" @change="changePrint")
+      select.niceselect(v-model="request.print")
         option(value="Золото" selected data-color="false") Золото 
         option(value="Серебро" data-color="false") Серебро 
         option(value="Черный" data-color="false") Черный 
@@ -121,24 +120,48 @@ function changePrint() {
         option(value="Синий (металлик)" data-color="true") Синий (металлик)
         option(value="Зеленый (матовый)" data-color="true") Зеленый (матовый)
 
-  
-  .form-group.col-md-12
-    label.input_title(for="inputName") Дополнительно написать на ленте 
-    p(style="font-size:14px; margin-bottom:6px") класс, школа, город и тд. Можно не указывать, если нет дополнительной информации
-    textarea.form-control(
-      placeholder="Дополнительная надпись на ленте"
-      cols="30" rows="2" style="height:auto"
-      v-model="request.text"
-    )
-
-  ListPeople(
-    v-for="people in listPeople"
-    :key="people.slug"
-    :isChild="people.isChild"
-    :title="people.title"
-    :request="request"
-    :slug="people.slug"
+  inputEL.col-md-12(
+    style="margin-bottom: 24px"
+    type="textarea"
+    placeholder="Дополнительная надпись на ленте"
+    title="Дополнительно написать на ленте"
+    :subtitle="activeTab !== 'award' ? 'класс, школа, город и тд. Можно не указывать, если нет дополнительной информации' : 'Надписи, которые будут на всех лентах под номинацией (Название конкурса, дата и т.д)'"
+    v-model="request.text"
   )
+
+  Radio(
+    v-if="activeTab !== 'award'"
+    :active="request.isName"
+    :title="activeTab === 'award' ? 'Указать наминации' : 'Именные ленты'"
+    @click="request.isName = !request.isName"
+  )
+  Radio(
+    v-if="activeTab !== 'award'"
+    style="margin-left: 24px"
+    :active="!request.isName"
+    title="Не именные ленты"
+    @click="request.isName = !request.isName"
+  )
+
+  template(v-if="request.isName || activeTab === 'award'")
+    ListPeople(
+      v-for="people in listPeople"
+      :key="people.slug"
+      :isChild="people.isChild"
+      :title="people.title"
+      :request="request"
+      :slug="people.slug"
+    )
+  
+  template(v-else-if="activeTab !== 'award'")
+    ListPeopleCount(
+      v-for="people in listPeople"
+      :key="people.slug"
+      :isChild="people.isChild"
+      :title="people.countTitle ? people.countTitle : people.title"
+      :request="request"
+      :slug="people.slug"
+    )
 </template>
 
 <style scoped>

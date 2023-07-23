@@ -1,13 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  // devtools: { enabled: false },
+  devtools: { enabled: true },
+
   app: {
     head: {
       link: [
         { rel: 'stylesheet', href: 'css/bootstrap.min.css' },
-        { rel: 'stylesheet', href: 'css/nice-select.css' },
+        { rel: 'stylesheet', href: 'css/fonts.css' },
+        { rel: 'stylesheet', href: 'css/icons.css' },
         { rel: 'stylesheet', href: 'css/style.css' },
-        { rel: 'stylesheet', href: 'css/style-1.css' },
         { rel: 'stylesheet', href: 'css/responsive.css' },
         { rel: 'stylesheet', href: 'css/custom.css' }
       ],

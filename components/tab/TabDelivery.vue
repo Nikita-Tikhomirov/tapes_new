@@ -1,12 +1,11 @@
 <script setup lang="ts">
 const requests = useRequests()
 
-const delivery = ref<string>('')
-
 const fastPrint = useFastPrint()
 const fastPrintPrices = useFastPrintPrices()
 const allTapes = useAllTapes()
 const totalPrice = useTotalPrice()
+const delivery = useDelivery()
 
 const subtitleSdek = computed(()=> {
   if (delivery.value === 'sdek') {
@@ -40,11 +39,22 @@ const acsAllPrice = computed(() => {
 
 const mailsPrices = useMailsPrices()
 const mails = useMails()
+
+// const standartMails = computed(() => mails.value.countStandart * selectOnePrice(mails.value.countStandart, mailsPrices.value, [3, 10, 30, 70, 100]))
+// const editMails = computed(() => mails.value.countEdit  * (selectOnePrice(mails.value.countEdit, mailsPrices.value, [3, 10, 30, 70, 100]) + 10))
+// const nameMails = computed(() => mails.value.countNames  * (selectOnePrice(mails.value.countNames, mailsPrices.value, [3, 10, 30, 70, 100]) + 20))
+
 const mailsPrice = computed(() => {
-  let onePrice = selectOnePrice(mails.value.count, mailsPrices.value, [3, 10, 30, 70, 100])
-  if (mails.value.text) onePrice += 20 
-  return onePrice * mails.value.count
+  const count = mails.value.countStandart + mails.value.countEdit + mails.value.countNames
+
+  let onePrice = selectOnePrice(count, mailsPrices.value, [3, 10, 30, 70, 100])
+  let onePriceEdit = onePrice + 10
+  let onePriceNames = onePrice + 20
+
+  return (onePrice * mails.value.countStandart) + (onePriceEdit * mails.value.countEdit) + (onePriceNames * mails.value.countNames)
 })
+
+
 
 //-------------------- sdek --------------------//
 
@@ -109,11 +119,20 @@ form.formify_box
   
   p(v-if="mailsPrice > 0") Пригласительные: <b> {{ mailsPrice }}</b> р.
 
+  p(v-if="delivery === 'post'") Доставка: <b>500</b> р.
+
   Radio(
     :active="fastPrint"
     title="Экспресс печать"
     :subtitle="`+${fastPrintPrice}р.`"
     @click="fastPrint = !fastPrint"
+  )
+
+  inputEL(
+    style="margin-top: 24px; width: 100%"
+    type="textarea"
+    placeholder="Комментарий к заказу"
+    title="Комментарий к заказу"
   )
 </template>
 

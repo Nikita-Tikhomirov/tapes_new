@@ -6,6 +6,7 @@ export interface TypeRequest {
   color: string
   print: string
   text: string
+  isName: boolean
   names: {
     child: number
     adult: number

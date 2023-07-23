@@ -1,6 +1,17 @@
 <script setup lang="ts">
 const tab = useActiveTab()
 const nextTab = useNextTab()
+const requests = useRequests()
+
+const error = ref(false)
+
+function isError() {
+  requests.value.forEach(el => {
+    if (el.isName && (el.names.child < el.childCount || el.names.adult < el.adultCount)) {
+      error.value = true
+    }
+  })  
+}
 
 const title = computed(() => {
   if (tab.value === 'start') return 'Для кого <span>заказываем ленты</span>'
@@ -20,10 +31,23 @@ const subtitle = computed(() => {
 })
 
 function next() {
-  if (!nextTab.value) alert('Выберете для кого заказываете ленты')
-  else if (tab.value === 'start') tab.value = nextTab.value
-  else if (tab.value === 'acs') tab.value = 'delivery'
-  else if (tab.value !== 'delivery') tab.value = 'acs'
+  error.value = false
+
+  if (!nextTab.value) {
+    alert('Выберете для кого заказываете ленты')
+    return 
+  }
+
+  if (tab.value !== 'start') isError()
+  
+  if (!error.value) {
+    if (tab.value === 'start') tab.value = nextTab.value
+    else if (tab.value === 'acs') tab.value = 'delivery'
+    else if (tab.value !== 'delivery') tab.value = 'acs'
+    return
+  }
+
+  alert('Имен добавлено меньше чем лент')
 }
 </script>
 

@@ -12,7 +12,7 @@ const activeTab = useActiveTab()
 
 const isChildCounter = computed(()=> props.isChild && activeTab.value !== 'vipuskniki')
 
-function add() {  
+function add() {
   if (!props.request.names[props.slug]) props.request.names[props.slug] = []
   
   if (isChildCounter.value) {
@@ -22,8 +22,9 @@ function add() {
   }
 }
 
-function remove(index:number) {
-  props.request.names[props.slug] = props.request.names[props.slug].filter((el, i) => i !== index)
+function remove() {
+  props.request.names[props.slug].pop()
+
   if (isChildCounter.value) {
     props.request.names.child--
   } else {
@@ -33,16 +34,18 @@ function remove(index:number) {
 </script>
 
 <template lang="pug">
-.form-group.col-md-12.mb-4
-  label.input_title {{ title }}
-  .mansList
-    .manListItems
-      .manListItemWrap(v-for="(name, i) in props.request.names[slug]" :key="i")
-        .manListItemCounter {{ i+1 }})
-        <input type="text" class="form-control" v-model="props.request.names[slug][i]">
-        .manListItemMinus(@click="remove(i)")
-  
-    .mansListAddBtn(@click="add")
-      span Добавить
-      span
+.form-group.col-md-12.mail-counter
+  .input_title {{ title }}
+
+  .dop__controls-wrap
+    .dop__minus(@click="remove") -
+    input.dop__counter.form-control(
+      type="number"
+      min="0"
+      :max="isChildCounter ? request.childCount : request.adultCount"
+      placeholder="0"
+      :value="request.names[props.slug] ? request.names[props.slug].length : 0"
+      readonly
+    )
+    .dop__plus(@click="add") +
 </template>

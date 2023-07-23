@@ -14,6 +14,7 @@ export const useRequests = () => useState<TypeRequest[]>('request', () => [{
   template: '1',
   color: 'Темно-бежевый',
   print: '',
+  isName: false,
   text: '',
   names: {
     child: 0,
@@ -51,3 +52,4 @@ export const useFastPrint = () => useState<boolean>('fastPrint', () => false)
 export const useFastPrintPrices = () => useState<number[]>('fastPrintPrices', () => [150, 120, 100, 70, 55, 45, 35, 25, 20, 15])
 
 export const useTotalPrice = () => useState<number>('totalPrice', () => 0)
+export const useDelivery = () => useState<string>('delivery', () => '')

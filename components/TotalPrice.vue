@@ -7,6 +7,7 @@ const fastPrint = useFastPrint()
 const fastPrintPrices = useFastPrintPrices()
 const allTapes = useAllTapes()
 const totalPrice = useTotalPrice()
+const delivery = useDelivery()
 
 //-------------------- Цена за ленты --------------------//
 
@@ -111,14 +112,15 @@ const mailsPrice = computed(() => {
 //-------------------- Общая цена --------------------//
 
 const price = computed(() => { 
-  const sum = tapesPrice.value + templatesPrice.value + acsAllPrice.value + mailsPrice.value
+  const post = delivery.value === 'post' ? 500 : 0
+  const sum = tapesPrice.value + templatesPrice.value + acsAllPrice.value + mailsPrice.value + post
   totalPrice.value = sum
   return sum
 })
 </script>
 
 <template lang="pug">
-.price Цена: 
-  span.counter  {{ price }} 
+.price Предварительная стоимость вашего заказа:<br>
+  span.counter {{ price }} 
   span  Р
 </template>

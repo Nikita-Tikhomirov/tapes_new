@@ -9,8 +9,9 @@ function addRequest() {
     childCount: 0,
     template: '1',
     color: 'Темно-бежевый',
-    print: '',
+    print: 'Золото',
     text: '',
+    isName: false,
     names: {
       child: 0,
       adult: 0
