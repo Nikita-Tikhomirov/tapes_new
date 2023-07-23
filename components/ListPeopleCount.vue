@@ -36,16 +36,10 @@ function remove() {
 <template lang="pug">
 .form-group.col-md-12.mail-counter
   .input_title {{ title }}
-
-  .dop__controls-wrap
-    .dop__minus(@click="remove") -
-    input.dop__counter.form-control(
-      type="number"
-      min="0"
-      :max="isChildCounter ? request.childCount : request.adultCount"
-      placeholder="0"
-      :value="request.names[props.slug] ? request.names[props.slug].length : 0"
-      readonly
-    )
-    .dop__plus(@click="add") +
+  InputCounter(
+    @remove="remove"
+    @add="add"
+    :modelValue="request.names[props.slug] ? request.names[props.slug].length : 0"
+    readonly
+  )
 </template>

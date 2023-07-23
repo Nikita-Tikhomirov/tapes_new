@@ -13,7 +13,7 @@ export const useRequests = () => useState<TypeRequest[]>('request', () => [{
   childCount: 0,
   template: '1',
   color: 'Темно-бежевый',
-  print: '',
+  print: 'Золото',
   isName: false,
   text: '',
   names: {

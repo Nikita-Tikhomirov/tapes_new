@@ -30,11 +30,3 @@ div
       )
   Mails
 </template>
-
-<style>
-.mail-counter {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr 1fr;
-}
-</style>

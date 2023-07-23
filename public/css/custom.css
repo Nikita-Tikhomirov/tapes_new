@@ -18,68 +18,6 @@
   margin-top: 10px;
 }
 
-.customRadioWrap {
-  display: flex;
-  cursor: pointer;
-  /* margin-bottom: 10px; */
-}
-
-.customRadio {
-  min-width: 22px;
-  max-width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 2px solid #0055fb;
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(4px);
-}
-
-.customRadio:before {
-  transition: 0.2s;
-}
-
-.customRadioWrap.active .customRadio:before {
-  content: '';
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #0055fb;
-
-}
-
-.customRadio:hover:before {
-  content: '';
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #0055fb;
-}
-
-.customRadioText-wrap {}
-
-.customRadioText-wrap span {
-  display: block;
-}
-
-.customRadioText-wrap span:first-child {
-  font-weight: 600;
-  font-size: 20px;
-}
-
-.customRadioText-wrap span:last-child {}
-
-.frstCsWrap {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 15px;
-}
-
 .mansList {
   display: grid;
   grid-template-columns: 1fr;
@@ -235,47 +173,6 @@ h5 span {}
   grid-gap: 30px;
 }
 
-.dop__img-wrap img {
-  max-width: 100%;
-}
-
-.dop__controls-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between
-}
-
-.dop__minus,
-.dop__plus {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-width: 30px;
-  width: 30px;
-  height: 30px;
-  color: #fff;
-  background: #0055fb;
-  font-size: 20px;
-  line-height: 1;
-  transition: 0.2s;
-  cursor: pointer;
-}
-
-.dop__counter {
-  width: 100%;
-  height: 30px;
-  line-height: 45px;
-  background: #f0f4f8;
-  border-color: #f0f4f8;
-  font-size: 15px;
-  border-radius: 3px;
-  padding-left: 15px;
-  box-shadow: none;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
 .dop__title {
   font-weight: 600;
   font-size: 18px;
@@ -286,9 +183,8 @@ h5 span {}
   min-height: 44px;
 }
 
-.dop__minus:hover,
-.dop__plus:hover {
-  background: #f7345e;
+.dop__img-wrap img {
+  max-width: 100%;
 }
 
 .input_title {
@@ -303,4 +199,10 @@ h5 span {}
 
 .form-group.col-md-12 {
   margin-top: 30px !important;
+}
+
+.mail-counter {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
 }

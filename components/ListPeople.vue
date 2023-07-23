@@ -39,7 +39,7 @@ function remove(index:number) {
     .manListItems
       .manListItemWrap(v-for="(name, i) in props.request.names[slug]" :key="i")
         .manListItemCounter {{ i+1 }})
-        <input type="text" class="form-control" v-model="props.request.names[slug][i]">
+        input.form-control(type="text" v-model="props.request.names[slug][i]")
         .manListItemMinus(@click="remove(i)")
   
     .mansListAddBtn(@click="add")

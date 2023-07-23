@@ -9,13 +9,15 @@ const props = defineProps<{
 const totalPriceAcs = useAllPricesAcs()
 const selectedAcs = useSelectedAcs()
 
-onMounted(()=> {
+onMounted(() => {
   if (!selectedAcs.value[props.title]) selectedAcs.value[props.title] = 0
 })
 
-const oneItemPrice = computed(()=> {
+const oneItemPrice = computed(() => {
   if (props.prices.length === 1) return props.prices[0]
-  if (props.title === 'Колокольчик "МАЙ"') return selectOnePrice(selectedAcs.value[props.title], props.prices, [5, 19, 29, 49])
+  if (props.title === 'Колокольчик "МАЙ"') {
+    return selectOnePrice(selectedAcs.value[props.title], props.prices, [5, 19, 29, 49])
+  }
   return selectOnePrice(selectedAcs.value[props.title], props.prices, [3, 9, 29, 49])
 })
 
@@ -40,17 +42,11 @@ function removeItem() {
 .dop
   .dop__img-wrap
     img(:src="`/img/${img}`" alt="" loading="lazy")
-
   .dop__title {{ title }}
-
-  .dop__controls-wrap
-    .dop__minus(@click="removeItem") -
-    input.dop__counter.form-control.bell(
-      type="number"
-      min="0"
-      placeholder="0"
-      v-model="selectedAcs[title]"
-      @input="change"
-    )
-    .dop__plus(@click="addItem") +
+  InputCounter(
+    @remove="removeItem"
+    @add="addItem"
+    @input="change"
+    v-model="selectedAcs[title]"
+  )
 </template>

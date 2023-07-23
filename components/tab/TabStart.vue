@@ -17,7 +17,7 @@ function selectTab(name:string) {
 </script>
 
 <template lang="pug">
-.signup_form.frstCsWrap
+.tabStart
   Radio(
     v-for="tab in tabs"
     :key="tab.tabName"
@@ -27,3 +27,10 @@ function selectTab(name:string) {
     @click="selectTab(tab.tabName)"
   )
 </template>
+
+<style scoped>
+.tabStart {
+  display: grid;
+  grid-gap: 15px;
+}
+</style>

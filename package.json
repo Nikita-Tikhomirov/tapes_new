@@ -12,6 +12,7 @@
     "@nuxt/devtools": "latest",
     "@types/node": "^18",
     "nuxt": "^3.6.1",
-    "pug": "3.0.2"
+    "pug": "3.0.2",
+    "stylus": "^0.59.0"
   }
 }
