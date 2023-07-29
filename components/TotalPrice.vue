@@ -30,13 +30,11 @@ const tapesPrice = computed(()=> {
     return allTapes.value * onePrice
   })
 
-  let adultDiscount = [2,4,7,9,15,19,50,100,150,200]
-  let childDiscount = [1,2,5,10,20,30,50,100,200]
+  const adultDiscount = activeTab.value === 'award' ? useAwardPricesDiscount() : useBasePricesDiscount()
+  const childDiscount = activeTab.value === 'award' ? useAwardPricesChildrenDiscount() : useBasePricesChildrenDiscount()
 
-  if (activeTab.value === 'award') adultDiscount = [1,2,4,9,15,19,50,100,150,200]
-
-  let adultOnePrice = selectOnePrice(allAdult.value, adultPrices.value, adultDiscount)
-  let childOnePrice = selectOnePrice(allChild.value, childPrices.value, childDiscount)
+  let adultOnePrice = selectOnePrice(allAdult.value, adultPrices.value, adultDiscount.value)
+  let childOnePrice = selectOnePrice(allChild.value, childPrices.value, childDiscount.value)
   let allPrice = 0
 
   const requestTapes:number[] = []
@@ -88,9 +86,9 @@ const templatesPrice = computed(()=> {
 
 //-------------------- Цена аксессуаров --------------------//
 
-const totalPriceAcs = useAllPricesAcs()
+const selectedAcs = useSelectedAcs()
 const acsAllPrice = computed(() => {
-  if(totalPriceAcs.value.length > 0) return totalPriceAcs.value.reduce((a,b)=>b+a)
+  if(selectedAcs.value.length > 0) return selectedAcs.value.reduce((a,b)=>a + b.price ,0)
   return 0
 })
 

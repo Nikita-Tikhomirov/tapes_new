@@ -7,10 +7,12 @@ export interface TypeRequest {
   print: string
   text: string
   isName: boolean
-  names: {
+  namesCount: {
     child: number
     adult: number
-    [key: string]: string[] | number
+  }
+  names: {
+    [key: string]: string[]
   }
 }
 
@@ -18,4 +20,8 @@ export interface TypeMails {
   countStandart: number
   countEdit: number
   countNames: number
+  editText: string
+  namesText: string
+  date: string
+  place: string
 }

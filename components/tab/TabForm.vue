@@ -28,8 +28,8 @@ const listPeople = computed(()=> {
     ]
   } else if (activeTab.value === 'firstclass') {
     return [
-      {isChild: true, title: 'Список первоклассников', countTitle: 'Первокласники', slug: 'graduatesMale'},
-      {isChild: true, title: 'Список первоклассниц', countTitle: 'Первокласницы', slug: 'graduatesFemale'},
+      {isChild: true, title: 'Список первоклассников', countTitle: 'Первокласники', slug: 'firstClassMale'},
+      {isChild: true, title: 'Список первоклассниц', countTitle: 'Первокласницы', slug: 'firstClassFemale'},
       {isChild: false, title: 'Первый учитель', slug: 'firstTeacher'},
     ]
   } else if (activeTab.value === 'award') {

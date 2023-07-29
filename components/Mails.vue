@@ -25,7 +25,7 @@ div
       )
     div
       p(style="font-size:14px; margin-bottom:6px") Если вы хотите добавить дату или место, то введите сюда текст
-      textarea.form-control.textToMail(placeholder="Текст" cols="10" rows="4" v-model='mails.text')
+      textarea.form-control.textToMail(placeholder="Текст" rows="6" v-model='mails.editText')
 
   .form-group.col-md-12
     .mail-counter
@@ -37,7 +37,7 @@ div
       )
     div
       p(style="font-size:14px; margin-bottom:6px") Перечислите имена отдельно
-      textarea.form-control.textToMail(placeholder="Уважаемый/Уважаемая ФИО" cols="10" rows="4" v-model='mails.text')
-      input.form-control.textToMail(placeholder="Дата")
-      input.form-control.textToMail(placeholder="Место проведения")
+      textarea.form-control.textToMail(placeholder="Уважаемый/Уважаемая ФИО" rows="6" v-model='mails.namesText')
+      input.form-control.textToMail(placeholder="Дата" v-model="mails.date")
+      input.form-control.textToMail(placeholder="Место проведения" v-model="mails.place")
 </template>

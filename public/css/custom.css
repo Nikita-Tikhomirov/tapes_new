@@ -197,10 +197,6 @@ h5 span {}
   margin-bottom: 6px
 }
 
-.form-group.col-md-12 {
-  margin-top: 30px !important;
-}
-
 .mail-counter {
   display: grid;
   gap: 20px;

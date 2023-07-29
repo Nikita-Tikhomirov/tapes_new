@@ -14,35 +14,54 @@ export const useRequests = () => useState<TypeRequest[]>('request', () => [{
   template: '1',
   color: 'Темно-бежевый',
   print: 'Золото',
-  isName: false,
   text: '',
-  names: {
+  isName: false,
+  namesCount: {
     child: 0,
     adult: 0,
-  }
+  },
+  names: {}
 }])
+
+export const useAddressee = () => useState('addressee', () => ({
+  name: '',
+  phone: '',
+  vk: '',
+  city: '',
+  point: '',
+  text: ''
+}))
 
 //-------------------- Цены на ленты --------------------//
 
-export const useBasePrices = () => useState<number[]>('basePrices', () => [320, 265, 220, 190, 170, 147, 140, 131, 125, 115, 108, 103])
-export const useBasePricesChildren = () => useState<number[]>('basePricesChildren', () => [180,170,145,130,115,105,99,95,91,88])
+export const useBasePrices = () => useState<number[]>('basePrices', () => [])
+export const useBasePricesDiscount = () => useState<number[]>('basePricesDiscount', () => [])
 
-export const useAwardPrices = () => useState<number[]>('awardPrices', () => [280,250,210,150,135,125,120,115,110,105,100])
-export const useAwardPricesChildren = () => useState<number[]>('awardPricesChildren', () => [370, 310, 230, 165, 145, 135, 125, 120, 115, 110, 105])
+export const useBasePricesChildren = () => useState<number[]>('basePricesChildren', () => [])
+export const useBasePricesChildrenDiscount = () => useState<number[]>('basePricesChildrenDiscount', () => [])
+
+export const useAwardPrices = () => useState<number[]>('awardPrices', () => [])
+export const useAwardPricesDiscount = () => useState<number[]>('awardPricesDiscount', () => [])
+
+export const useAwardPricesChildren = () => useState<number[]>('awardPricesChildren', () => [])
+export const useAwardPricesChildrenDiscount = () => useState<number[]>('awardPricesChildrenDiscount', () => [])
 
 export const useAllTapes = () => useState<number>('allTapes', () => 0)
 
 //-------------------- Дополнительные товары --------------------//
 
-export const useSelectedAcs = () => useState<{ [key: string]: number }>('selectedAcs', () => { return {} })
-export const useAllPricesAcs = () => useState<number[]>('acsPrices', () => [])
+export const useSelectedAcs = () => useState<{title: string, count: number, price: number}[]>('selectedAcs', () => [])
 
 //-------------------- Цены на письма --------------------//
 
 export const useMails = () => useState<TypeMails>('mails', () => { return {
   countStandart: 0,
   countEdit: 0,
-  countNames: 0
+  countNames: 0,
+  editText: '',
+  namesText: '',
+  date: '',
+  place: '',
 } })
 export const useMailsPrices = () => useState<number[]>('mailsPrices', () => [53, 50, 45, 40, 37, 35])
 

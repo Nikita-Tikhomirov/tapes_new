@@ -29,9 +29,15 @@ label.form-group
   )
   textarea.form-control(
     v-else
+    rows="6"
     style="height:auto"
     :placeholder="placeholder"
     :value="modelValue"
     @input="updateValue"
   )
 </template>
+
+<style lang="stylus">
+.form-group
+  width 100%
+</style>

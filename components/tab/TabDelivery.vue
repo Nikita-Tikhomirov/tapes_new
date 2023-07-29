@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const requests = useRequests()
+const addressee = useAddressee()
 
 const fastPrint = useFastPrint()
 const fastPrintPrices = useFastPrintPrices()
@@ -29,9 +30,9 @@ const fastPrintPrice = computed(() => {
 })
 //-------------------- Цена аксессуаров --------------------//
 
-const totalPriceAcs = useAllPricesAcs()
+const selectedAcs = useSelectedAcs()
 const acsAllPrice = computed(() => {
-  if(totalPriceAcs.value.length > 0) return totalPriceAcs.value.reduce((a,b)=>b+a)
+  if(selectedAcs.value.length > 0) return selectedAcs.value.reduce((a,b)=>a + b.price ,0)
   return 0
 })
 
@@ -59,7 +60,7 @@ const mailsPrice = computed(() => {
 //-------------------- sdek --------------------//
 
 // const ourWidjet = new ISDEKWidjet({
-//   defaultCity: 'Новосибирск', //какой город отображается по умолчанию
+//   defaultCity: 'Москва', //какой город отображается по умолчанию
 //   cityFrom: 'Москва', // из какого города будет идти доставка
 //   country: 'Россия', // можно выбрать страну, для которой отображать список ПВЗ
 //   link: 'forpvz', // id элемента страницы, в который будет вписан виджет
@@ -80,12 +81,18 @@ const mailsPrice = computed(() => {
 
 <template lang="pug">
 form.formify_box
-  .signup_form.row
-    .form-group.col-md-12
-      label.input_title Отправка в город
-      input.form-control(type="text" placeholder="Город")
-      br
-      input.form-control(type="text" placeholder="Адрес пункта выдачи")
+  .signup_form
+    inputEL(
+      type="text"
+      title="Отправка в город"
+      placeholder="Город"
+      v-model="addressee.city"
+    )
+    inputEL(
+      type="text"
+      placeholder="Адрес пункта выдачи"
+      v-model="addressee.point"
+    )
     
   //- #forpvz(v-show="delivery === 'sdek'" style="width:100%; height:200px")
 
@@ -103,12 +110,23 @@ form.formify_box
     @click="delivery = 'post'"
   )
 
-  .signup_form.row
-    .form-group.col-md-12
-      label.input_title Получатель
-      input.form-control(type="text" placeholder="ФИО")
-      br
-      input.form-control(type="text" placeholder="Телефон")
+  .signup_form
+    inputEL(
+      type="text"
+      title="Получатель"
+      placeholder="ФИО"
+      v-model="addressee.name"
+    )
+    inputEL(
+      type="text"
+      placeholder="Телефон"
+      v-model="addressee.phone"
+    )
+    inputEL(
+      type="text"
+      placeholder="ссылка на Вконтакте"
+      v-model="addressee.vk"
+    )
 
   .input_title Стоимость вашего заказа
 
@@ -133,6 +151,7 @@ form.formify_box
     type="textarea"
     placeholder="Комментарий к заказу"
     title="Комментарий к заказу"
+    v-model="addressee.text"
   )
 </template>
 

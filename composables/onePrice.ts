@@ -1,8 +1,8 @@
 export function selectOnePrice(number:number, prices:number[], quantity:number[]):number {
   let onePrice = prices[0]
 
-  for (let i = 0; i < quantity.length; i++) {
-    if (number <= quantity[i]) {
+  for (let i = 0; i < quantity.length; i++) {    
+    if (number <= +quantity[i]) {
       onePrice = prices[i]
       break
     }

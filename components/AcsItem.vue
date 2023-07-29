@@ -1,38 +1,38 @@
 <script setup lang="ts">
 const props = defineProps<{
-  id: number
-  prices: number[]
+  prices: {price: number}[]
+  counts: {count: number}[]
   title: string
   img: string
+  index: number
 }>()
 
-const totalPriceAcs = useAllPricesAcs()
 const selectedAcs = useSelectedAcs()
 
-onMounted(() => {
-  if (!selectedAcs.value[props.title]) selectedAcs.value[props.title] = 0
+onBeforeMount(()=> {
+  if (!selectedAcs.value[props.index]) selectedAcs.value[props.index] = {title: props.title, count: 0, price: 0}
 })
+
+const itemPrices = computed(()=> props.prices.reduce((acc:number[], item) => [...acc, item.price],[]))
+const itemCounts = computed(()=> props.counts.reduce((acc:number[], item) => [...acc, item.count],[]))
 
 const oneItemPrice = computed(() => {
   if (props.prices.length === 1) return props.prices[0]
-  if (props.title === 'Колокольчик "МАЙ"') {
-    return selectOnePrice(selectedAcs.value[props.title], props.prices, [5, 19, 29, 49])
-  }
-  return selectOnePrice(selectedAcs.value[props.title], props.prices, [3, 9, 29, 49])
+  return selectOnePrice(selectedAcs.value[props.index].count, itemPrices.value, itemCounts.value)
 })
 
 function change() {
-  totalPriceAcs.value[props.id] = selectedAcs.value[props.title] * oneItemPrice.value
+  selectedAcs.value[props.index].price = selectedAcs.value[props.index].count * oneItemPrice.value  
 }
 
 function addItem() {
-  selectedAcs.value[props.title]++
+  selectedAcs.value[props.index].count++
   change()
 }
 
 function removeItem() {
-  if (selectedAcs.value[props.title] !== 0) {
-    selectedAcs.value[props.title]--
+  if (selectedAcs.value[props.index].count > 0) {
+    selectedAcs.value[props.index].count--
     change()
   }
 }
@@ -41,12 +41,18 @@ function removeItem() {
 <template lang="pug">
 .dop
   .dop__img-wrap
-    img(:src="`/img/${img}`" alt="" loading="lazy")
-  .dop__title {{ title }}
+    img(
+      :src="img"
+      :alt="title"
+      width="196"
+      height="196"
+      loading="lazy"
+    )
+  .dop__title(v-html="title")
   InputCounter(
     @remove="removeItem"
     @add="addItem"
     @input="change"
-    v-model="selectedAcs[title]"
+    v-model="selectedAcs[index].count"
   )
 </template>

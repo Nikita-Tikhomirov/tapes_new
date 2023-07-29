@@ -16,18 +16,18 @@ function add() {
   if (!props.request.names[props.slug]) props.request.names[props.slug] = []
   
   if (isChildCounter.value) {
-    if (props.request.names.child < props.request.childCount) props.request.names.child++, props.request.names[props.slug].push('')
+    if (props.request.namesCount.child < props.request.childCount) props.request.namesCount.child++, props.request.names[props.slug].push('')
   } else {
-    if (props.request.names.adult < props.request.adultCount) props.request.names.adult++, props.request.names[props.slug].push('')
+    if (props.request.namesCount.adult < props.request.adultCount) props.request.namesCount.adult++, props.request.names[props.slug].push('')
   }
 }
 
 function remove(index:number) {
   props.request.names[props.slug] = props.request.names[props.slug].filter((el, i) => i !== index)
   if (isChildCounter.value) {
-    props.request.names.child--
+    props.request.namesCount.child--
   } else {
-    props.request.names.adult--
+    props.request.namesCount.adult--
   }
 }
 </script>

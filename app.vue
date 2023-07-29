@@ -2,6 +2,11 @@
 const activeTab = useActiveTab()
 const requests = useRequests()
 
+
+onBeforeMount(()=> {
+  getTapesPrices()
+})
+
 function addRequest() {
   requests.value.push({
     price: 0,
@@ -12,10 +17,11 @@ function addRequest() {
     print: 'Золото',
     text: '',
     isName: false,
-    names: {
+    namesCount: {
       child: 0,
       adult: 0
-    }
+    },
+    names: {}
   })
 }
 </script>
@@ -34,12 +40,12 @@ function addRequest() {
 
     .formify_right_fullwidth.d-flex.align-items-center.justify-content-center
       .form_tab_two
-        Steps
+        Steps(v-if="activeTab !== 'thanks'")
         TabWrap
           TabStart(v-if="activeTab === 'start'")
           TabAcs(v-else-if="activeTab === 'acs'")
           TabDelivery(v-else-if="activeTab === 'delivery'")
-          template(v-else)
+          template(v-else-if="activeTab !== 'thanks'")
             TabForm(
               v-for="(request, i) in requests"
               :key="i"
@@ -47,7 +53,7 @@ function addRequest() {
               :request="request"
             )
             .addrequestButton(@click="addRequest") Добавить заявку
-        TotalPrice(v-if="activeTab !== 'start'")
+        TotalPrice(v-if="activeTab !== 'start' && activeTab !== 'thanks'")
 </template>
 
 <style>
