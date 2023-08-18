@@ -2,7 +2,6 @@
 const activeTab = useActiveTab()
 const requests = useRequests()
 
-
 onBeforeMount(()=> {
   getTapesPrices()
 })

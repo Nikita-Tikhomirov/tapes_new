@@ -1,6 +1,5 @@
 export async function getTapesPrices() {
   const { data } = await useFetch<any>('https://tapes-wp.tihomirov.pro/wp-json/acf/v3/options/options/')
-
   //-------------------- --------------------//
 
   const adultPrices = useBasePrices()

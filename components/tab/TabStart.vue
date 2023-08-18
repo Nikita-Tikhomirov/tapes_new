@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const nextTab = useNextTab()
-const requests = useRequests()
+const activeTab = useActiveTab()
 
 const tabs = [
   { tabName: 'vipuskniki', title: 'Выпускные именные ленты' },
@@ -14,6 +14,16 @@ const tabs = [
 function selectTab(name:string) {
   nextTab.value = name
 }
+
+function activateTab() {
+  if (!nextTab.value) {
+    alert('Выберете для кого заказываете ленты')
+    return
+  }
+
+  activeTab.value = nextTab.value
+  return
+}
 </script>
 
 <template lang="pug">
@@ -26,6 +36,11 @@ function selectTab(name:string) {
     :subtitle="tab.subtitle"
     @click="selectTab(tab.tabName)"
   )
+
+  .next_button.text-right
+    button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="activateTab")
+      span Дальше
+      i.arrow_right
 </template>
 
 <style scoped>

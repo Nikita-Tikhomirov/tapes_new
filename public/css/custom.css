@@ -169,7 +169,7 @@ h5 span {}
 
 .dops-wrap {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(190px,1fr));
   grid-gap: 30px;
 }
 
@@ -185,6 +185,9 @@ h5 span {}
 
 .dop__img-wrap img {
   max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .input_title {

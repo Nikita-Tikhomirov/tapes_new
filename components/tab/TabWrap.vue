@@ -49,105 +49,8 @@ const subtitle = computed(() => {
 function next() {
   error.value = false
 
-  if (tab.value === 'start') {
-    if (!nextTab.value) {
-      alert('Выберете для кого заказываете ленты')
-      return
-    }
-    tab.value = nextTab.value
-    return
-  }
-
   if (tab.value === 'acs'){
     tab.value = 'delivery'
-    return
-  }
-
-  if (tab.value === 'delivery') {
-    let formData = ''
-    
-    requests.value.forEach((item, i) => {
-      if (item.adultCount > 0 || item.childCount > 0) {
-        formData += `Заявка №${i+1}:\n`
-
-        if (item.adultCount > 0) formData += `Взрослые ленты: ${item.adultCount}\n`
-        if (item.childCount > 0) formData += `Детские ленты: ${item.childCount}\n`
-
-        formData += `Шаблон: ${item.template}\nЦвет ленты: ${item.color}\nЦвет печати: ${item.print}\n`
-
-        if (item.text) formData += `Доп. надпись на ленте: ${item.text}\n`
-
-        formData += listPeople(item.names.graduatesMale, item.isName, 'Выпускники')
-        formData += listPeople(item.names.graduatesFemale, item.isName, 'Выпускницы')
-        formData += listPeople(item.names.teacher, item.isName, 'Классный руководитель')
-        formData += listPeople(item.names.firstTeacher, item.isName, 'Первый учитель')
-        formData += listPeople(item.names.director, item.isName, 'Директор')
-        formData += listPeople(item.names.caregiver, item.isName, 'Воспитатель')
-        formData += listPeople(item.names.assistant, item.isName, 'Помошник воспитателя')
-        formData += listPeople(item.names.juniorCaregiver, item.isName, 'Младший воспитатель')
-        formData += listPeople(item.names.firstClassMale, item.isName, 'Первокласники')
-        formData += listPeople(item.names.firstClassFemale, item.isName, 'Первокласницы')
-        formData += listPeople(item.names.firstTeacher, item.isName, 'Первый учитель')
-        formData += listPeople(item.names.awardAdult, item.isName, 'Взрослые наминации')
-        formData += listPeople(item.names.awardChild, item.isName, 'Детские наминации')
-
-        formData += '\n-------------------\n\n'
-      }
-    })
-    
-    let acs = ''
-    selectedAcs.value.forEach(item => {
-      if (item.count > 0) acs += `${item.title}: ${item.count}\n`
-    })
-
-    if (acs) {
-      formData += `Аксессуары:\n ${acs}`
-      formData += '\n-------------------\n\n'
-    }
-
-    let mailsText = ''
-    if (mails.value.countStandart) mailsText += `Пригласительные "Стандарт": ${mails.value.countStandart}\n`
-    if (mails.value.countEdit) mailsText += `Пригласительные с доп. текстом: ${mails.value.countEdit}\n`
-    if (mails.value.countNames) mailsText += `Именные пригласительные: ${mails.value.countNames}\n`
-    if (mails.value.editText) mailsText += `Доп. текст:\n${mails.value.editText}\n`
-    if (mails.value.namesText) mailsText += `Список имен:\n${mails.value.namesText}\n`
-    if (mails.value.date) mailsText += `Дата проведения: ${mails.value.date}\n`
-    if (mails.value.place) mailsText += `Место проведения: ${mails.value.place}\n`
-
-    if (mailsText) {
-      formData += `${mailsText}`
-      formData += '\n-------------------\n\n'
-    }
-
-    if (delivery.value === 'post') {
-      formData += `Отправка: Почта россии`
-      formData += '\n-------------------\n\n'
-    } else if (delivery.value === 'sdek') {
-      formData += `Отправка: СДЕК`
-      formData += '\n-------------------\n\n'
-    }
-
-    formData += `Получатель:\n`
-    formData += `${addressee.value.city}\n`
-    formData += `${addressee.value.point}\n`
-    formData += `${addressee.value.name}\n`
-    formData += `${addressee.value.phone}\n`
-    formData += `${addressee.value.vk}\n`
-    if (addressee.value.text) formData += `Коментарий к заказу: ${addressee.value.text}\n`
-    formData += '\n-------------------\n\n'
-
-    if (fastPrint.value) {
-      formData += `Экспресс печать: Да\n`
-      formData += '\n-------------------\n\n'
-    }
-
-    formData += `Цена: ${totalPrice.value}`
-    
-    useFetch('https://tapes-wp.tihomirov.pro/mail.php', {
-      method: 'POST',
-      body: formData
-    })
-    tab.value = 'thanks'
     return
   }
 
@@ -168,21 +71,6 @@ function next() {
     return
   }
 }
-
-function listPeople (item, isName, title) {
-  if (item && item.length > 0) {
-    if (!isName) return `${title}: ${item.length}\n`
-    
-    let string = `${title}:\n`
-    for (let i = 0; i < item.length; i++) {
-      string += `${item[i]}\n`
-    }
-
-    return string
-  }
-
-  return ''
-}
 </script>
 
 <template lang="pug">
@@ -201,7 +89,7 @@ function listPeople (item, isName, title) {
       @click="isTrue = !isTrue"
     )
 
-    .next_button.text-right
+    .next_button.text-right(v-if="tab !== 'start' && tab !== 'delivery'")
       button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="next" v-if="tab !== 'thanks'")
         span(v-if="tab !== 'delivery'") Дальше
         span(v-if="tab === 'delivery'") Заказать
