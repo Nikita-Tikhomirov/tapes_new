@@ -13,7 +13,10 @@ export const useRequests = () => useState<TypeRequest[]>('request', () => [{
   childCount: 0,
   template: '1',
   color: 'Темно-бежевый',
-  print: 'Золото',
+  print: {
+    name: 'Золото',
+    isPrice: false
+  },
   text: '',
   isName: false,
   namesCount: {
@@ -29,6 +32,7 @@ export const useAddressee = () => useState('addressee', () => ({
   vk: '',
   city: '',
   point: '',
+  pointId: '',
   text: ''
 }))
 
@@ -63,7 +67,12 @@ export const useMails = () => useState<TypeMails>('mails', () => { return {
   date: '',
   place: '',
 } })
+
 export const useMailsPrices = () => useState<number[]>('mailsPrices', () => [53, 50, 45, 40, 37, 35])
+export const useMailsDiscount = () => useState<number[]>('mailsDiscount', () => [3, 10, 30, 70, 100])
+
+export const useMailsPriceEdit = () => useState<number>('mailsPriceEdit', () => 10)
+export const useMailsPriceName = () => useState<number>('mailsPriceName', () => 20)
 
 //-------------------- Цены на экспресс печать --------------------//
 

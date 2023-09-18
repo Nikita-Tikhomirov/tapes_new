@@ -14,10 +14,10 @@ const delivery = useDelivery()
 const allAdult = computed(()=> requests.value.reduce((a,b)=> a + b.adultCount, 0))
 const allChild = computed(()=> requests.value.reduce((a,b)=> a + b.childCount, 0))
 
-const AllColorsUniq = computed(()=> requests.value.reduce((a, b)=> {
-  if (a.includes(b.color)) return a
-  return [...a, b.color]
-}, []))
+// const AllColorsUniq = computed(()=> requests.value.reduce((a, b)=> {
+//   if (a.includes(b.color)) return a
+//   return [...a, b.color]
+// }, []))
 
 const tapesPrice = computed(()=> {
   const adultPrices = activeTab.value === 'award' ? useAwardPrices() : useBasePrices()
@@ -44,21 +44,24 @@ const tapesPrice = computed(()=> {
   })
 
   requests.value.forEach(request => {
-    const tapes = request.adultCount + request.childCount
+    // const tapes = request.adultCount + request.childCount
   
-    if (request.print === 'true') {
+    if (request.print.isPrice) {
       adultOnePrice += 25
       childOnePrice += 25
+    } else {
+      adultOnePrice -= 25
+      childOnePrice -= 25
     }
 
-    let colorPrice = selectOnePrice(tapes, [50,35,25,15,10,10], [1,4,7,9,19])
+    // let colorPrice = selectOnePrice(tapes, [50,35,25,15,10,10], [1,4,7,9,19])
 
-    const maxIndex = Math.max.apply(null, requestTapes)
-    const index = requestTapes.indexOf(maxIndex)
+    // const maxIndex = Math.max.apply(null, requestTapes)
+    // const index = requestTapes.indexOf(maxIndex)
 
-    if (tapes < 20 && AllColorsUniq.value.length > 1 && request !== requests.value[index]) {
-      adultOnePrice += colorPrice
-    }
+    // if (tapes < 20 && AllColorsUniq.value.length > 1 && request !== requests.value[index]) {
+    //   adultOnePrice += colorPrice
+    // }
   
     request.price = (request.adultCount * adultOnePrice) + (request.childCount * childOnePrice)
     allPrice += request.price
@@ -95,14 +98,17 @@ const acsAllPrice = computed(() => {
 //-------------------- Цена Писем --------------------//
 
 const mailsPrices = useMailsPrices()
+const mailsDiscount = useMailsDiscount()
+const mailsPriceEdit = useMailsPriceEdit()
+const mailsPriceName = useMailsPriceName()
 const mails = useMails()
 
 const mailsPrice = computed(() => {
   const count = mails.value.countStandart + mails.value.countEdit + mails.value.countNames
 
-  let onePrice = selectOnePrice(count, mailsPrices.value, [3, 10, 30, 70, 100])
-  let onePriceEdit = onePrice + 10
-  let onePriceNames = onePrice + 20
+  let onePrice = selectOnePrice(count, mailsPrices.value, mailsDiscount.value)
+  let onePriceEdit = onePrice + mailsPriceEdit.value
+  let onePriceNames = onePrice + mailsPriceName.value
 
   return (onePrice * mails.value.countStandart) + (onePriceEdit * mails.value.countEdit) + (onePriceNames * mails.value.countNames)
 })

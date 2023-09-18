@@ -7,7 +7,6 @@ const props = defineProps<{
 }>()
 
 const activeTab = useActiveTab()
-const print = ref()
 
 const listPeople = computed(()=> {
   if (activeTab.value === 'vipuskniki' || activeTab.value === 'school') {
@@ -39,6 +38,11 @@ const listPeople = computed(()=> {
     ]
   }
 })
+
+function selectPrint(e) {
+  const selectOptionIndex = e.target.options.selectedIndex
+  props.request.print.isPrice = e.target.options[selectOptionIndex].getAttribute('data-color')
+}
 </script>
 
 <template lang="pug">
@@ -110,7 +114,7 @@ const listPeople = computed(()=> {
 
     .form-group
       label.input_title Цвет печати
-      select.niceselect(v-model="request.print")
+      select.niceselect(v-model="request.print.name" @change="(e) => selectPrint(e)")
         option(value="Золото" selected data-color="false") Золото 
         option(value="Серебро" data-color="false") Серебро 
         option(value="Черный" data-color="false") Черный 

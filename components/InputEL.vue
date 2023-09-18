@@ -4,7 +4,7 @@ const props = defineProps<{
   placeholder: string
   title: string
   subtitle?: string
-  modelValue: string
+  modelValue: string | number
 }>()
 
 const emit = defineEmits<{

@@ -48,22 +48,20 @@ const acsAllPrice = computed(() => {
 //-------------------- Цена Писем --------------------//
 
 const mailsPrices = useMailsPrices()
+const mailsDiscount = useMailsDiscount()
+const mailsPriceEdit = useMailsPriceEdit()
+const mailsPriceName = useMailsPriceName()
 const mails = useMails()
-
-// const standartMails = computed(() => mails.value.countStandart * selectOnePrice(mails.value.countStandart, mailsPrices.value, [3, 10, 30, 70, 100]))
-// const editMails = computed(() => mails.value.countEdit  * (selectOnePrice(mails.value.countEdit, mailsPrices.value, [3, 10, 30, 70, 100]) + 10))
-// const nameMails = computed(() => mails.value.countNames  * (selectOnePrice(mails.value.countNames, mailsPrices.value, [3, 10, 30, 70, 100]) + 20))
 
 const mailsPrice = computed(() => {
   const count = mails.value.countStandart + mails.value.countEdit + mails.value.countNames
 
-  let onePrice = selectOnePrice(count, mailsPrices.value, [3, 10, 30, 70, 100])
-  let onePriceEdit = onePrice + 10
-  let onePriceNames = onePrice + 20
+  let onePrice = selectOnePrice(count, mailsPrices.value, mailsDiscount.value)
+  let onePriceEdit = onePrice + mailsPriceEdit.value
+  let onePriceNames = onePrice + mailsPriceName.value
 
   return (onePrice * mails.value.countStandart) + (onePriceEdit * mails.value.countEdit) + (onePriceNames * mails.value.countNames)
 })
-
 
 
 //-------------------- sdek --------------------//
@@ -76,20 +74,22 @@ function deliverySdek() {
   if (!sdekWidjet) {
     const ourWidjet = new ISDEKWidjet({
       hidedelt: true,
-      defaultCity: 'Москва', //какой город отображается по умолчанию
-      cityFrom: 'Томск', // из какого города будет идти доставка
-      country: 'Россия', // можно выбрать страну, для которой отображать список ПВЗ
-      link: 'forpvz', // id элемента страницы, в который будет вписан виджет
-      path: 'https://tapes-wp.tihomirov.pro/widget/scripts/', //директория с библиотеками
-      servicepath: 'https://tapes-wp.tihomirov.pro/service.php', //ссылка на файл service.php на вашем сайте
-      onChoose: onChoose
+      defaultCity: 'Москва',
+      cityFrom: 'Томск',
+      country: 'Россия',
+      goods: [
+        { length : 1, width : 1, height : 1, weight : 1 },
+      ],
+      link: 'forpvz',
+      path: 'https://maytimelenta.ru/widget/scripts/',
+      servicepath: 'https://maytimelenta.ru/service.php',
+      onChoose: onChoose,
     })
 
     sdekWidjet = true
   }
 
   function onChoose(wat) {
-    // console.log(wat)
     sdekPrice.value = wat.price
     addressee.value.point = wat.PVZ.Address
     addressee.value.pointId = wat.id
@@ -212,7 +212,7 @@ function mail() {
   let str = formData.replace(/&#171;/g, "«")
   str = str.replace(/&#187;/g, "»")
   
-  useFetch('https://tapes-wp.tihomirov.pro/mail.php', {
+  useFetch('https://maytimelenta.ru/mail.php', {
     method: 'POST',
     body: str
   })
@@ -221,7 +221,7 @@ function mail() {
 }
 
 async function sdeck () {
-  const { data } = await useFetch<any>('https://tapes-wp.tihomirov.pro/sdek.php', {
+  const { data } = await useFetch<any>('https://maytimelenta.ru/sdek.php', {
     method: 'POST',
     body: {
       price: totalPrice.value / 2,

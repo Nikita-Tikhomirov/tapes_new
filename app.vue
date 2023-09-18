@@ -4,6 +4,7 @@ const requests = useRequests()
 
 onBeforeMount(()=> {
   getTapesPrices()
+  getMailsPrices()
 })
 
 function addRequest() {

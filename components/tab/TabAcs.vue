@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const {data} = await useFetch<any>('https://tapes-wp.tihomirov.pro/wp-json/wp/v2/posts?_embed')
+const {data} = await useFetch<any>('https://maytimelenta.ru/wp-json/wp/v2/posts?_embed')
 </script>
 
 <template lang="pug">

@@ -4,7 +4,10 @@ export interface TypeRequest {
   childCount: number
   template: string
   color: string
-  print: string
+  print: {
+    name: string
+    isPrice: boolean
+  }
   text: string
   isName: boolean
   namesCount: {

@@ -10,5 +10,5 @@ export function selectOnePrice(number:number, prices:number[], quantity:number[]
 
   if (number > quantity[quantity.length-1]) onePrice = prices[prices.length-1]
   
-  return onePrice
+  return +onePrice
 }

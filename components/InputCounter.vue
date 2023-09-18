@@ -1,10 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  type: string
-  placeholder: string
-  title: string
-  subtitle?: string
-  modelValue: string
+  modelValue: string | number
   readonly?: boolean
 }>()
 
@@ -17,11 +13,19 @@ const emit = defineEmits<{
 function updateValue(e:Event) {
   emit('update:modelValue', (e.target as HTMLInputElement).value)
 }
+
+function remove() {
+  if (props.modelValue > '0') emit('remove')
+}
+
+function add() {
+  emit('add')
+}
 </script>
 
 <template lang="pug">
 .inputCounter
-  .inputCounter__change(@click="emit('remove')") -
+  .inputCounter__change(@click="remove") -
   input.inputCounter__input.form-control(
     type="number"
     min="0"
@@ -30,7 +34,7 @@ function updateValue(e:Event) {
     :readonly="readonly"
     @input="updateValue"
   )
-  .inputCounter__change(@click="emit('add')") +
+  .inputCounter__change(@click="add") +
 </template>
 
 <style scoped lang="stylus">
