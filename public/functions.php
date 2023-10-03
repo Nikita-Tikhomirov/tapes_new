@@ -16,6 +16,7 @@ if( function_exists('acf_add_options_page') ) {
 		'page_title' 	=> 'Цены на ленты',
 		'menu_title'	=> 'Цены на ленты',
 		'menu_slug' 	=> 'acf-options',
+		'icon_url' 	=> 'dashicons-edit-page',
 		'redirect'		=> false
 	));
 }

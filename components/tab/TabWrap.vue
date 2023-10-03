@@ -2,6 +2,7 @@
 const mails = useMails()
 const tab = useActiveTab()
 const nextTab = useNextTab()
+const tabsDesc = useTabsDesc()
 const requests = useRequests()
 const delivery = useDelivery()
 const addressee = useAddressee()
@@ -37,12 +38,12 @@ const title = computed(() => {
 })
 
 const subtitle = computed(() => {
-  if (tab.value === 'vipuskniki') return 'Выпускники школ, колледжей и т.д.'
-  else if (tab.value === 'school') return 'Для начальной школы'
-  else if (tab.value === 'todlers') return 'Для детского сада'
-  else if (tab.value === 'firstclass') return 'Первоклассникам'
-  else if (tab.value === 'acs') return 'Описание для допов'
-  else if (tab.value === 'award') return 'Для мероприятий, праздников'
+  if (tab.value === 'vipuskniki') return tabsDesc.value.vipuskniki
+  else if (tab.value === 'school') return tabsDesc.value.school
+  else if (tab.value === 'todlers') return tabsDesc.value.todlers
+  else if (tab.value === 'firstclass') return tabsDesc.value.firstclass
+  else if (tab.value === 'acs') return tabsDesc.value.acs
+  else if (tab.value === 'award') return tabsDesc.value.award
   else if (tab.value === 'thanks') return 'В ближайшее время наш менеджер свяжется с вами'
 })
 

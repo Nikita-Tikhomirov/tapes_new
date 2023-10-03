@@ -17,7 +17,7 @@ const itemPrices = computed(()=> props.prices.reduce((acc:number[], item) => [..
 const itemCounts = computed(()=> props.counts.reduce((acc:number[], item) => [...acc, item.count],[]))
 
 const oneItemPrice = computed(() => {
-  if (props.prices.length === 1) return props.prices[0]
+  if (props.prices.length === 1) return +props.prices[0].price
   return selectOnePrice(selectedAcs.value[props.index].count, itemPrices.value, itemCounts.value)
 })
 

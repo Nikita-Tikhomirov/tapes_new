@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const {data} = await useFetch<any>('https://maytimelenta.ru/wp-json/wp/v2/posts?_embed')
+const {data} = await useFetch<any>('https://maytimelenta.ru/wp-json/wp/v2/posts?_embed&per_page=100&orderby=menu_order&order=asc')
 </script>
 
 <template lang="pug">

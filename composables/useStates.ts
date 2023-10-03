@@ -36,6 +36,8 @@ export const useAddressee = () => useState('addressee', () => ({
   text: ''
 }))
 
+export const useTabsDesc = () => useState<{}>('tabsDesc', () => ({}))
+
 //-------------------- Цены на ленты --------------------//
 
 export const useBasePrices = () => useState<number[]>('basePrices', () => [])

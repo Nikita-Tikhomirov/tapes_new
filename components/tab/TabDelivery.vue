@@ -11,15 +11,9 @@ const delivery = useDelivery()
 
 const sdekPrice = ref(0)
 
-const sdekPriceOnProcent = computed(() => {
-
-  if (sdekPrice.value) return `${(+sdekPrice.value + (totalPrice.value * 0.05)).toFixed(2)}р.`
-  return 'Выберите пункт выдачи для расчета доставки'
-})
-
 const subtitleSdek = computed(()=> {
   if (delivery.value === 'sdek') {
-    return `${ totalPrice.value / 2 }р. предоплата (За ваш заказ)<br>Остаток 50% и сумму за доставку (${sdekPriceOnProcent.value}) вы оплачиваете в пункте выдачи СДЭК, адрес которого вы указываете`
+    return `${ totalPrice.value / 2 }р. предоплата (За ваш заказ)<br>Остаток 50% и сумму за доставку (${sdekPrice.value}р.) вы оплачиваете в пункте выдачи СДЭК, адрес которого вы указываете`
   } else {
     return '50% предоплата (За ваш заказ)<br>50% при получении + стоимость доставки'
   }
@@ -90,7 +84,19 @@ function deliverySdek() {
   }
 
   function onChoose(wat) {
-    sdekPrice.value = wat.price
+    console.log(wat.cityName);
+    console.log(`оригинал: ${wat.price}`);
+    
+    if (wat.cityName === 'Москва' || wat.cityName === 'Санкт-Петербург') { sdekPrice.value = 350 }
+    else if (+wat.price <= 230) sdekPrice.value = 250
+    else if (+wat.price <= 290) sdekPrice.value = 300
+    else if (+wat.price <= 335) sdekPrice.value = 350
+    else if (+wat.price <= 395) sdekPrice.value = 395
+    else if (+wat.price <= 600) sdekPrice.value = +wat.price
+    else if (+wat.price > 600) sdekPrice.value = +wat.price + (+totalPrice.value * 0.03)
+
+    console.log(`Вычеслинная: ${sdekPrice.value}`);
+
     addressee.value.point = wat.PVZ.Address
     addressee.value.pointId = wat.id
     addressee.value.city = wat.cityName
@@ -139,7 +145,7 @@ function mail() {
       if (item.adultCount > 0) formData += `Взрослые ленты: ${item.adultCount}\n`
       if (item.childCount > 0) formData += `Детские ленты: ${item.childCount}\n`
 
-      formData += `Шаблон: ${item.template}\nЦвет ленты: ${item.color}\nЦвет печати: ${item.print}\n`
+      formData += `Шаблон: ${item.template}\nЦвет ленты: ${item.color}\nЦвет печати: ${item.print.name}\n`
 
       if (item.text) formData += `Доп. надпись на ленте: ${item.text}\n`
 
@@ -225,7 +231,7 @@ async function sdeck () {
     method: 'POST',
     body: {
       price: totalPrice.value / 2,
-      delivery_price: (+sdekPrice.value + (totalPrice.value * 0.05)).toFixed(2),
+      delivery_price: sdekPrice.value,
       delivery_point: addressee.value.pointId,
       name: addressee.value.name,
       phone: addressee.value.phone,
@@ -310,7 +316,7 @@ function listPeople (item, isName, title) {
   p(v-if="mailsPrice > 0") Пригласительные: <b> {{ mailsPrice }}</b> р.
 
   p(v-if="delivery === 'post'") Доставка: <b>500</b>р.
-  p(v-if="delivery === 'sdek'") Доставка: <b>{{ sdekPriceOnProcent }}</b>
+  p(v-if="delivery === 'sdek'") Доставка: <b>{{ sdekPrice }}</b>
 
   Radio(
     :active="fastPrint"

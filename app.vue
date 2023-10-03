@@ -1,10 +1,13 @@
 <script setup lang="ts">
+const { data } = await useFetch<any>('https://maytimelenta.ru/wp-json/acf/v3/options/options/')
+
 const activeTab = useActiveTab()
 const requests = useRequests()
 
 onBeforeMount(()=> {
   getTapesPrices()
   getMailsPrices()
+  getAcsDesc()
 })
 
 function addRequest() {
@@ -34,9 +37,9 @@ function addRequest() {
       style="background-color: rgb(255, 239, 249)"
     )
       .top_logo
-        img(src="/img/logo.png" alt="" loading="lazy")
+        img(:src="data.acf.logo" alt="" loading="lazy")
      
-      img.img-fluid(src="/img/personal_img.png" alt="" loading="lazy")
+      img.img-fluid(:src="data.acf.image" alt="" loading="lazy")
 
     .formify_right_fullwidth.d-flex.align-items-center.justify-content-center
       .form_tab_two
