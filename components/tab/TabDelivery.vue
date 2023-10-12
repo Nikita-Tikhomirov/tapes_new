@@ -57,7 +57,6 @@ const mailsPrice = computed(() => {
   return (onePrice * mails.value.countStandart) + (onePriceEdit * mails.value.countEdit) + (onePriceNames * mails.value.countNames)
 })
 
-
 //-------------------- sdek --------------------//
 
 let sdekWidjet = false
@@ -66,41 +65,84 @@ function deliverySdek() {
   delivery.value = 'sdek'
 
   if (!sdekWidjet) {
-    const ourWidjet = new ISDEKWidjet({
-      hidedelt: true,
-      defaultCity: 'Москва',
-      cityFrom: 'Томск',
-      country: 'Россия',
+    const widget = new window.CDEKWidget({
+      apiKey: '5f5b2da8-bfcb-44f6-81b2-a6d94f5f90de',
+      defaultLocation: 'Москва',
+      from: 'Томск',
+      root: 'forpvz',
+      servicePath: 'https://maytimelenta.ru/service.php',
       goods: [
         { length : 1, width : 1, height : 1, weight : 1 },
       ],
-      link: 'forpvz',
-      path: 'https://maytimelenta.ru/widget/scripts/',
-      servicepath: 'https://maytimelenta.ru/service.php',
-      onChoose: onChoose,
-    })
+      tariffs: {
+        office: [234],
+        door: [233],
+        pickup: [378]
+      },
+      hideFilters: {
+        have_cashless: true,
+        have_cash: true,
+        is_dressing_room: true,
+        type: true,
+      },
+      onChoose: function(_type, tariff, address) {
+        if (_type === 'door') {
+          const street = address.components.find(el => el.kind === 'street').name
+          const house = address.components.find(el => el.kind === 'house').name
+          addressee.value.city = address.components.find(el => el.kind === 'locality').name
+          addressee.value.point = `${street} ${house}`
+        } else {
+          addressee.value.city = address.city
+          addressee.value.point = address.address
+        }
+
+        if (addressee.value.city === 'Москва' || addressee.value.city === 'Санкт-Петербург') sdekPrice.value = 350
+        else if (+tariff.delivery_sum <= 230) sdekPrice.value = 250
+        else if (+tariff.delivery_sum <= 290) sdekPrice.value = 300
+        else if (+tariff.delivery_sum <= 335) sdekPrice.value = 350
+        else if (+tariff.delivery_sum <= 395) sdekPrice.value = 395
+        else if (+tariff.delivery_sum <= 600) sdekPrice.value = +tariff.delivery_sum
+        else if (+tariff.delivery_sum > 600) sdekPrice.value = +tariff.delivery_sum + (+totalPrice.value * 0.03)
+      },
+    });
+
+    // const ourWidjet = new ISDEKWidjet({
+    //   // hidedelt: true,
+    //   detailAddress: true,
+    //   defaultCity: 'Москва',
+    //   cityFrom: 'Томск',
+    //   country: 'Россия',
+    //   goods: [
+    //     { length : 1, width : 1, height : 1, weight : 1 },
+    //   ],
+    //   link: 'forpvz',
+    //   path: 'https://maytimelenta.ru/widget/scripts/',
+    //   servicepath: 'https://maytimelenta.ru/service.php',
+    //   onChoose: onChoose,
+    //   onChooseAddress: onChoose
+    // })
 
     sdekWidjet = true
   }
 
-  function onChoose(wat) {
-    console.log(wat.cityName);
-    console.log(`оригинал: ${wat.price}`);
-    
-    if (wat.cityName === 'Москва' || wat.cityName === 'Санкт-Петербург') { sdekPrice.value = 350 }
-    else if (+wat.price <= 230) sdekPrice.value = 250
-    else if (+wat.price <= 290) sdekPrice.value = 300
-    else if (+wat.price <= 335) sdekPrice.value = 350
-    else if (+wat.price <= 395) sdekPrice.value = 395
-    else if (+wat.price <= 600) sdekPrice.value = +wat.price
-    else if (+wat.price > 600) sdekPrice.value = +wat.price + (+totalPrice.value * 0.03)
+  // function onChoose(wat) {
+  //   if (wat.cityName === 'Москва' || wat.cityName === 'Санкт-Петербург') { sdekPrice.value = 350 }
+  //   else if (+wat.price <= 230) sdekPrice.value = 250
+  //   else if (+wat.price <= 290) sdekPrice.value = 300
+  //   else if (+wat.price <= 335) sdekPrice.value = 350
+  //   else if (+wat.price <= 395) sdekPrice.value = 395
+  //   else if (+wat.price <= 600) sdekPrice.value = +wat.price
+  //   else if (+wat.price > 600) sdekPrice.value = +wat.price + (+totalPrice.value * 0.03)
 
-    console.log(`Вычеслинная: ${sdekPrice.value}`);
+  //   // console.log(`Вычеслинная: ${sdekPrice.value}`);
 
-    addressee.value.point = wat.PVZ.Address
-    addressee.value.pointId = wat.id
-    addressee.value.city = wat.cityName
-  }
+  //   if (wat.PVZ?.Address) addressee.value.point = wat.PVZ.Address
+  //   if (wat.id) addressee.value.pointId = wat.id
+
+  //   if (wat.address) addressee.value.point = wat.address
+
+  //   addressee.value.city = wat.cityName
+  // }
 }
 
 function order() {
@@ -140,7 +182,7 @@ function mail() {
     
   requests.value.forEach((item, i) => {
     if (item.adultCount > 0 || item.childCount > 0) {
-      formData += `Заявка №${i+1}:\n`
+      formData += `Заявка №${i+1}: ${item.price} р.\n`
 
       if (item.adultCount > 0) formData += `Взрослые ленты: ${item.adultCount}\n`
       if (item.childCount > 0) formData += `Детские ленты: ${item.childCount}\n`
@@ -148,20 +190,10 @@ function mail() {
       formData += `Шаблон: ${item.template}\nЦвет ленты: ${item.color}\nЦвет печати: ${item.print.name}\n`
 
       if (item.text) formData += `Доп. надпись на ленте: ${item.text}\n`
-
-      formData += listPeople(item.names.graduatesMale, item.isName, 'Выпускники')
-      formData += listPeople(item.names.graduatesFemale, item.isName, 'Выпускницы')
-      formData += listPeople(item.names.teacher, item.isName, 'Классный руководитель')
-      formData += listPeople(item.names.firstTeacher, item.isName, 'Первый учитель')
-      formData += listPeople(item.names.director, item.isName, 'Директор')
-      formData += listPeople(item.names.caregiver, item.isName, 'Воспитатель')
-      formData += listPeople(item.names.assistant, item.isName, 'Помошник воспитателя')
-      formData += listPeople(item.names.juniorCaregiver, item.isName, 'Младший воспитатель')
-      formData += listPeople(item.names.firstClassMale, item.isName, 'Первокласники')
-      formData += listPeople(item.names.firstClassFemale, item.isName, 'Первокласницы')
-      formData += listPeople(item.names.firstTeacher, item.isName, 'Первый учитель')
-      formData += listPeople(item.names.awardAdult, item.isName, 'Взрослые наминации')
-      formData += listPeople(item.names.awardChild, item.isName, 'Детские наминации')
+      formData += '\n'
+      for (const names in item.names) {
+        formData += listPeople(item.names[names].names, item.isName, item.names[names].title)
+      }
 
       formData += '\n-------------------\n\n'
     }
@@ -173,7 +205,7 @@ function mail() {
   })
 
   if (acs) {
-    formData += `Аксессуары:\n ${acs}`
+    formData += `Аксессуары: ${acsAllPrice.value} р.\n ${acs}`
     formData += '\n-------------------\n\n'
   }
 
@@ -187,17 +219,15 @@ function mail() {
   if (mails.value.place) mailsText += `Место проведения: ${mails.value.place}\n`
 
   if (mailsText) {
+    formData += `Цена пригласительных: ${mailsPrice.value} р.\n`
     formData += `${mailsText}`
     formData += '\n-------------------\n\n'
   }
 
-  if (delivery.value === 'post') {
-    formData += `Отправка: Почта россии`
-    formData += '\n-------------------\n\n'
-  } else if (delivery.value === 'sdek') {
-    formData += `Отправка: СДЕК`
-    formData += '\n-------------------\n\n'
-  }
+  formData += delivery.value === 'post' ?
+    'Отправка: Почта россии\nЦена доставки: 500 р.' :
+    `Отправка: СДЕК\nЦена доставки: ${sdekPrice.value} р.`
+  formData += '\n-------------------\n\n'
 
   formData += `Получатель:\n`
   formData += `${addressee.value.city}\n`
@@ -213,11 +243,11 @@ function mail() {
     formData += '\n-------------------\n\n'
   }
 
-  formData += `Цена: ${totalPrice.value}`
+  formData += `Цена: ${totalPrice.value} р.`
 
   let str = formData.replace(/&#171;/g, "«")
   str = str.replace(/&#187;/g, "»")
-  
+
   useFetch('https://maytimelenta.ru/mail.php', {
     method: 'POST',
     body: str
@@ -227,7 +257,7 @@ function mail() {
 }
 
 async function sdeck () {
-  const { data } = await useFetch<any>('https://maytimelenta.ru/sdek.php', {
+  await useFetch<any>('https://maytimelenta.ru/sdek.php', {
     method: 'POST',
     body: {
       price: totalPrice.value / 2,
@@ -243,9 +273,10 @@ function listPeople (item, isName, title) {
   if (item && item.length > 0) {
     if (!isName) return `${title}: ${item.length}\n`
     
-    let string = `${title}:\n`
-    for (let i = 0; i < item.length; i++) {
-      string += `${item[i]}\n`
+    let string = title + ':\n'
+
+    for (const name of item) {
+      string += '    ' + name + '\n'
     }
 
     return string
@@ -273,7 +304,7 @@ function listPeople (item, isName, title) {
   )
 
   .input_title(v-show="delivery === 'sdek'" style="margin: 12px 0") Выберите адрес
-  #forpvz(v-show="delivery === 'sdek'" style="width:100%; height:350px")
+  #forpvz(v-show="delivery === 'sdek'" style="width:100%; height:500px")
 
   .signup_form
     inputEL(
@@ -309,14 +340,37 @@ function listPeople (item, isName, title) {
   .input_title Стоимость вашего заказа
 
   template(v-for="(request, i) in requests")
-    p(v-if="request.price > 0") Заявка №{{ i + 1 }}: <b> {{ request.price }}</b> р.
+    .block(v-if="(request.adultCount > 0 || request.childCount > 0) && request.price > 0")
+      p Заявка №{{ i + 1 }}: {{ request.price }}р.
+      ul
+        li(v-if="request.adultCount > 0") Взрослые ленты: {{ request.adultCount }}
+        li(v-if="request.childCount > 0") Детские ленты: {{ request.childCount }}
+        li Шаблон: {{request.template}}
+        li Цвет ленты: {{request.color}}
+        li Цвет печати: {{request.print.name}}
+        li(v-if="request.text") Доп. надпись на ленте: {{request.text}}
+        template(v-for="item in request.names")
+          li {{ listPeople(item.names, request.isName, item.title) }}
 
-  p(v-if="acsAllPrice > 0") Аксессуары: <b> {{ acsAllPrice }}</b> р.
+  .block
+    p(v-if="acsAllPrice > 0") Аксессуары: {{ acsAllPrice }}р.
+    ul(v-for="acs in selectedAcs")
+      li(v-if="acs.count > 0" v-html="`${acs.title}: ${acs.count}`")
   
-  p(v-if="mailsPrice > 0") Пригласительные: <b> {{ mailsPrice }}</b> р.
+  .block
+    p(v-if="mailsPrice > 0") Пригласительные: {{ mailsPrice }}р.
+    ul
+      li(v-if="mails.countStandart") Пригласительные "Стандарт": {{mails.countStandart}}
+      li(v-if="mails.countEdit") Пригласительные с доп. текстом: {{mails.countEdit}}
+      li(v-if="mails.countNames") Именные пригласительные: {{mails.countNames}}
+      li(v-if="mails.editText") Доп. текст: {{mails.editText}}
+      li(v-if="mails.namesText") Список имен: {{mails.namesText}}
+      li(v-if="mails.date") Дата проведения: {{mails.date}}
+      li(v-if="mails.place") Место проведения: {{mails.place}}
 
-  p(v-if="delivery === 'post'") Доставка: <b>500</b>р.
-  p(v-if="delivery === 'sdek'") Доставка: <b>{{ sdekPrice }}</b>
+  .block(v-if="delivery")
+    p(v-if="delivery === 'post'") Доставка: <b>500</b>р.
+    p(v-if="delivery === 'sdek'") Доставка: <b>{{ sdekPrice }}</b>
 
   Radio(
     :active="fastPrint"
@@ -339,11 +393,23 @@ function listPeople (item, isName, title) {
 </template>
 
 <style scoped>
-b {
-  margin-left: 8px;
+.block {
+  padding-bottom: 4px;
+  border-bottom: 1px solid #000;
+  margin-bottom: 12px;
 }
 
-#forpvz.CDEK-widget__panel-content {
- height: 100%;
+.block p {
+  font-size: 16px;
+  font-weight: 700;
+}
+.block ul {
+  font-size: 15px;
+  margin-left: 12px;
+  list-style-type: disc;
+}
+
+.block li {
+  white-space: pre;
 }
 </style>

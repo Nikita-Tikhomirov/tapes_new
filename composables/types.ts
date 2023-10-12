@@ -15,7 +15,10 @@ export interface TypeRequest {
     adult: number
   }
   names: {
-    [key: string]: string[]
+    [key: string]: {
+      title: string
+      names: string[]
+    }
   }
 }
 

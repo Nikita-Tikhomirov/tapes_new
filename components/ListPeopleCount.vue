@@ -9,27 +9,27 @@ const props = defineProps<{
 }>()
 
 const activeTab = useActiveTab()
-
 const isChildCounter = computed(()=> props.isChild && activeTab.value !== 'vipuskniki')
 
 function add() {
-  if (!props.request.names[props.slug]) props.request.names[props.slug] = []
+  if (!props.request.names[props.slug]) {
+    props.request.names[props.slug] = {
+      title: props.title,
+      names: []
+    }
+  }
   
   if (isChildCounter.value) {
-    if (props.request.namesCount.child < props.request.childCount) props.request.namesCount.child++, props.request.names[props.slug].push('')
+    if (props.request.namesCount.child < props.request.childCount) props.request.namesCount.child++
   } else {
-    if (props.request.namesCount.adult < props.request.adultCount) props.request.namesCount.adult++, props.request.names[props.slug].push('')
+    if (props.request.namesCount.adult < props.request.adultCount) props.request.namesCount.adult++
   }
+  props.request.names[props.slug].names.push('')
 }
 
 function remove() {
-  props.request.names[props.slug].pop()
-
-  if (isChildCounter.value) {
-    props.request.namesCount.child--
-  } else {
-    props.request.namesCount.adult--
-  }
+  props.request.names[props.slug].names.pop()
+  isChildCounter.value ? props.request.namesCount.child-- : props.request.namesCount.adult--
 }
 </script>
 
@@ -39,7 +39,7 @@ function remove() {
   InputCounter(
     @remove="remove"
     @add="add"
-    :modelValue="request.names[props.slug] ? request.names[props.slug].length : 0"
+    :modelValue="props.request.names[props.slug]?.names ? props.request.names[props.slug]?.names.length : 0"
     readonly
   )
 </template>
