@@ -4,6 +4,7 @@ import type { TypeRequest, TypeMails } from "./types"
 
 export const useNextTab = () => useState<string>('nextTab', () => '')
 export const useActiveTab = () => useState<string>('activeTab', () => 'start')
+export const useTabForm = () => useState<string>('tabForm', () => '')
 
 //-------------------- Заявки --------------------//
 
@@ -33,7 +34,10 @@ export const useAddressee = () => useState('addressee', () => ({
   city: '',
   point: '',
   pointId: '',
-  text: ''
+  userAddress: '',
+  text: '',
+  tariff: 136,
+
 }))
 
 export const useTabsDesc = () => useState<{}>('tabsDesc', () => ({}))
@@ -53,6 +57,9 @@ export const useAwardPricesChildren = () => useState<number[]>('awardPricesChild
 export const useAwardPricesChildrenDiscount = () => useState<number[]>('awardPricesChildrenDiscount', () => [])
 
 export const useAllTapes = () => useState<number>('allTapes', () => 0)
+
+export const useAllChildPrice = () => useState<number>('childPrice', () => 0)
+export const useAllAdultPrice = () => useState<number>('adultPrice', () => 0)
 
 //-------------------- Дополнительные товары --------------------//
 
@@ -82,4 +89,9 @@ export const useFastPrint = () => useState<boolean>('fastPrint', () => false)
 export const useFastPrintPrices = () => useState<number[]>('fastPrintPrices', () => [150, 120, 100, 70, 55, 45, 35, 25, 20, 15])
 
 export const useTotalPrice = () => useState<number>('totalPrice', () => 0)
-export const useDelivery = () => useState<string>('delivery', () => '')
+export const useDelivery = () => useState<{name:string,price:number}>('delivery', () => {
+  return {
+    name: '',
+    price: 0
+  }
+})

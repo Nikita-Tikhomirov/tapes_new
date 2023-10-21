@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const nextTab = useNextTab()
 const activeTab = useActiveTab()
+const activeTabForm = useTabForm()
 
 const tabs = [
   { tabName: 'vipuskniki', title: 'Выпускные именные ленты' },
@@ -22,7 +23,7 @@ function activateTab() {
   }
 
   activeTab.value = nextTab.value
-  return
+  activeTabForm.value = nextTab.value
 }
 </script>
 

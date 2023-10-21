@@ -28,9 +28,9 @@ $access_token = $auth['access_token'];
 
 // Регистрация заявки
 $array = array();
-$array['comment'] = 'Тестовый заказ';
+$array['comment'] = 'Заказ с сайта';
 $array['type'] = 1;	// Договор "интернет-магазин"
-$array['tariff_code'] = '136';
+$array['tariff_code'] = $formDataDecode['tariff_code'];
 $array['number'] = ''; // НОМЕР_ЗАКАЗА_НА_ВАШЕМ_САЙТЕ	
 $array['shipment_point'] = 'TOM10'; // КОД_ПВЗ_ОТГРУЗКИ
 $array['delivery_point'] = $formDataDecode['delivery_point']; // КОД_ПВЗ_ПОЛУЧАТЕЛЯ
@@ -43,7 +43,7 @@ $array['recipient'] = array(
 	'phones' => array(
 		'number' => $formDataDecode['phone'], // ТЕЛЕФОН_ПОЛУЧАТЕЛЯ
 	),
-	// 'address' => 'АДРЕС_ПОЛУЧАТЕЛЯ',
+	'address' => $formDataDecode['delivery_address'],
 	// 'email'   => 'EMAIL_ПОЛУЧАТЕЛЯ',
 );
 
