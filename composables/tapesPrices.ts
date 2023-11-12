@@ -32,4 +32,12 @@ export async function getTapesPrices() {
 
   childAwardPrices.value = data.value.acf['award-child'].prices.reduce((acc:number[], item) => [...acc, item.price],[])
   childAwardPricesDiscount.value = data.value.acf['award-child'].counts.reduce((acc:number[], item) => [...acc, item.count],[])
+
+  //-------------------- --------------------//
+
+  const fastPrintPrices = useFastPrintPrices()
+  const fastPrintPricesDiscount = useFastPrintDiscount()
+
+  fastPrintPrices.value = data.value.acf.fast_print.prices.reduce((acc:number[], item) => [...acc, item.price],[])
+  fastPrintPricesDiscount.value = data.value.acf.fast_print.counts.reduce((acc:number[], item) => [...acc, item.count],[])
 }

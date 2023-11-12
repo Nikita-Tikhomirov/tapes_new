@@ -6,12 +6,15 @@ const activeTabForm = useTabForm()
 
 const fastPrint = useFastPrint()
 const fastPrintPrices = useFastPrintPrices()
+const fastPrintPricesDiscount = useFastPrintDiscount()
 const allTapes = useAllTapes()
 const totalPrice = useTotalPrice()
 const delivery = useDelivery()
 
 const allChildPrice = useAllChildPrice()
 const allAdultPrice = useAllAdultPrice()
+
+const mails = useMails()
 
 const subtitleSdek = computed(()=> {
   if (delivery.value.name === 'sdek') {
@@ -30,7 +33,10 @@ const subtitlePost = computed(()=> {
 })
 
 const fastPrintPrice = computed(() => {
-  const onePrice = selectOnePrice(allTapes.value, fastPrintPrices.value, [1, 3, 5, 10, 15, 20, 50, 100, 200])  
+  const onePrice = selectOnePrice(allTapes.value, fastPrintPrices.value, fastPrintPricesDiscount.value)  
+  console.log(onePrice);
+  console.log(allTapes.value);
+  
   return allTapes.value * onePrice
 })
 //-------------------- Цена аксессуаров --------------------//
@@ -39,24 +45,6 @@ const selectedAcs = useSelectedAcs()
 const acsAllPrice = computed(() => {
   if(selectedAcs.value.length > 0) return selectedAcs.value.reduce((a,b)=>a + b.price ,0)
   return 0
-})
-
-//-------------------- Цена Писем --------------------//
-
-const mailsPrices = useMailsPrices()
-const mailsDiscount = useMailsDiscount()
-const mailsPriceEdit = useMailsPriceEdit()
-const mailsPriceName = useMailsPriceName()
-const mails = useMails()
-
-const mailsPrice = computed(() => {
-  const count = mails.value.countStandart + mails.value.countEdit + mails.value.countNames
-
-  let onePrice = selectOnePrice(count, mailsPrices.value, mailsDiscount.value)
-  let onePriceEdit = onePrice + mailsPriceEdit.value
-  let onePriceNames = onePrice + mailsPriceName.value
-
-  return (onePrice * mails.value.countStandart) + (onePriceEdit * mails.value.countEdit) + (onePriceNames * mails.value.countNames)
 })
 
 //-------------------- sdek --------------------//
@@ -164,80 +152,94 @@ const tabs = {
 }
 
 function mail() {
-  let formData = ''
-    
+  let request = ''
+  let requestTitle = ''
+  let adultCount = ''
+  let childCount = ''
+  let template = ''
+  let color = ''
+  let print = ''
+  let text = ''
+  let names = ''
+
   requests.value.forEach((item, i) => {
     if (item.adultCount > 0 || item.childCount > 0) {
-      formData += `Заявка №${i+1}:\n`
+      request = `Заявка №${i+1}:\n`
+      requestTitle = `${tabs[activeTabForm.value]}\n\n`
 
-      formData += `${tabs[activeTabForm.value]}\n\n`
+      if (item.adultCount > 0) adultCount = `Взрослые ленты: ${item.adultCount}шт. * ${allAdultPrice.value/item.adultCount}р. = ${allAdultPrice.value}р.\n`
+      if (item.childCount > 0) childCount = `Детские ленты: ${item.childCount}шт. * ${allChildPrice.value/item.childCount}р. = ${allChildPrice.value}р.\n`
 
-      if (item.adultCount > 0) formData += `Взрослые ленты: ${item.adultCount}шт. * ${allAdultPrice.value/item.adultCount}р. = ${allAdultPrice.value}р.\n`
-      if (item.childCount > 0) formData += `Детские ленты: ${item.childCount}шт. * ${allChildPrice.value/item.childCount}р. = ${allChildPrice.value}р.\n`
+      template = `Шаблон: ${item.template}\n`
+      color = `Цвет ленты: ${item.color}\n`
+      print = `Цвет печати: ${item.print.name}\n`
 
-      formData += `Шаблон: ${item.template}\nЦвет ленты: ${item.color}\nЦвет печати: ${item.print.name}\n`
+      if (item.text) text = `Доп. надпись на ленте: ${item.text}\n`
 
-      if (item.text) formData += `Доп. надпись на ленте: ${item.text}\n`
-
-      formData += '\n'
-
-      for (const names in item.names) {
-        formData += listPeople(item.names[names].names, item.isName, item.names[names].title)
+      for (const el in item.names) {
+        names += listPeople(item.names[el].names, item.isName, item.names[el].title)
       }
-
-      formData += '\n-------------------\n\n'
     }
   })
+
+  let formData = `${request}${requestTitle}`
+  formData += `${template}${color}${print}${text}\n`
+  formData += `${names}`
+
+  formData += '\nСтоимость заказа:\n'
+
+  formData += `Ленты:\n${adultCount}${childCount}`
+
+  // =============== - =============== //
+  // =============== Acs =============== //
   
   let acs = ''
   selectedAcs.value.forEach(item => {
     if (item.count > 0) acs += `${item.title}: ${item.count} шт. * ${item.price/item.count}р. = ${item.price}р.\n`
   })
 
-  if (acs) {
-    formData += `Аксессуары:\n${acs}`
-    formData += '\n-------------------\n\n'
-  }
+  if (acs) formData += `\nАксессуары:\n${acs}`
+
+  // =============== - =============== //
+  // =============== mails =============== //
 
   let mailsText = ''
-  if (mails.value.countStandart) mailsText += `Пригласительные "Стандарт": ${mails.value.countStandart}\n`
-  if (mails.value.countEdit) mailsText += `Пригласительные с доп. текстом: ${mails.value.countEdit}\n`
-  if (mails.value.countNames) mailsText += `Именные пригласительные: ${mails.value.countNames}\n`
+  if (mails.value.standart.count)
+    mailsText += `Пригласительные "Стандарт": ${mails.value.standart.count}шт. * ${mails.value.standart.price}р. = ${mails.value.standart.count * mails.value.standart.price}р.\n`
+  if (mails.value.edit.count)
+    mailsText += `Пригласительные с доп. текстом: ${mails.value.edit.count}шт. * ${mails.value.edit.price}р. = ${mails.value.edit.count * mails.value.edit.price}р.\n`
+  if (mails.value.names.count)
+    mailsText += `Именные пригласительные: ${mails.value.names.count}шт. * ${mails.value.names.price}р. = ${mails.value.names.count * mails.value.names.price}р.\n`
   if (mails.value.editText) mailsText += `Доп. текст:\n${mails.value.editText}\n`
   if (mails.value.namesText) mailsText += `Список имен:\n${mails.value.namesText}\n`
   if (mails.value.date) mailsText += `Дата проведения: ${mails.value.date}\n`
   if (mails.value.place) mailsText += `Место проведения: ${mails.value.place}\n`
 
-  if (mailsText) {
-    formData += `Цена пригласительных: ${mailsPrice.value} р.\n`
-    formData += `${mailsText}`
-    formData += '\n-------------------\n\n'
-  }
+  if (mailsText) formData += `\nПриглашения:\n${mailsText}`
 
-  formData += `Получатель:\n`
+  // =============== - =============== //
+
+  if (fastPrint.value) formData += `\nЭкспресс печать: ${fastPrintPrice.value}р.\n`
+
+  formData += `\nЦена: ${totalPrice.value - delivery.value.price} р.\n`
+
+  formData += delivery.value.name === 'post' ? 'Отправка: Почта россии' : 'Отправка: СДЕК'
+  formData += `\nЦена доставки: ${delivery.value.price}р.\n`
+
+  // =============== - =============== //
+
+  formData += `\nПолучатель:\n`
   formData += `${addressee.value.city}\n`
   formData += `${addressee.value.point}\n`
   formData += `${addressee.value.name}\n`
   formData += `${addressee.value.phone}\n`
   formData += `${addressee.value.vk}\n`
 
-  if (addressee.value.text) formData += `Коментарий к заказу: ${addressee.value.text}\n`
-  formData += '\n-------------------\n\n'
-
-  if (fastPrint.value) {
-    formData += `Экспресс печать: ${fastPrintPrice.value}\n`
-    formData += '\n-------------------\n\n'
-  }
-
-  formData += `Цена: ${totalPrice.value - delivery.value.price} р.\n`
-
-  formData += delivery.value.name === 'post' ?
-    `Отправка: Почта россии\nЦена доставки: ${delivery.value.price} р.` :
-    `Отправка: СДЕК\nЦена доставки: ${delivery.value.price} р.`
+  if (addressee.value.text) formData += `\n\nКоментарий к заказу: ${addressee.value.text}\n`
 
   let str = formData.replace(/&#171;/g, "«")
   str = str.replace(/&#187;/g, "»")
-  
+    
   useFetch('https://maytimelenta.ru/mail.php', {
     method: 'POST',
     body: str
@@ -264,7 +266,7 @@ async function sdeck () {
 function listPeople (item, isName, title) {
   if (item && item.length > 0) {
     if (!isName) return `${title}: ${item.length}\n`
-    
+
     let string = title + ':\n'
 
     for (const name of item) {
@@ -349,12 +351,11 @@ function listPeople (item, isName, title) {
     ul(v-for="acs in selectedAcs")
       li(v-if="acs.count > 0" v-html="`${acs.title}: ${acs.count}шт. * ${acs.price/acs.count}р. = ${acs.price}р.\n`")
 
-  .block(v-if="mailsPrice > 0")
-    p Пригласительные: {{ mailsPrice }}р.
+  .block(v-if="mails.standart.count > 0 || mails.edit.count > 0 || mails.names.count > 0")
     ul
-      li(v-if="mails.countStandart") Пригласительные "Стандарт": {{mails.countStandart}}
-      li(v-if="mails.countEdit") Пригласительные с доп. текстом: {{mails.countEdit}}
-      li(v-if="mails.countNames") Именные пригласительные: {{mails.countNames}}
+      li(v-if="mails.standart.count") Пригласительные "Стандарт": {{mails.standart.count}}шт. * {{mails.standart.price}}р. = {{mails.standart.count * mails.standart.price}}р.
+      li(v-if="mails.edit.count") Пригласительные с доп. текстом: {{mails.edit.count}}шт. * {{mails.edit.price}}р. = {{mails.edit.count * mails.edit.price}}р.
+      li(v-if="mails.names.count") Именные пригласительные: {{mails.names.count}}шт. * {{mails.names.price}}р. = {{mails.names.count * mails.names.price}}р.
       li(v-if="mails.editText") Доп. текст: {{mails.editText}}
       li(v-if="mails.namesText") Список имен: {{mails.namesText}}
       li(v-if="mails.date") Дата проведения: {{mails.date}}

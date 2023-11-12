@@ -1,8 +1,16 @@
 <script setup lang="ts">
 const { data } = await useFetch<any>('https://maytimelenta.ru/wp-json/acf/v3/options/options/')
 
+console.log(data.value.acf.fast_print.prices);
+
+
 const activeTab = useActiveTab()
 const requests = useRequests()
+const colors = useColors()
+const print = usePrint()
+
+colors.value = data.value.acf.color
+print.value = data.value.acf.color_print
 
 onBeforeMount(()=> {
   getTapesPrices()

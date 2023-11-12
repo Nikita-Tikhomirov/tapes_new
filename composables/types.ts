@@ -23,9 +23,18 @@ export interface TypeRequest {
 }
 
 export interface TypeMails {
-  countStandart: number
-  countEdit: number
-  countNames: number
+  standart: {
+    count: number
+    price: number
+  }
+  edit: {
+    count: number
+    price: number
+  }
+  names: {
+    count: number
+    price: number
+  }
   editText: string
   namesText: string
   date: string

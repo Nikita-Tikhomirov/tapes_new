@@ -61,6 +61,11 @@ export const useAllTapes = () => useState<number>('allTapes', () => 0)
 export const useAllChildPrice = () => useState<number>('childPrice', () => 0)
 export const useAllAdultPrice = () => useState<number>('adultPrice', () => 0)
 
+//-------------------- цвета --------------------//
+
+export const useColors = () => useState<[string?]>('colors', () => [])
+export const usePrint = () => useState<[{name:string, price:boolean}?]>('print', () => [])
+
 //-------------------- Дополнительные товары --------------------//
 
 export const useSelectedAcs = () => useState<{title: string, count: number, price: number}[]>('selectedAcs', () => [])
@@ -68,9 +73,18 @@ export const useSelectedAcs = () => useState<{title: string, count: number, pric
 //-------------------- Цены на письма --------------------//
 
 export const useMails = () => useState<TypeMails>('mails', () => { return {
-  countStandart: 0,
-  countEdit: 0,
-  countNames: 0,
+  standart: {
+    count: 0,
+    price: 0
+  },
+  edit: {
+    count: 0,
+    price: 0
+  },
+  names: {
+    count: 0,
+    price: 0
+  },
   editText: '',
   namesText: '',
   date: '',
@@ -86,7 +100,8 @@ export const useMailsPriceName = () => useState<number>('mailsPriceName', () => 
 //-------------------- Цены на экспресс печать --------------------//
 
 export const useFastPrint = () => useState<boolean>('fastPrint', () => false)
-export const useFastPrintPrices = () => useState<number[]>('fastPrintPrices', () => [150, 120, 100, 70, 55, 45, 35, 25, 20, 15])
+export const useFastPrintPrices = () => useState<number[]>('fastPrintPrices', () => [])
+export const useFastPrintDiscount = () => useState<number[]>('fastPrintDiscount', () => [])
 
 export const useTotalPrice = () => useState<number>('totalPrice', () => 0)
 export const useDelivery = () => useState<{name:string,price:number}>('delivery', () => {

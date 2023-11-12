@@ -6,6 +6,9 @@ const props = defineProps<{
   request: TypeRequest
 }>()
 
+const colors = useColors()
+const print = usePrint()
+
 const activeTab = useActiveTab()
 
 const listPeople = computed(()=> {
@@ -33,8 +36,8 @@ const listPeople = computed(()=> {
     ]
   } else if (activeTab.value === 'award') {
     return [
-      {isChild: false, title: 'Список взрослых наминаций', slug: 'awardAdult'},
-      {isChild: true, title: 'Список детских наминаций', slug: 'awardChild'}
+      {isChild: false, title: 'Список взрослых номинаций', slug: 'awardAdult'},
+      {isChild: true, title: 'Список детских номинаций', slug: 'awardChild'}
     ]
   }
 })
@@ -71,72 +74,39 @@ function selectPrint(e) {
 
   .form-group.col-md-12
     label.input_title Номер шаблона
-    select.niceselect.templateSelect(v-model="request.template")
-      option(value="1" selected) 1
-      option(value="2") 2
-      option(value="3") 3
-      option(value="4") 4
-      option(value="5") 5
-      option(value="6") 6
+    input.niceselect.templateSelect(type="text" v-model="request.template")
 
   .col-md-12.auto-col-2
     .form-group
       label.input_title Цвет ленты
       select.niceselect(v-model="request.color")
-        option(value="Темно-бежевый" selected) Темно-бежевый
-        option(value="Золотистый") Золотистый
-        option(value="Малиновый") Малиновый
-        option(value="Темно-красный") Темно-красный
-        option(value="Бордовый") Бордовый
-        option(value="Ярко-синий") Ярко-синий
-        option(value="Синий") Синий
-        option(value="Бирюзовый") Бирюзовый
-        option(value="Ярко-зеленый") Ярко-зеленый
-        option(value="Изумрудный") Изумрудный
-        option(value="Оранжевый") Оранжевый
-        option(value="Бежевый") Бежевый
-        option(value="Малиново-коралловый") Малиново-коралловый
-        option(value="Красный") Красный
-        option(value="Розовый") Розовый
-        option(value="Белый") Белый
-        option(value="Серебристый") Серебристый
-        option(value="Голубой") Голубой
-        option(value="Светло-сиреневый") Светло-сиреневый
-        option(value="Фиолетовый") Фиолетовый
-        option(value="Сиреневый") Сиреневый
-        option(value="Темно-зеленый") Темно-зеленый
-        option(value="Темно-синий") Темно-синий
-        option(value="Три колор") Три колор
-        option(value="Мятный") Мятный
-        option(value="Персиковый") Персиковый
-        option(value="Серый") Серый
-        option(value="Бледно-розовый") Бледно-розовый
+        option(
+          v-for="color in colors"
+          :value="color.color"
+        ) {{ color.color }}
 
     .form-group
       label.input_title Цвет печати
       select.niceselect(v-model="request.print.name" @change="(e) => selectPrint(e)")
-        option(value="Золото" selected data-color="false") Золото 
-        option(value="Серебро" data-color="false") Серебро 
-        option(value="Черный" data-color="false") Черный 
-        option(value="Красный (матовый)" data-color="true") Красный (матовый)
-        option(value="Красный (металлик)" data-color="true") Красный (металлик)
-        option(value="Голубой (матовый)" data-color="true") Голубой (матовый)
-        option(value="Синий (металлик)" data-color="true") Синий (металлик)
-        option(value="Зеленый (матовый)" data-color="true") Зеленый (матовый)
+        option(
+          v-for="color in print"
+          :value="color.color"
+          :data-color="`${color.price}`"
+        ) {{ color.color }}
 
   inputEL.col-md-12(
     style="margin-bottom: 24px"
     type="textarea"
     placeholder="Дополнительная надпись на ленте"
     title="Дополнительно написать на ленте"
-    :subtitle="activeTab !== 'award' ? 'класс, школа, город и тд. Можно не указывать, если нет дополнительной информации' : 'Надписи, которые будут на всех лентах под номинацией (Название конкурса, дата и т.д)'"
+    :subtitle="activeTab !== 'award' ? 'Общая надпись на всех лентах. Вы можете указать класс, школу, город и тд. (можно не указывать, если нет дополнительной информации) ' : 'Общая надпись на всех лентах под номинацией (Название конкурса, дата и т.д)'"
     v-model="request.text"
   )
 
   Radio(
     v-if="activeTab !== 'award'"
     :active="request.isName"
-    :title="activeTab === 'award' ? 'Указать наминации' : 'Именные ленты'"
+    :title="activeTab === 'award' ? 'Указать номинации' : 'Именные ленты'"
     @click="request.isName = !request.isName"
   )
   Radio(

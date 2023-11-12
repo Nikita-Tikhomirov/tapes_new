@@ -5,6 +5,7 @@ const activeTabForm = useTabForm()
 const requests = useRequests()
 const fastPrint = useFastPrint()
 const fastPrintPrices = useFastPrintPrices()
+const fastPrintPricesDiscount = useFastPrintDiscount()
 const allTapes = useAllTapes()
 const totalPrice = useTotalPrice()
 const delivery = useDelivery()
@@ -28,10 +29,10 @@ const tapesPrice = computed(()=> {
   const childPrices = activeTabForm.value === 'award' ? useAwardPricesChildren() : useBasePricesChildren()
   const childDiscount = activeTabForm.value === 'award' ? useAwardPricesChildrenDiscount() : useBasePricesChildrenDiscount()
 
-  allTapes.value = allAdult.value + allChild.value
+  allTapes.value = +allAdult.value + +allChild.value
   
   const fastPrintPrice = computed(() => {
-    const onePrice = selectOnePrice(allTapes.value, fastPrintPrices.value, [1,3,5,10,15,20,50,100,200])
+    const onePrice = selectOnePrice(allTapes.value, fastPrintPrices.value, fastPrintPricesDiscount.value)
     return allTapes.value * onePrice
   })
 
@@ -102,20 +103,10 @@ const acsAllPrice = computed(() => {
 
 //-------------------- Цена Писем --------------------//
 
-const mailsPrices = useMailsPrices()
-const mailsDiscount = useMailsDiscount()
-const mailsPriceEdit = useMailsPriceEdit()
-const mailsPriceName = useMailsPriceName()
 const mails = useMails()
 
 const mailsPrice = computed(() => {
-  const count = mails.value.countStandart + mails.value.countEdit + mails.value.countNames
-
-  let onePrice = selectOnePrice(count, mailsPrices.value, mailsDiscount.value)
-  let onePriceEdit = onePrice + mailsPriceEdit.value
-  let onePriceNames = onePrice + mailsPriceName.value
-
-  return (onePrice * mails.value.countStandart) + (onePriceEdit * mails.value.countEdit) + (onePriceNames * mails.value.countNames)
+  return (mails.value.standart.count * mails.value.standart.price) + (mails.value.edit.count * mails.value.edit.price) + (mails.value.names.count * mails.value.names.price)
 })
 
 //-------------------- Общая цена --------------------//
