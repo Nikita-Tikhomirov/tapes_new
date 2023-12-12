@@ -204,12 +204,25 @@ function mail() {
   // =============== mails =============== //
 
   let mailsText = ''
-  if (mails.value.standart.count)
-    mailsText += `Пригласительные "Стандарт": ${mails.value.standart.count}шт. * ${mails.value.standart.price}р. = ${mails.value.standart.count * mails.value.standart.price}р.\n`
-  if (mails.value.edit.count)
-    mailsText += `Пригласительные с доп. текстом: ${mails.value.edit.count}шт. * ${mails.value.edit.price}р. = ${mails.value.edit.count * mails.value.edit.price}р.\n`
-  if (mails.value.names.count)
-    mailsText += `Именные пригласительные: ${mails.value.names.count}шт. * ${mails.value.names.price}р. = ${mails.value.names.count * mails.value.names.price}р.\n`
+
+  if (mails.value.standartLastCall.count || mails.value.standartFinal.count) {
+    mailsText += 'Пригласительные "Стандарт":\n'
+    if (mails.value.standartLastCall.count) mailsText += `На последний звонок: ${mails.value.standartLastCall.count}шт. * ${mails.value.standartLastCall.price}р. = ${mails.value.standartLastCall.count * mails.value.standartLastCall.price}р.\n`
+    if (mails.value.standartFinal.count) mailsText += `На выпускной: ${mails.value.standartFinal.count}шт. * ${mails.value.standartFinal.price}р. = ${mails.value.standartFinal.count * mails.value.standartFinal.price}р.\n`
+  }
+
+  if (mails.value.editLastCall.count || mails.value.editFinal.count) {
+    mailsText += 'Пригласительные с доп. текстом:\n'
+    if (mails.value.editLastCall.count) mailsText += `На последний звонок: ${mails.value.editLastCall.count}шт. * ${mails.value.editLastCall.price}р. = ${mails.value.editLastCall.count * mails.value.editLastCall.price}р.\n`
+    if (mails.value.editFinal.count) mailsText += `На выпускной: ${mails.value.editFinal.count}шт. * ${mails.value.editFinal.price}р. = ${mails.value.editFinal.count * mails.value.editFinal.price}р.\n`
+  }
+
+  if (mails.value.namesLastCall.count || mails.value.namesFinal.count) {
+    mailsText += 'Именные пригласительные:\n'
+    if (mails.value.namesLastCall.count) mailsText += `На последний звонок: ${mails.value.namesLastCall.count}шт. * ${mails.value.namesLastCall.price}р. = ${mails.value.namesLastCall.count * mails.value.namesLastCall.price}р.\n`
+    if (mails.value.namesFinal.count) mailsText += `На выпускной: ${mails.value.namesFinal.count}шт. * ${mails.value.namesFinal.price}р. = ${mails.value.namesFinal.count * mails.value.namesFinal.price}р.\n`
+  }
+
   if (mails.value.editText) mailsText += `Доп. текст:\n${mails.value.editText}\n`
   if (mails.value.namesText) mailsText += `Список имен:\n${mails.value.namesText}\n`
   if (mails.value.date) mailsText += `Дата проведения: ${mails.value.date}\n`
@@ -351,11 +364,25 @@ function listPeople (item, isName, title) {
     ul(v-for="acs in selectedAcs")
       li(v-if="acs.count > 0" v-html="`${acs.title}: ${acs.count}шт. * ${acs.price/acs.count}р. = ${acs.price}р.\n`")
 
-  .block(v-if="mails.standart.count > 0 || mails.edit.count > 0 || mails.names.count > 0")
+  .block(
+    v-if="mails.standartLastCall.count || mails.standartFinal.count || mails.editLastCall.count || mails.editFinalcount || mails.namesLastCall.count || mails.namesFinal.count"
+  )
     ul
-      li(v-if="mails.standart.count") Пригласительные "Стандарт": {{mails.standart.count}}шт. * {{mails.standart.price}}р. = {{mails.standart.count * mails.standart.price}}р.
-      li(v-if="mails.edit.count") Пригласительные с доп. текстом: {{mails.edit.count}}шт. * {{mails.edit.price}}р. = {{mails.edit.count * mails.edit.price}}р.
-      li(v-if="mails.names.count") Именные пригласительные: {{mails.names.count}}шт. * {{mails.names.price}}р. = {{mails.names.count * mails.names.price}}р.
+      li(v-if="mails.standartLastCall.count || mails.standartFinal.count")
+        p Пригласительные "Стандарт":
+        p(v-if="mails.standartLastCall.count") На последний звонок: {{mails.standartLastCall.count}}шт. * {{mails.standartLastCall.price}}р. = {{mails.standartLastCall.count * mails.standartLastCall.price}}р.
+        p(v-if="mails.standartFinal.count") На выпускной: {{mails.standartFinal.count}}шт. * {{mails.standartFinal.price}}р. = {{mails.standartFinal.count * mails.standartFinal.price}}р.
+
+      li(v-if="mails.editLastCall.count || mails.editFinal.count")
+        p Пригласительные с доп. текстом:
+        p(v-if="mails.editLastCall.count") На последний звонок: {{mails.editLastCall.count}}шт. * {{mails.editLastCall.price}}р. = {{mails.editLastCall.count * mails.editLastCall.price}}р.
+        p(v-if="mails.editFinal.count") На выпускной: {{mails.editFinal.count}}шт. * {{mails.editFinal.price}}р. = {{mails.editFinal.count * mails.editFinal.price}}р.
+
+      li(v-if="mails.namesLastCall.count || mails.namesFinal.count")
+        p Именные пригласительные:
+        p(v-if="mails.namesLastCall.count") На последний звонок: {{mails.namesLastCall.count}}шт. * {{mails.namesLastCall.price}}р. = {{mails.namesLastCall.count * mails.namesLastCall.price}}р.
+        p(v-if="mails.namesFinal.count") На выпускной: {{mails.namesFinal.count}}шт. * {{mails.namesFinal.price}}р. = {{mails.namesFinal.count * mails.namesFinal.price}}р.
+
       li(v-if="mails.editText") Доп. текст: {{mails.editText}}
       li(v-if="mails.namesText") Список имен: {{mails.namesText}}
       li(v-if="mails.date") Дата проведения: {{mails.date}}

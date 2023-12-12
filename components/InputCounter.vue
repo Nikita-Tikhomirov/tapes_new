@@ -6,11 +6,12 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'update:modelValue': [value:string]
+  'update': [value:string]
   'remove': []
   'add': []
 }>()
 
-function updateValue(e:Event) {
+function updateValue(e:Event) { 
   emit('update:modelValue', (e.target as HTMLInputElement).value)
 }
 

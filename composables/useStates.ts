@@ -73,15 +73,27 @@ export const useSelectedAcs = () => useState<{title: string, count: number, pric
 //-------------------- Цены на письма --------------------//
 
 export const useMails = () => useState<TypeMails>('mails', () => { return {
-  standart: {
+  standartLastCall: {
     count: 0,
     price: 0
   },
-  edit: {
+  standartFinal: {
     count: 0,
     price: 0
   },
-  names: {
+  editLastCall: {
+    count: 0,
+    price: 0
+  },
+  editFinal: {
+    count: 0,
+    price: 0
+  },
+  namesLastCall: {
+    count: 0,
+    price: 0
+  },
+  namesFinal: {
     count: 0,
     price: 0
   },

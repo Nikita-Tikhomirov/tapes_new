@@ -52,10 +52,11 @@ const tapesPrice = computed(()=> {
     if (request.print.isPrice) {
       adultOnePrice += 25
       childOnePrice += 25
-    } else {
-      adultOnePrice -= 25
-      childOnePrice -= 25
     }
+    // else {
+    //   adultOnePrice -= 25
+    //   childOnePrice -= 25
+    // }
 
     // let colorPrice = selectOnePrice(tapes, [50,35,25,15,10,10], [1,4,7,9,19])
 
@@ -106,7 +107,16 @@ const acsAllPrice = computed(() => {
 const mails = useMails()
 
 const mailsPrice = computed(() => {
-  return (mails.value.standart.count * mails.value.standart.price) + (mails.value.edit.count * mails.value.edit.price) + (mails.value.names.count * mails.value.names.price)
+  const standartFinal = mails.value.standartFinal.count * mails.value.standartFinal.price
+  const standartLastCall = mails.value.standartLastCall.count * mails.value.standartLastCall.price
+
+  const editFinal = mails.value.editFinal.count * mails.value.editFinal.price
+  const editLastCall = mails.value.editLastCall.count * mails.value.editLastCall.price
+
+  const namesFinal = mails.value.namesFinal.count * mails.value.namesFinal.price
+  const namesLastCall = mails.value.namesLastCall.count * mails.value.namesLastCall.price
+
+  return standartFinal + standartLastCall + editFinal + editLastCall + namesFinal + namesLastCall
 })
 
 //-------------------- Общая цена --------------------//

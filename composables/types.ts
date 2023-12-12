@@ -23,15 +23,27 @@ export interface TypeRequest {
 }
 
 export interface TypeMails {
-  standart: {
+  standartLastCall: {
     count: number
     price: number
   }
-  edit: {
+  standartFinal: {
     count: number
     price: number
   }
-  names: {
+  editLastCall: {
+    count: number
+    price: number
+  }
+  editFinal: {
+    count: number
+    price: number
+  }
+  namesLastCall: {
+    count: number
+    price: number
+  }
+  namesFinal: {
     count: number
     price: number
   }

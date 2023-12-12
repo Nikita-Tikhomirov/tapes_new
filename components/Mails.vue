@@ -6,45 +6,53 @@ const mailsPriceName = useMailsPriceName()
 const mails = useMails()
 
 function add(type:string) {
-  if (type === 'standart') {
-    mails.value.standart.count++
-    const onePrice = selectOnePrice(mails.value.standart.count, mailsPrices.value, mailsDiscount.value)
-    mails.value.standart.price = onePrice
+  if (type === 'standartLastCall' || type === 'standartFinal') {
+    mails.value[type].count++
+    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+    mails.value[type].price = onePrice
   }
 
-  if (type === 'edit') {
-    mails.value.edit.count++
-    const onePrice = selectOnePrice(mails.value.edit.count, mailsPrices.value, mailsDiscount.value)
-    mails.value.edit.price = onePrice + mailsPriceEdit.value
+  if (type === 'editLastCall' || type === 'editFinal') {
+    mails.value[type].count++
+    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+    mails.value[type].price = onePrice + mailsPriceEdit.value
   }
 
-  if (type === 'names') {
-    mails.value.names.count++
-    const onePrice = selectOnePrice(mails.value.names.count, mailsPrices.value, mailsDiscount.value)
-    mails.value.names.price = onePrice + mailsPriceName.value
+  if (type === 'namesLastCall' || type === 'namesFinal') {
+    mails.value[type].count++
+    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+    mails.value[type].price = onePrice + mailsPriceName.value
   }
 }
 
 function remove(type:string) {
-  if (type === 'standart') {
-    mails.value.standart.count--
-    const onePrice = selectOnePrice(mails.value.standart.count, mailsPrices.value, mailsDiscount.value)
-    mails.value.standart.price = onePrice
+  if (type === 'standartLastCall' || type === 'standartFinal') {
+    mails.value[type].count--
+    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+    mails.value[type].price = onePrice
   }
 
-  if (type === 'edit') {
-    mails.value.edit.count--
-    const onePrice = selectOnePrice(mails.value.edit.count, mailsPrices.value, mailsDiscount.value)
-    mails.value.edit.price = onePrice + mailsPriceEdit.value
+  if (type === 'editLastCall' || type === 'editFinal') {
+    mails.value[type].count--
+    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+    mails.value[type].price = onePrice + mailsPriceEdit.value
   }
 
-  if (type === 'names') {
-    mails.value.names.count--
-    const onePrice = selectOnePrice(mails.value.names.count, mailsPrices.value, mailsDiscount.value)
-    mails.value.names.price = onePrice + mailsPriceName.value
+  if (type === 'namesLastCall' || type === 'namesFinal') {
+    mails.value[type].count--
+    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+    mails.value[type].price = onePrice + mailsPriceName.value
   }
 }
 
+function update(type:string, value:string) {
+  mails.value[type].count = +value
+  const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+
+  if (type === 'standartLastCall' || type === 'standartFinal') mails.value[type].price = onePrice
+  if (type === 'editLastCall' || type === 'editFinal')  mails.value[type].price = onePrice + mailsPriceEdit.value
+  if (type === 'namesLastCall' || type === 'namesFinal') mails.value[type].price = onePrice + mailsPriceName.value
+}
 </script>
 
 <template lang="pug">
@@ -57,17 +65,19 @@ div
     .form-group.mail-counter
       label.input_title На последний звонок
       InputCounter(
-        @remove="remove('standart')"
-        @add="add('standart')"
-        v-model="mails.standart.count"
+        @remove="remove('standartLastCall')"
+        @add="add('standartLastCall')"
+        @update:modelValue="(value) => update('standartLastCall', value)"
+        v-model="mails.standartLastCall.count"
       )
     
     .form-group.mail-counter
       label.input_title На выпускной
       InputCounter(
-        @remove="remove('standart')"
-        @add="add('standart')"
-        v-model="mails.standart.count"
+        @remove="remove('standartFinal')"
+        @add="add('standartFinal')"
+        @update:modelValue="(value) => update('standartFinal', value)"
+        v-model="mails.standartFinal.count"
       )
   .form-group
     div(style="margin:32px 0 16px")
@@ -77,33 +87,45 @@ div
     .form-group.mail-counter
       label.input_title На последний звонок
       InputCounter(
-        @remove="remove('edit')"
-        @add="add('edit')"
-        v-model="mails.edit.count"
+        @remove="remove('editLastCall')"
+        @add="add('editLastCall')"
+        @update:modelValue="(value) => update('editLastCall', value)"
+        v-model="mails.editLastCall.count"
       )
     
     .form-group.mail-counter
       label.input_title На выпускной
       InputCounter(
-        @remove="remove('edit')"
-        @add="add('edit')"
-        v-model="mails.edit.count"
+        @remove="remove('editFinal')"
+        @add="add('editFinal')"
+        @update:modelValue="(value) => update('editFinal', value)"
+        v-model="mails.editFinal.count"
       )
     div
       p(style="font-size:14px; margin:24px 0 6px") Если вы хотите добавить дату или место, то введите сюда текст
       textarea.form-control.textToMail(placeholder="Текст" rows="6" v-model='mails.editText')
 
   .form-group
-    .mail-counter
-      label.input_title Пригласительные именные
-      InputCounter(
-        @remove="remove('names')"
-        @add="add('names')"
-        v-model="mails.names.count"
-      )
-    div
-      p(style="font-size:14px; margin-bottom:6px") Перечислите имена отдельно
-      textarea.form-control.textToMail(placeholder="Уважаемый/Уважаемая ФИО" rows="6" v-model='mails.namesText')
-      input.form-control.textToMail(placeholder="Дата" v-model="mails.date")
-      input.form-control.textToMail(placeholder="Место проведения" v-model="mails.place")
+    label.input_title Пригласительные именные
+  .form-group.mail-counter
+    label.input_title На последний звонок
+    InputCounter(
+      @remove="remove('namesLastCall')"
+      @add="add('namesLastCall')"
+      @update:modelValue="(value) => update('namesLastCall', value)"
+      v-model="mails.namesLastCall.count"
+    )
+  .form-group.mail-counter
+    label.input_title На выпускной
+    InputCounter(
+      @remove="remove('namesFinal')"
+      @add="add('namesFinal')"
+      @update:modelValue="(value) => update('namesFinal', value)"
+      v-model="mails.namesFinal.count"
+    )
+  .form-group
+    p(style="font-size:14px; margin-bottom:6px") Перечислите имена отдельно
+    textarea.form-control.textToMail(placeholder="Уважаемый/Уважаемая ФИО" rows="6" v-model='mails.namesText')
+    input.form-control.textToMail(placeholder="Дата" v-model="mails.date")
+    input.form-control.textToMail(placeholder="Место проведения" v-model="mails.place")
 </template>
