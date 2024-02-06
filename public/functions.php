@@ -1,5 +1,5 @@
 <?php
-	require get_template_directory() . '/functions/styles.php';
+	// require get_template_directory() . '/functions/styles.php';
 
 	// require get_template_directory() . '/functions/start_config.php';
 	// require get_template_directory() . '/functions/scripts.php';
@@ -34,7 +34,7 @@ function edit_admin_menus() {
 		$submenu['edit.php'][10][0] = 'Добавить аксессуар';
 }
 
-add_action("admin_menu", "remove_menus");
+// add_action("admin_menu", "remove_menus");
 
 function remove_menus() {
   // remove_menu_page("index.php");                # Консоль
@@ -71,9 +71,7 @@ class trueOptionsPage {
 	}
  
 	function add(){
- 
 		add_menu_page( 'Номер заказа', 'Номер заказа', 'manage_options', $this->page_slug, array( $this, 'display' ), 'dashicons-images-alt2', 20 );
- 
 	}
 
 	function display() {

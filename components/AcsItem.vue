@@ -14,15 +14,19 @@ onBeforeMount(()=> {
 })
 
 const itemPrices = computed(()=> props.prices.reduce((acc:number[], item) => [...acc, item.price],[]))
-const itemCounts = computed(()=> props.counts.reduce((acc:number[], item) => [...acc, item.count],[]))
+const itemCounts = computed(()=> {
+  if (props.counts) {return props.counts.reduce((acc:number[], item) => [...acc, item.count],[])}
+  return 0
+})
 
 const oneItemPrice = computed(() => {
-  if (props.prices.length === 1) return +props.prices[0].price
+  if (props.prices.length === 1 ) return +props.prices[0].price
+  if (!itemCounts.value) return +props.prices[0].price
   return selectOnePrice(selectedAcs.value[props.index].count, itemPrices.value, itemCounts.value)
 })
 
 function change() {
-  selectedAcs.value[props.index].price = selectedAcs.value[props.index].count * oneItemPrice.value  
+  selectedAcs.value[props.index].price = selectedAcs.value[props.index].count * oneItemPrice.value
 }
 
 function addItem() {

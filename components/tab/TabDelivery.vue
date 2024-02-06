@@ -34,8 +34,6 @@ const subtitlePost = computed(()=> {
 
 const fastPrintPrice = computed(() => {
   const onePrice = selectOnePrice(allTapes.value, fastPrintPrices.value, fastPrintPricesDiscount.value)  
-  console.log(onePrice);
-  console.log(allTapes.value);
   
   return allTapes.value * onePrice
 })
@@ -138,7 +136,7 @@ function order() {
 
   mail()
 
-  if (delivery.value.name === 'sdek') sdeck()
+  // if (delivery.value.name === 'sdek') sdeck()
 
 }
 
@@ -253,7 +251,7 @@ function mail() {
   let str = formData.replace(/&#171;/g, "«")
   str = str.replace(/&#187;/g, "»")
     
-  useFetch('https://maytimelenta.ru/mail.php', {
+  useFetch('https:///maytimelenta.ru/mail.php', {
     method: 'POST',
     body: str
   })
