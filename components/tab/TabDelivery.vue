@@ -136,7 +136,7 @@ function order() {
 
   mail()
 
-  // if (delivery.value.name === 'sdek') sdeck()
+  if (delivery.value.name === 'sdek') sdeck()
 
 }
 
