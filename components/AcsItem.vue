@@ -26,6 +26,8 @@ const oneItemPrice = computed(() => {
 })
 
 function change() {
+  selectedAcs.value[props.index].count++
+  selectedAcs.value[props.index].count--
   selectedAcs.value[props.index].price = selectedAcs.value[props.index].count * oneItemPrice.value
 }
 
