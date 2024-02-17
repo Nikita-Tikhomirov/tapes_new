@@ -22,7 +22,10 @@ function addRequest() {
     childCount: 0,
     template: '1',
     color: 'Темно-бежевый',
-    print: 'Золото',
+    print: {
+      name: 'Золото',
+      isPrice: false,
+    },
     text: '',
     isName: false,
     namesCount: {

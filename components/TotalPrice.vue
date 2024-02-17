@@ -12,8 +12,8 @@ const delivery = useDelivery()
 
 //-------------------- Цена за ленты --------------------//
 
-const allAdult = computed(()=> requests.value.reduce((a,b)=> a + b.adultCount, 0))
-const allChild = computed(()=> requests.value.reduce((a,b)=> a + b.childCount, 0))
+const allAdult = computed(()=> requests.value.reduce((a,b)=> +a + +b.adultCount, 0))
+const allChild = computed(()=> requests.value.reduce((a,b)=> +a + +b.childCount, 0))
 
 const allChildPrice = useAllChildPrice()
 const allAdultPrice = useAllAdultPrice()
@@ -28,7 +28,7 @@ const tapesPrice = computed(()=> {
   const adultDiscount = activeTabForm.value === 'award' ? useAwardPricesDiscount() : useBasePricesDiscount()
   const childPrices = activeTabForm.value === 'award' ? useAwardPricesChildren() : useBasePricesChildren()
   const childDiscount = activeTabForm.value === 'award' ? useAwardPricesChildrenDiscount() : useBasePricesChildrenDiscount()
-
+  
   allTapes.value = +allAdult.value + +allChild.value
   
   const fastPrintPrice = computed(() => {
@@ -41,13 +41,14 @@ const tapesPrice = computed(()=> {
   let allPrice = 0
 
   const requestTapes:number[] = []
+
   requests.value.forEach(request => {
     const tapes = request.adultCount + request.childCount
     requestTapes.push(tapes)
   })
-
+  
   requests.value.forEach(request => {
-    // const tapes = request.adultCount + request.childCount
+    const tapes = request.adultCount + request.childCount
   
     if (request.print.isPrice) {
       adultOnePrice += 25
