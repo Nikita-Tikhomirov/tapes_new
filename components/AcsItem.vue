@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   prices: {price: number}[]
-  counts: {count: number}[]
+  counts: {count: number}[] | boolean
   title: string
   img: string
   index: number

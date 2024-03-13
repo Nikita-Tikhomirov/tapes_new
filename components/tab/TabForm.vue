@@ -44,7 +44,8 @@ const listPeople = computed(()=> {
 
 function selectPrint(e:Event) {
   const selectOptionIndex = (e.target as HTMLSelectElement).options.selectedIndex
-  props.request.print.isPrice = !!(e.target as HTMLSelectElement).options[selectOptionIndex].getAttribute('data-color')
+  const isPrice = (e.target as HTMLSelectElement).options[selectOptionIndex].getAttribute('data-color')
+  props.request.print.isPrice = isPrice === 'true' ? true : false  
 }
 </script>
 

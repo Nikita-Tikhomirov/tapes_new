@@ -49,7 +49,7 @@ const tapesPrice = computed(()=> {
   
   requests.value.forEach(request => {
     const tapes = request.adultCount + request.childCount
-  
+    
     if (request.print.isPrice) {
       adultOnePrice += 25
       childOnePrice += 25
