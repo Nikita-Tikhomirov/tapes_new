@@ -59,12 +59,21 @@ function deliverySdek() {
   
   if (!sdekWidjet) {
     const widget = new window.CDEKWidget({
+      // from: {
+      //   country_code: 'RU',
+      //   city: 'Томск',
+      //   postal_code: 630009,
+      //   code: 270,
+      //   address: 'ул. Ленина, д. 24',
+      // },
+      from: 'Томск',
+      canChoose: true,
       apiKey: '5f5b2da8-bfcb-44f6-81b2-a6d94f5f90de',
       defaultLocation: 'Москва',
-      from: 'Томск',
       root: 'forpvz',
       servicePath: 'https://maytimelenta.ru/service.php',
-      // servicePath: 'https://test.tihomirov.pro/service.php',
+      lang: 'rus',
+      currency: 'RUB',
       goods: [
         { length : 1, width : 1, height : 1, weight : 1 },
       ],
@@ -129,6 +138,11 @@ function order() {
     return
   }
 
+  if (!addressee.value.email) {
+    alert('Введите email')
+    return
+  }
+
   if (!addressee.value.vk) {
     alert('Вставте ссылку на ваш "Вконтакте"')
     return
@@ -136,7 +150,7 @@ function order() {
 
   mail()
 
-  if (delivery.value.name === 'sdek') sdeck()
+  // if (delivery.value.name === 'sdek') sdeck()
 
 }
 
@@ -150,53 +164,53 @@ const tabs = {
 }
 
 function mail() {
-  let request = ''
-  let requestTitle = ''
-  let adultCount = ''
-  let childCount = ''
-  let template = ''
-  let color = ''
-  let print = ''
-  let text = ''
-  let names = ''
+  let adultCount = 0
+  let childCount = 0
+  let formData = ''
+  formData += `${tabs[activeTabForm.value]}\n\n`
 
   requests.value.forEach((item, i) => {
     if (item.adultCount > 0 || item.childCount > 0) {
-      request = `Заявка №${i+1}:\n`
-      requestTitle = `${tabs[activeTabForm.value]}\n\n`
+      formData += `Заявка №${i+1}:\n`
+      // formData += '\nСтоимость заказа:\n'
+      // formData += 'Ленты:\n'
+      // if (item.adultCount > 0) formData += `Взрослые ленты: ${item.adultCount}шт. * ${allAdultPrice.value/allTapes.value}р. = ${allAdultPrice.value/allTapes.value * item.adultCount}р.\n`
+      // if (item.childCount > 0) formData += `Детские ленты: ${item.childCount}шт. * ${allChildPrice.value/allTapes.value}р. = ${allChildPrice.value/allTapes.value * item.childCount}р.\n`
 
-      if (item.adultCount > 0) adultCount = `Взрослые ленты: ${item.adultCount}шт. * ${allAdultPrice.value/item.adultCount}р. = ${allAdultPrice.value}р.\n`
-      if (item.childCount > 0) childCount = `Детские ленты: ${item.childCount}шт. * ${allChildPrice.value/item.childCount}р. = ${allChildPrice.value}р.\n`
+      if (item.adultCount > 0) adultCount += +item.adultCount
+      if (item.childCount > 0) childCount += +item.childCount
 
-      template = `Шаблон: ${item.template}\n`
-      color = `Цвет ленты: ${item.color}\n`
-      print = `Цвет печати: ${item.print.name}\n`
+      formData += `Шаблон: ${item.template}\n`
+      formData += `Цвет ленты: ${item.color}\n`
+      formData += `Цвет печати: ${item.print.name}\n`
 
-      if (item.text) text = `Доп. надпись на ленте: ${item.text}\n`
+      if (item.text) formData += `Доп. надпись на ленте: ${item.text}\n`
 
       for (const el in item.names) {
-        names += listPeople(item.names[el].names, item.isName, item.names[el].title)
+        formData += listPeople(item.names[el].names, item.isName, item.names[el].title)
       }
+
+      formData += '\n=============================================\n'
     }
   })
-
-  let formData = `${request}${requestTitle}`
-  formData += `${template}${color}${print}${text}\n`
-  formData += `${names}`
-
-  formData += '\nСтоимость заказа:\n'
-
-  formData += `Ленты:\n${adultCount}${childCount}`
 
   // =============== - =============== //
   // =============== Acs =============== //
   
   let acs = ''
+  let acsTotalPrice = 0
   selectedAcs.value.forEach(item => {
-    if (item.count > 0) acs += `${item.title}: ${item.count} шт. * ${item.price/item.count}р. = ${item.price}р.\n`
+    if (item.count > 0) {
+      acs += `${item.title}: ${item.count} шт. * ${item.price/item.count}р. = ${item.price}р.\n`
+      acsTotalPrice += item.price
+    }
   })
 
-  if (acs) formData += `\nАксессуары:\n${acs}`
+  if (acs) {
+    formData += `\nАксессуары:\n${acs}`
+    formData += '\n=============================================\n'
+  }
+
 
   // =============== - =============== //
   // =============== mails =============== //
@@ -226,17 +240,24 @@ function mail() {
   if (mails.value.date) mailsText += `Дата проведения: ${mails.value.date}\n`
   if (mails.value.place) mailsText += `Место проведения: ${mails.value.place}\n`
 
-  if (mailsText) formData += `\nПриглашения:\n${mailsText}`
+  if (mailsText) {
+    formData += `\nПриглашения:\n${mailsText}`
+    formData += '\n=============================================\n'
+  }
+
 
   // =============== - =============== //
 
-  if (fastPrint.value) formData += `\nЭкспресс печать: ${fastPrintPrice.value}р.\n`
+  if (adultCount) formData += `\nВзрослых лент: ${adultCount}шт. + ${allAdultPrice.value/allTapes.value}р. = ${allAdultPrice.value/allTapes.value * adultCount}р.\n`
+  if (childCount) formData += `\nДетских лент: ${childCount}шт. + ${allChildPrice.value/allTapes.value}р. = ${allChildPrice.value/allTapes.value * childCount}р.\n`
 
-  formData += `\nЦена: ${totalPrice.value - delivery.value.price} р.\n`
-
-  formData += delivery.value.name === 'post' ? 'Отправка: Почта россии' : 'Отправка: СДЕК'
+  formData += delivery.value.name === 'post' ? '\nОтправка: Почта россии' : 'Отправка: СДЕК\n'
   formData += `\nЦена доставки: ${delivery.value.price}р.\n`
-
+  if (fastPrint.value) formData += `Экспресс печать: ${fastPrintPrice.value}р.\n`
+  formData += `\nОбщая цена: ${totalPrice.value} р.\n`
+  // formData += `\nИтого: ${totalPrice.value}р.\n`
+  formData += '\n=============================================\n'
+  
   // =============== - =============== //
 
   formData += `\nПолучатель:\n`
@@ -244,6 +265,7 @@ function mail() {
   formData += `${addressee.value.point}\n`
   formData += `${addressee.value.name}\n`
   formData += `${addressee.value.phone}\n`
+  formData += `${addressee.value.email}\n`
   formData += `${addressee.value.vk}\n`
 
   if (addressee.value.text) formData += `\n\nКоментарий к заказу: ${addressee.value.text}\n`
@@ -257,6 +279,8 @@ function mail() {
   })
 
   activeTab.value = 'thanks'
+
+  // console.log(str)
 }
 
 async function sdeck () {
@@ -337,6 +361,11 @@ function listPeople (item, isName, title) {
       v-model="addressee.phone"
     )
     inputEL(
+      type="email"
+      placeholder="E-mail для кассового чека"
+      v-model="addressee.email"
+    )
+    inputEL(
       type="text"
       placeholder="ссылка на Вконтакте"
       v-model="addressee.vk"
@@ -348,8 +377,8 @@ function listPeople (item, isName, title) {
     .block(v-if="(request.adultCount > 0 || request.childCount > 0) && request.price > 0")
       p Заявка №{{ i + 1 }}:
       ul
-        li(v-if="request.adultCount > 0" v-html="`Взрослые ленты: ${request.adultCount}шт. * ${allAdultPrice/request.adultCount}р. = ${allAdultPrice}р.`")
-        li(v-if="request.childCount > 0" v-html="`Детские ленты: ${request.childCount}шт. * ${allChildPrice/request.childCount}р. = ${allChildPrice}р.\n`")
+        li(v-if="request.adultCount > 0" v-html="`Взрослые ленты: ${request.adultCount}шт. * ${allAdultPrice/allTapes}р. = ${allAdultPrice/allTapes * request.adultCount}р.`")
+        li(v-if="request.childCount > 0" v-html="`Детские ленты: ${request.childCount}шт. * ${allChildPrice/allTapes}р. = ${allChildPrice/allTapes * request.childCount}р.\n`")
         li Шаблон: {{request.template}}
         li Цвет ленты: {{request.color}}
         li Цвет печати: {{request.print.name}}

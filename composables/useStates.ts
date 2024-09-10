@@ -13,7 +13,10 @@ export const useRequests = () => useState<TypeRequest[]>('request', () => [{
   adultCount: 0,
   childCount: 0,
   template: '1',
-  color: 'Темно-бежевый',
+  color: {
+    name: 'Темно-бежевый',
+    isPrice: false
+  },
   print: {
     name: 'Золото',
     isPrice: false
@@ -63,7 +66,7 @@ export const useAllAdultPrice = () => useState<number>('adultPrice', () => 0)
 
 //-------------------- цвета --------------------//
 
-export const useColors = () => useState<[string?]>('colors', () => [])
+export const useColors = () => useState<[{name:string, price:boolean}?]>('colors', () => [])
 export const usePrint = () => useState<[{name:string, price:boolean}?]>('print', () => [])
 
 //-------------------- Дополнительные товары --------------------//

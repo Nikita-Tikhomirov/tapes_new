@@ -48,6 +48,10 @@ defineProps<{
     font-weight 600
     font-size 20px
 
+    @media screen and (max-width: 767px) {
+      font-size 16px
+    }
+
   &__subtitle
     font-size: 14px
 </style>

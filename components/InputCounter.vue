@@ -26,6 +26,7 @@ function add() {
 
 <template lang="pug">
 .inputCounter
+  //- .inputCounter__change(@click="remove") -5
   .inputCounter__change(@click="remove") -
   input.inputCounter__input.form-control(
     type="number"
@@ -36,6 +37,7 @@ function add() {
     @input="updateValue"
   )
   .inputCounter__change(@click="add") +
+  //- .inputCounter__change(@click="add") +5
 </template>
 
 <style scoped lang="stylus">
@@ -43,12 +45,11 @@ function add() {
   display flex
   align-items center
   justify-content space-between
+  gap 6px
 
   &__input
     width 100%
     height 30px
-    margin-left 10px
-    margin-right 10px
 
     &[readonly]:focus
       outline none
@@ -65,7 +66,7 @@ function add() {
     height 30px
     color #fff
     background #0055fb
-    font-size 20px
+    font-size 16px
     line-height 1
     transition 0.3s
     cursor pointer

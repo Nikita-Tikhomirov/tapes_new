@@ -36,8 +36,8 @@ const tapesPrice = computed(()=> {
     return allTapes.value * onePrice
   })
 
-  let adultOnePrice = selectOnePrice(allAdult.value, adultPrices.value, adultDiscount.value)
-  let childOnePrice = selectOnePrice(allChild.value, childPrices.value, childDiscount.value)
+  let adultOnePrice = selectOnePrice(allTapes.value, adultPrices.value, adultDiscount.value)
+  let childOnePrice = selectOnePrice(allTapes.value, childPrices.value, childDiscount.value)
   let allPrice = 0
 
   const requestTapes:number[] = []
@@ -54,6 +54,12 @@ const tapesPrice = computed(()=> {
       adultOnePrice += 25
       childOnePrice += 25
     }
+
+    if (request.color.isPrice) {
+      adultOnePrice += adultOnePrice * 0.4
+      childOnePrice += childOnePrice * 0.4
+    }
+    
     // else {
     //   adultOnePrice -= 25
     //   childOnePrice -= 25
@@ -68,8 +74,8 @@ const tapesPrice = computed(()=> {
     //   adultOnePrice += colorPrice
     // }
 
-    allChildPrice.value = request.childCount * childOnePrice
-    allAdultPrice.value = request.adultCount * adultOnePrice
+    allChildPrice.value = allTapes.value * childOnePrice
+    allAdultPrice.value = allTapes.value * adultOnePrice
   
     request.price = (request.adultCount * adultOnePrice) + (request.childCount * childOnePrice)
     allPrice += request.price

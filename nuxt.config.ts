@@ -15,8 +15,8 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'css/custom.css' }
       ],
       script: [
-        { src: "widjet.js",  async: true, },
-        // { src: "https://cdn.jsdelivr.net/gh/cdek-it/widget@3/dist/cdek-widget.umd.js" },
+        // { src: "widjet.js",  async: true, },
+        { src: "https://cdn.jsdelivr.net/npm/@cdek-it/widget@3.10.4/dist/cdek-widget.umd.min.js" },
       ],
     },
   },

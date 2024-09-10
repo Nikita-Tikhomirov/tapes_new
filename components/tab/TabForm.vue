@@ -42,6 +42,11 @@ const listPeople = computed(()=> {
   }
 })
 
+function selectColor(e:Event) {
+  const selectOptionIndex = (e.target as HTMLSelectElement).options.selectedIndex
+  const isPrice = (e.target as HTMLSelectElement).options[selectOptionIndex].getAttribute('data-color')
+  props.request.color.isPrice = isPrice === 'true' ? true : false  
+}
 function selectPrint(e:Event) {
   const selectOptionIndex = (e.target as HTMLSelectElement).options.selectedIndex
   const isPrice = (e.target as HTMLSelectElement).options[selectOptionIndex].getAttribute('data-color')
@@ -80,10 +85,11 @@ function selectPrint(e:Event) {
   .col-md-12.auto-col-2
     .form-group
       label.input_title Цвет ленты
-      select.niceselect(v-model="request.color")
+      select.niceselect(v-model="request.color.name" @change="(e) => selectColor(e)")
         option(
           v-for="color in colors"
           :value="color.color"
+          :data-color="`${color.price}`"
         ) {{ color.color }}
 
     .form-group
@@ -114,7 +120,7 @@ function selectPrint(e:Event) {
     v-if="activeTab !== 'award'"
     style="margin-left: 24px"
     :active="!request.isName"
-    title="Не именные ленты"
+    title="Ленты без имён"
     @click="request.isName = !request.isName"
   )
 

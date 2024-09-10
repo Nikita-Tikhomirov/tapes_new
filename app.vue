@@ -21,7 +21,10 @@ function addRequest() {
     adultCount: 0,
     childCount: 0,
     template: '1',
-    color: 'Темно-бежевый',
+    color: {
+      name: 'Темно-бежевый',
+      isPrice: false
+    },
     print: {
       name: 'Золото',
       isPrice: false,
