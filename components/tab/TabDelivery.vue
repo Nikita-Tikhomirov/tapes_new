@@ -181,7 +181,7 @@ function mail() {
       if (item.childCount > 0) childCount += +item.childCount
 
       formData += `Шаблон: ${item.template}\n`
-      formData += `Цвет ленты: ${item.color}\n`
+      formData += `Цвет ленты: ${item.color.name}\n`
       formData += `Цвет печати: ${item.print.name}\n`
 
       if (item.text) formData += `Доп. надпись на ленте: ${item.text}\n`
@@ -380,7 +380,7 @@ function listPeople (item, isName, title) {
         li(v-if="request.adultCount > 0" v-html="`Взрослые ленты: ${request.adultCount}шт. * ${allAdultPrice/allTapes}р. = ${allAdultPrice/allTapes * request.adultCount}р.`")
         li(v-if="request.childCount > 0" v-html="`Детские ленты: ${request.childCount}шт. * ${allChildPrice/allTapes}р. = ${allChildPrice/allTapes * request.childCount}р.\n`")
         li Шаблон: {{request.template}}
-        li Цвет ленты: {{request.color}}
+        li Цвет ленты: {{request.color.name}}
         li Цвет печати: {{request.print.name}}
         li(v-if="request.text") Доп. надпись на ленте: {{request.text}}
         template(v-for="item in request.names")
