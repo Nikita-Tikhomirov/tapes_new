@@ -152,6 +152,11 @@ function order() {
 
   // if (delivery.value.name === 'sdek') sdeck()
 
+  localStorage.setItem('requests', '')
+  localStorage.setItem('mails', '')
+  // localStorage.setItem('selectedAcs', JSON.stringify(selectedAcs.value))
+  // localStorage.setItem('addressee', JSON.stringify(addressee.value))
+
 }
 
 const tabs = {

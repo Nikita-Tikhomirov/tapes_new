@@ -3,8 +3,12 @@ const { data } = await useFetch<any>('https://maytimelenta.ru/wp-json/acf/v3/opt
 
 const activeTab = useActiveTab()
 const requests = useRequests()
+const mails = useMails()
+const selectedAcs = useSelectedAcs()
+const addressee = useAddressee()
 const colors = useColors()
 const print = usePrint()
+const isShowCash = ref(false)
 
 colors.value = data.value.acf.color
 print.value = data.value.acf.color_print
@@ -13,6 +17,33 @@ onBeforeMount(()=> {
   getTapesPrices()
   getMailsPrices()
   getAcsDesc()
+
+  window.addEventListener('beforeunload', function (event) {
+    event.preventDefault();
+    event.returnValue = '';
+    isShowCash.value = true
+  });
+
+  const cashRequests = localStorage.getItem('requests')
+  const cashMails = localStorage.getItem('mails')
+  const cashSelectedAcs = localStorage.getItem('selectedAcs')
+  const cashAddressee = localStorage.getItem('addressee')
+
+  if (cashRequests) {
+    requests.value = JSON.parse(cashRequests)
+  }
+
+  if (cashMails) {
+    mails.value = JSON.parse(cashMails)
+  }
+
+  if (cashSelectedAcs) {
+    selectedAcs.value = JSON.parse(cashSelectedAcs)
+  }
+
+  if (cashAddressee) {
+    addressee.value = JSON.parse(cashAddressee)
+  }
 })
 
 function addRequest() {
@@ -68,6 +99,10 @@ function addRequest() {
             )
             .addrequestButton(@click="addRequest") Добавить заявку
         TotalPrice(v-if="activeTab !== 'start' && activeTab !== 'thanks'")
+  Cash(
+    :isShow="isShowCash"
+    @hideModal="isShowCash = false"
+  )
 </template>
 
 <style>
