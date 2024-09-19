@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   modelValue: string | number
+  numbers?: boolean
   readonly?: boolean
 }>()
 
@@ -8,26 +9,30 @@ const emit = defineEmits<{
   'update:modelValue': [value:string]
   'update': [value:string]
   'remove': []
-  'add': []
+  'add': [value:number]
 }>()
 
 function updateValue(e:Event) { 
   emit('update:modelValue', (e.target as HTMLInputElement).value)
 }
 
-function remove() {
-  if (props.modelValue > '0') emit('remove')
+function remove(value) {
+  if (props.modelValue > '0') emit('remove', value)
 }
 
-function add() {
-  emit('add')
+function add(value) {
+  emit('add', value)
 }
 </script>
 
 <template lang="pug">
 .inputCounter
-  //- .inputCounter__change(@click="remove") -5
-  .inputCounter__change(@click="remove") -
+
+  template(v-if="numbers")
+    .inputCounter__change(@click="remove(5)") -5
+    .inputCounter__change(@click="remove(1)") -1
+  template(v-else)
+    .inputCounter__change(@click="remove(1)") -
   input.inputCounter__input.form-control(
     type="number"
     min="0"
@@ -36,8 +41,11 @@ function add() {
     :readonly="readonly"
     @input="updateValue"
   )
-  .inputCounter__change(@click="add") +
-  //- .inputCounter__change(@click="add") +5
+  template(v-if="numbers")
+    .inputCounter__change(@click="add(1)") +1
+    .inputCounter__change(@click="add(5)") +5
+  template(v-else)
+    .inputCounter__change(@click="add(1)") +
 </template>
 
 <style scoped lang="stylus">

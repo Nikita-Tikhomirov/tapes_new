@@ -5,42 +5,39 @@ const mailsPriceEdit = useMailsPriceEdit()
 const mailsPriceName = useMailsPriceName()
 const mails = useMails()
 
-function add(type:string) {
+function add(type:string, value:number) {
+  mails.value[type].count = +mails.value[type].count + value
+  const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+
   if (type === 'standartLastCall' || type === 'standartFinal') {
-    mails.value[type].count++
-    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
     mails.value[type].price = onePrice
   }
 
   if (type === 'editLastCall' || type === 'editFinal') {
-    mails.value[type].count++
-    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
     mails.value[type].price = onePrice + mailsPriceEdit.value
   }
 
   if (type === 'namesLastCall' || type === 'namesFinal') {
-    mails.value[type].count++
-    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
     mails.value[type].price = onePrice + mailsPriceName.value
   }
 }
 
-function remove(type:string) {
+function remove(type:string, value:number) {
+  mails.value[type].count = +mails.value[type].count - value
+  if (+mails.value[type].count < 0) {
+    mails.value[type].count = 0
+  }
+  const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
+
   if (type === 'standartLastCall' || type === 'standartFinal') {
-    mails.value[type].count--
-    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
     mails.value[type].price = onePrice
   }
 
   if (type === 'editLastCall' || type === 'editFinal') {
-    mails.value[type].count--
-    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
     mails.value[type].price = onePrice + mailsPriceEdit.value
   }
 
   if (type === 'namesLastCall' || type === 'namesFinal') {
-    mails.value[type].count--
-    const onePrice = selectOnePrice(mails.value[type].count, mailsPrices.value, mailsDiscount.value)
     mails.value[type].price = onePrice + mailsPriceName.value
   }
 }
@@ -62,20 +59,22 @@ div
       label.input_title Пригласительные "Стандарт"
       p(style="font-size:14px") Вы их заполняете сами (не именные)
 
-    .form-group.mail-counter
+    .form-group.mail-counter.--standart
       label.input_title На последний звонок
       InputCounter(
-        @remove="remove('standartLastCall')"
-        @add="add('standartLastCall')"
+        :numbers="true"
+        @remove="(value) => remove('standartLastCall', value)"
+        @add="(value) => add('standartLastCall', value)"
         @update:modelValue="(value) => update('standartLastCall', value)"
         v-model="mails.standartLastCall.count"
       )
     
-    .form-group.mail-counter
+    .form-group.mail-counter.--standart
       label.input_title На выпускной
       InputCounter(
-        @remove="remove('standartFinal')"
-        @add="add('standartFinal')"
+        :numbers="true"
+        @remove="(value) => remove('standartFinal', value)"
+        @add="(value) => add('standartFinal', value)"
         @update:modelValue="(value) => update('standartFinal', value)"
         v-model="mails.standartFinal.count"
       )

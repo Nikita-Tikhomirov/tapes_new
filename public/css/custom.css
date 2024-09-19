@@ -205,3 +205,10 @@ h5 span {}
   gap: 20px;
   grid-template-columns: 1fr 1fr;
 }
+
+@media (max-width: 450px) {
+  .mail-counter.--standart {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
