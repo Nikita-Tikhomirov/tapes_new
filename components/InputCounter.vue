@@ -29,8 +29,7 @@ function add(value) {
 .inputCounter
 
   template(v-if="numbers")
-    .inputCounter__change(@click="remove(5)") -5
-    .inputCounter__change(@click="remove(1)") -1
+    .inputCounter__change(@click="remove(5)") -
   template(v-else)
     .inputCounter__change(@click="remove(1)") -
   input.inputCounter__input.form-control(
@@ -42,8 +41,7 @@ function add(value) {
     @input="updateValue"
   )
   template(v-if="numbers")
-    .inputCounter__change(@click="add(1)") +1
-    .inputCounter__change(@click="add(5)") +5
+    .inputCounter__change(@click="add(5)") +
   template(v-else)
     .inputCounter__change(@click="add(1)") +
 </template>

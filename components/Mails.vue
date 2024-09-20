@@ -69,7 +69,7 @@ div
         v-model="mails.standartLastCall.count"
       )
     
-    .form-group.mail-counter.--standart
+    .form-group.mail-counter
       label.input_title На выпускной
       InputCounter(
         :numbers="true"
@@ -86,8 +86,8 @@ div
     .form-group.mail-counter
       label.input_title На последний звонок
       InputCounter(
-        @remove="remove('editLastCall')"
-        @add="add('editLastCall')"
+        @remove="(value) => remove('editLastCall', value)"
+        @add="(value) => add('editLastCall', value)"
         @update:modelValue="(value) => update('editLastCall', value)"
         v-model="mails.editLastCall.count"
       )
@@ -95,8 +95,8 @@ div
     .form-group.mail-counter
       label.input_title На выпускной
       InputCounter(
-        @remove="remove('editFinal')"
-        @add="add('editFinal')"
+        @remove="(value) => remove('editFinal', value)"
+        @add="(value) => add('editFinal', value)"
         @update:modelValue="(value) => update('editFinal', value)"
         v-model="mails.editFinal.count"
       )
@@ -109,16 +109,16 @@ div
   .form-group.mail-counter
     label.input_title На последний звонок
     InputCounter(
-      @remove="remove('namesLastCall')"
-      @add="add('namesLastCall')"
+      @remove="(value) => remove('namesLastCall', value)"
+      @add="(value) => add('namesLastCall', value)"
       @update:modelValue="(value) => update('namesLastCall', value)"
       v-model="mails.namesLastCall.count"
     )
   .form-group.mail-counter
     label.input_title На выпускной
     InputCounter(
-      @remove="remove('namesFinal')"
-      @add="add('namesFinal')"
+      @remove="(value) => remove('namesFinal', value)"
+      @add="(value) => add('namesFinal', value)"
       @update:modelValue="(value) => update('namesFinal', value)"
       v-model="mails.namesFinal.count"
     )
