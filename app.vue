@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { data } = await useFetch<any>('https://maytimelenta.ru/wp-json/acf/v3/options/options/')
 
+const postPrice = usePostPrice()
 const activeTab = useActiveTab()
 const requests = useRequests()
 const mails = useMails()
@@ -12,6 +13,7 @@ const isShowCash = ref(false)
 
 colors.value = data.value.acf.color
 print.value = data.value.acf.color_print
+postPrice.value = +data.value.acf.post_price
 
 onBeforeMount(()=> {
   getTapesPrices()
@@ -69,6 +71,10 @@ function addRequest() {
     names: {}
   })
 }
+
+function removeRequest(index: number) {
+  requests.value.splice(index, 1)
+}
 </script>
 
 <template lang="pug">
@@ -96,6 +102,7 @@ function addRequest() {
               :key="i"
               :index="i"
               :request="request"
+              @removeRequest="removeRequest"
             )
             .addrequestButton(@click="addRequest") Добавить заявку
         TotalPrice(v-if="activeTab !== 'start' && activeTab !== 'thanks'")

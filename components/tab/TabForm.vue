@@ -55,10 +55,14 @@ function selectPrint(e:Event) {
 </script>
 
 <template lang="pug">
-.signup_form.row
-  .col-md-12
+.signup_form.row.border-top.pt-3
+  .col-md-12.d-flex.align-items-center.justify-content-between
     h5 Заявка № 
       span.requestCount  {{ index + 1 }}
+    button.btn.btn-danger(
+      v-if="index !== 0"
+      @click="$emit('removeRequest', index)"
+    ) Удалить заявку
   .col-md-12.auto-col-2
     inputEL(
       v-if="activeTab !== 'vipuskniki'"

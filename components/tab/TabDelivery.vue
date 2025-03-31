@@ -10,6 +10,7 @@ const fastPrintPricesDiscount = useFastPrintDiscount()
 const allTapes = useAllTapes()
 const totalPrice = useTotalPrice()
 const delivery = useDelivery()
+const postPrice = usePostPrice()
 
 const allChildPrice = useAllChildPrice()
 const allAdultPrice = useAllAdultPrice()
@@ -26,7 +27,7 @@ const subtitleSdek = computed(()=> {
 
 const subtitlePost = computed(()=> {
   if (delivery.value.name === 'post') {
-    return 'доставка почтой + 500 рублей.<br>Eсли у вас северный или удаленный регион, возможно цена за доставку Почтой будет чуть выше, более точную информацию о доставке Почтой скажем, когда вы укажите куда именно будет доставка и какой именно будет заказ ( цена зависит от месторасположения и веса заказа )'
+    return `доставка почтой + ${postPrice.value} рублей.<br>Eсли у вас северный или удаленный регион, возможно цена за доставку Почтой будет чуть выше, более точную информацию о доставке Почтой скажем, когда вы укажите куда именно будет доставка и какой именно будет заказ ( цена зависит от месторасположения и веса заказа )`
   } else {
     return 'Оплата за заказ, и за доставку до заказа - 100%'
   }
@@ -51,7 +52,7 @@ let sdekWidjet = false
 
 function deliveryPost() {
   delivery.value.name = 'post'
-  delivery.value.price = 500
+  delivery.value.price = +postPrice.value
 }
 
 function deliverySdek() {
@@ -59,14 +60,13 @@ function deliverySdek() {
   
   if (!sdekWidjet) {
     const widget = new window.CDEKWidget({
-      // from: {
-      //   country_code: 'RU',
-      //   city: 'Томск',
-      //   postal_code: 630009,
-      //   code: 270,
-      //   address: 'ул. Ленина, д. 24',
-      // },
-      from: 'Томск',
+      from: {
+        country_code: 'RU',
+        city: 'Томск',
+        postal_code: 634034,
+        code: 269,
+        address: 'ул. Ленина, д. 24',
+      },
       canChoose: true,
       apiKey: '5f5b2da8-bfcb-44f6-81b2-a6d94f5f90de',
       defaultLocation: 'Москва',
@@ -88,6 +88,13 @@ function deliverySdek() {
         is_dressing_room: true,
         type: true,
       },
+
+      onCalculate: function(_type, tariff, address) {
+        console.log('type', _type);
+        console.log('tariff', tariff);
+        console.log('address', address);
+      },
+
       onChoose: function(_type, tariff, address) {
         addressee.value.tariff = tariff.tariff_code
         
@@ -103,13 +110,34 @@ function deliverySdek() {
           addressee.value.pointId = address.code
         }
 
-        if (addressee.value.city === 'Москва' || addressee.value.city === 'Санкт-Петербург') delivery.value.price = 350
-        else if (+tariff.delivery_sum <= 230) delivery.value.price = 250
-        else if (+tariff.delivery_sum <= 290) delivery.value.price = 300
-        else if (+tariff.delivery_sum <= 335) delivery.value.price = 350
-        else if (+tariff.delivery_sum <= 395) delivery.value.price = 395
-        else if (+tariff.delivery_sum <= 600) delivery.value.price = +tariff.delivery_sum
-        else if (+tariff.delivery_sum > 600) delivery.value.price = +tariff.delivery_sum + (+totalPrice.value * 0.03)
+        if (addressee.value.city === 'Москва' || addressee.value.city === 'Санкт-Петербург') {
+          delivery.value.price = 350
+          tariff.delivery_sum = 350
+        }
+        else if (+tariff.delivery_sum <= 230) {
+          delivery.value.price = 250
+          tariff.delivery_sum = 250
+
+        }
+        else if (+tariff.delivery_sum <= 290) {
+          delivery.value.price = 300
+          tariff.delivery_sum = 300
+        }
+        else if (+tariff.delivery_sum <= 335) {
+          delivery.value.price = 350
+          tariff.delivery_sum = 350
+        }
+        else if (+tariff.delivery_sum <= 395) {
+          delivery.value.price = 395
+          tariff.delivery_sum = 395
+        }
+        else if (+tariff.delivery_sum <= 600) {
+          delivery.value.price = +tariff.delivery_sum
+        }
+        else if (+tariff.delivery_sum > 600) {
+          delivery.value.price = +tariff.delivery_sum + (+totalPrice.value * 0.03)
+          tariff.delivery_sum = +tariff.delivery_sum + (+totalPrice.value * 0.03)
+        }
       },
     })
   }
@@ -172,8 +200,6 @@ function mail() {
   let adultCount = 0
   let childCount = 0
   let formData = ''
-  formData += `${tabs[activeTabForm.value]}\n\n`
-
   requests.value.forEach((item, i) => {
     if (item.adultCount > 0 || item.childCount > 0) {
       formData += `Заявка №${i+1}:\n`
@@ -182,17 +208,44 @@ function mail() {
       // if (item.adultCount > 0) formData += `Взрослые ленты: ${item.adultCount}шт. * ${allAdultPrice.value/allTapes.value}р. = ${allAdultPrice.value/allTapes.value * item.adultCount}р.\n`
       // if (item.childCount > 0) formData += `Детские ленты: ${item.childCount}шт. * ${allChildPrice.value/allTapes.value}р. = ${allChildPrice.value/allTapes.value * item.childCount}р.\n`
 
-      if (item.adultCount > 0) adultCount += +item.adultCount
-      if (item.childCount > 0) childCount += +item.childCount
+      adultCount += item.adultCount > 0 ? +item.adultCount : 0
+      childCount += item.childCount > 0 ? +item.childCount : 0
 
-      formData += `Шаблон: ${item.template}\n`
-      formData += `Цвет ленты: ${item.color.name}\n`
+      let acsCount = ''
+      selectedAcs.value.forEach(item => {
+        if (item.count > 0) {
+          acsCount += `${item.title}: ${item.count} шт.\n`
+        }
+      })
+      formData += `${tabs[activeTabForm.value]}: ${adultCount + childCount}шт.\n`
+      // if (adultCount) formData += `Взрослых лент: ${adultCount}шт.\n`
+      // if (childCount) formData += `Детских лент: ${childCount}шт.\n`
+      if (acsCount) formData += `${acsCount}`
+
+    if (mails.value.standartLastCall.count || mails.value.standartFinal.count) {
+      if (mails.value.standartLastCall.count) formData += `Пригласительные "Стандарт" на последний звонок: ${mails.value.standartLastCall.count}шт.\n`
+      if (mails.value.standartFinal.count) formData += `Пригласительные "Стандарт" на выпускной: ${mails.value.standartFinal.count}шт.\n`
+    }
+
+    if (mails.value.editLastCall.count || mails.value.editFinal.count) {
+      if (mails.value.editLastCall.count) formData += `Пригласительные с доп. текстом на последний звонок: ${mails.value.editLastCall.count}шт.\n`
+      if (mails.value.editFinal.count) formData += `Пригласительные с доп. текстом на выпускной: ${mails.value.editFinal.count}шт.\n`
+    }
+
+    if (mails.value.namesLastCall.count || mails.value.namesFinal.count) {
+      if (mails.value.namesLastCall.count) formData += `Именные пригласительные на последний звонок: ${mails.value.namesLastCall.count}шт.\n`
+      if (mails.value.namesFinal.count) formData += `Именные пригласительные на выпускной: ${mails.value.namesFinal.count}шт.\n`
+    }
+
+
+      formData += `\nШаблон: ${item.template}\n`
+      formData += `\nЦвет ленты: ${item.color.name}\n`
       formData += `Цвет печати: ${item.print.name}\n`
 
-      if (item.text) formData += `Доп. надпись на ленте: ${item.text}\n`
+      if (item.text) formData += `\nДоп. надпись на ленте: ${item.text}\n`
 
       for (const el in item.names) {
-        formData += listPeople(item.names[el].names, item.isName, item.names[el].title)
+        formData += listPeople(item.names[el].names, item.isName, item.names[el].title, true)
       }
 
       formData += '\n=============================================\n'
@@ -201,13 +254,11 @@ function mail() {
 
   // =============== - =============== //
   // =============== Acs =============== //
-  
+
   let acs = ''
-  let acsTotalPrice = 0
   selectedAcs.value.forEach(item => {
     if (item.count > 0) {
       acs += `${item.title}: ${item.count} шт. * ${item.price/item.count}р. = ${item.price}р.\n`
-      acsTotalPrice += item.price
     }
   })
 
@@ -253,25 +304,34 @@ function mail() {
 
   // =============== - =============== //
 
-  if (adultCount) formData += `\nВзрослых лент: ${adultCount}шт. + ${allAdultPrice.value/allTapes.value}р. = ${allAdultPrice.value/allTapes.value * adultCount}р.\n`
-  if (childCount) formData += `\nДетских лент: ${childCount}шт. + ${allChildPrice.value/allTapes.value}р. = ${allChildPrice.value/allTapes.value * childCount}р.\n`
+  if (adultCount) formData += `\nВзрослых лент: ${adultCount}шт. * ${allAdultPrice.value/allTapes.value}р. = ${allAdultPrice.value/allTapes.value * adultCount}р.\n`
+  if (childCount) formData += `\nДетских лент: ${childCount}шт. * ${allChildPrice.value/allTapes.value}р. = ${allChildPrice.value/allTapes.value * childCount}р.\n`
 
-  formData += delivery.value.name === 'post' ? '\nОтправка: Почта россии' : 'Отправка: СДЕК\n'
-  formData += `\nЦена доставки: ${delivery.value.price}р.\n`
+  // formData += delivery.value.name === 'post' ? '\nОтправка: Почта России' : 'Отправка: СДЕК\n'
+  // formData += `\nЦена доставки: ${delivery.value.price}р.\n`
   if (fastPrint.value) formData += `Экспресс печать: ${fastPrintPrice.value}р.\n`
-  formData += `\nОбщая цена: ${totalPrice.value} р.\n`
-  // formData += `\nИтого: ${totalPrice.value}р.\n`
+  formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} р.\n`
+  if (delivery.value.name != 'post') {
+    formData += `\nПредоплата: 50%\n`
+    formData += `Оплата при получении(наложенный платеж): 50%\n`
+    formData += `+ Стоимость доставки СДЕК до ${addressee.value.city} ${delivery.value.price} рублей (оплачивается при получении посылки в СДЕК) \n`
+  } else {
+    formData += `\n+ Стоимость доставки Почтой России ${delivery.value.price} рублей (100% ная оплата за заказ, за доставку)\n`
+  }
+
+  formData += `\nИтого к оплате (с доставкой): ${totalPrice.value} р.\n`
+
   formData += '\n=============================================\n'
   
   // =============== - =============== //
 
   formData += `\nПолучатель:\n`
-  formData += `${addressee.value.city}\n`
-  formData += `${addressee.value.point}\n`
-  formData += `${addressee.value.name}\n`
-  formData += `${addressee.value.phone}\n`
-  formData += `${addressee.value.email}\n`
-  formData += `${addressee.value.vk}\n`
+  formData += `Город: ${addressee.value.city}\n`
+  formData += `Адрес: ${addressee.value.point}\n`
+  formData += `Имя: ${addressee.value.name}\n`
+  formData += `Телeфон: ${addressee.value.phone}\n`
+  formData += `Email: ${addressee.value.email}\n`
+  formData += `VK: ${addressee.value.vk}\n`
 
   if (addressee.value.text) formData += `\n\nКоментарий к заказу: ${addressee.value.text}\n`
 
@@ -303,11 +363,23 @@ async function sdeck () {
   })
 }
 
-function listPeople (item, isName, title) {
-  if (item && item.length > 0) {
-    if (!isName) return `${title}: ${item.length}\n`
+function listPeople (item, isName, title, mail) {
+  if (!mail && item && item.length > 0) {
+    if (!isName) return `${title}(без имени): ${item.length}\n`
 
     let string = title + ':\n'
+
+    for (const name of item) {
+      string += '    ' + name + '\n'
+    }
+
+    return string
+  }
+
+  if (mail) {
+    if (!isName) return `${title}(без имени): ${item.length}\n`
+
+    let string = `\n${title}:\n`
 
     for (const name of item) {
       string += '    ' + name + '\n'
@@ -420,8 +492,13 @@ function listPeople (item, isName, title) {
       li(v-if="mails.date") Дата проведения: {{mails.date}}
       li(v-if="mails.place") Место проведения: {{mails.place}}
 
-  .block(v-if="delivery")
-    p Доставка: <b>{{ delivery.price }}</b>
+  .block(v-if="delivery.name === 'post' && delivery.price")
+    p Стоимость доставки Почтой России {{delivery.price}} рублей (100%ная оплата за заказ, за доставку)
+
+  .block(v-if="delivery.name === 'sdek' && addressee.city && delivery.price")
+    p Предоплата: 50%
+    p Оплата при получении(наложенный платеж): 50%
+    p + Стоимость доставки СДЕК до {{addressee.city}} {{delivery.price}} рублей (оплачивается при получении посылки в СДЕК)
 
   Radio(
     :active="fastPrint"

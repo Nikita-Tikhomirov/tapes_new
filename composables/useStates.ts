@@ -43,6 +43,8 @@ export const useAddressee = () => useState('addressee', () => ({
 
 }))
 
+export const usePostPrice = () => useState<number>('post_price', () => 500)
+
 export const useTabsDesc = () => useState<{}>('tabsDesc', () => ({}))
 
 //-------------------- Цены на ленты --------------------//
