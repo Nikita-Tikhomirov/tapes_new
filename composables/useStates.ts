@@ -43,7 +43,12 @@ export const useAddressee = () => useState('addressee', () => ({
 
 }))
 
-export const usePostPrice = () => useState<number>('post_price', () => 500)
+export const usePostPrice = () => useState<number>('post_price', () => 600)
+export const useSdekMskPrice = () => useState<number>('sdek_msk', () => 395)
+export const useSdekSpbPrice = () => useState<number>('sdek_spb', () => 395)
+export const useSdekPrices = () => useState<{price: string}[]>('sdek_prices', () => [{price: '230'}, {price: '290'}, {price: '335'}, {price: '395'}, {price: '600'}])
+export const useSdekPricesNew = () => useState<{price: string}[]>('sdek_prices_new', () => [{price: '250'}, {price: '300'}, {price: '350'}, {price: '395'}, {price: '600'}])
+export const useSdekPricesExtraPercent = () => useState<string>('sdek_prices_extra_percent', () => '0.03')
 
 export const useTabsDesc = () => useState<{}>('tabsDesc', () => ({}))
 

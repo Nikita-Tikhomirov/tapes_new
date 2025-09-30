@@ -11,6 +11,12 @@ const allTapes = useAllTapes()
 const totalPrice = useTotalPrice()
 const delivery = useDelivery()
 const postPrice = usePostPrice()
+const sdekMskPrice = useSdekMskPrice()
+const sdekSpbPrice = useSdekSpbPrice()
+
+const sdekPrices = useSdekPrices()
+const sdekPricesNew = useSdekPricesNew()
+const sdekPricesExtraPercent = useSdekPricesExtraPercent()
 
 const allChildPrice = useAllChildPrice()
 const allAdultPrice = useAllAdultPrice()
@@ -110,34 +116,44 @@ function deliverySdek() {
           addressee.value.pointId = address.code
         }
 
-        if (addressee.value.city === 'Москва' || addressee.value.city === 'Санкт-Петербург') {
-          delivery.value.price = 350
-          tariff.delivery_sum = 350
+        if (addressee.value.city === 'Москва') {
+          delivery.value.price = sdekMskPrice.value
+          tariff.delivery_sum = sdekMskPrice.value
         }
-        else if (+tariff.delivery_sum <= 230) {
-          delivery.value.price = 250
-          tariff.delivery_sum = 250
+        else if (addressee.value.city === 'Санкт-Петербург') {
+          delivery.value.price = sdekSpbPrice.value
+          tariff.delivery_sum = sdekSpbPrice.value
+        }
+        else {
+          const newPrice = deliverySdekPrice(tariff.delivery_sum, sdekPrices.value, sdekPricesNew.value, sdekPricesExtraPercent.value)
+          delivery.value.price = newPrice
+          tariff.delivery_sum = newPrice
+        }
 
-        }
-        else if (+tariff.delivery_sum <= 290) {
-          delivery.value.price = 300
-          tariff.delivery_sum = 300
-        }
-        else if (+tariff.delivery_sum <= 335) {
-          delivery.value.price = 350
-          tariff.delivery_sum = 350
-        }
-        else if (+tariff.delivery_sum <= 395) {
-          delivery.value.price = 395
-          tariff.delivery_sum = 395
-        }
-        else if (+tariff.delivery_sum <= 600) {
-          delivery.value.price = +tariff.delivery_sum
-        }
-        else if (+tariff.delivery_sum > 600) {
-          delivery.value.price = +tariff.delivery_sum + (+totalPrice.value * 0.03)
-          tariff.delivery_sum = +tariff.delivery_sum + (+totalPrice.value * 0.03)
-        }
+        // else if (+tariff.delivery_sum <= 230) {
+        //   delivery.value.price = 250
+        //   tariff.delivery_sum = 250
+
+        // }
+        // else if (+tariff.delivery_sum <= 290) {
+        //   delivery.value.price = 300
+        //   tariff.delivery_sum = 300
+        // }
+        // else if (+tariff.delivery_sum <= 335) {
+        //   delivery.value.price = 350
+        //   tariff.delivery_sum = 350
+        // }
+        // else if (+tariff.delivery_sum <= 395) {
+        //   delivery.value.price = 395
+        //   tariff.delivery_sum = 395
+        // }
+        // else if (+tariff.delivery_sum <= 600) {
+        //   delivery.value.price = +tariff.delivery_sum
+        // }
+        // else if (+tariff.delivery_sum > 600) {
+        //   delivery.value.price = +tariff.delivery_sum + (+totalPrice.value * 0.03)
+        //   tariff.delivery_sum = +tariff.delivery_sum + (+totalPrice.value * 0.03)
+        // }
       },
     })
   }
@@ -310,16 +326,16 @@ function mail() {
   // formData += delivery.value.name === 'post' ? '\nОтправка: Почта России' : 'Отправка: СДЕК\n'
   // formData += `\nЦена доставки: ${delivery.value.price}р.\n`
   if (fastPrint.value) formData += `Экспресс печать: ${fastPrintPrice.value}р.\n`
-  formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} р.\n`
   if (delivery.value.name != 'post') {
+    formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} р.\n`
     formData += `\nПредоплата: 50%\n`
     formData += `Оплата при получении(наложенный платеж): 50%\n`
     formData += `+ Стоимость доставки СДЕК до ${addressee.value.city} ${delivery.value.price} рублей (оплачивается при получении посылки в СДЕК) \n`
+    formData += `\nИтого к оплате (с доставкой): ${totalPrice.value} р.\n`
   } else {
-    formData += `\n+ Стоимость доставки Почтой России ${delivery.value.price} рублей (100% ная оплата за заказ, за доставку)\n`
+    formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} р. (100% ная оплата за заказ)\n`
+    formData += `\n+ Стоимость доставки Почтой России ${delivery.value.price} рублей (Оплачивается при получении посылки)\n`
   }
-
-  formData += `\nИтого к оплате (с доставкой): ${totalPrice.value} р.\n`
 
   formData += '\n=============================================\n'
   
