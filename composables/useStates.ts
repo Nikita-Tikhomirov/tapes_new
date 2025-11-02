@@ -43,6 +43,9 @@ export const useAddressee = () => useState('addressee', () => ({
 
 }))
 
+export const useTrueText = () => useState<string>('true_text', () => 'Огромная просьба проверить правильность написания имён, наименование школы и т.д. так как мы копируем Ваши данные и вставляем в программу для печати')
+export const useTrueText2 = () => useState<string>('true_text_2', () => 'Заполнение заявки на сайте не считается оформленным заказом. После того, как мы получим от вас заявку, проверим наличие всех товаров и выставим счёт на оплату в группе ВК. Заказ считается оформленным только после внесения предоплаты')
+
 export const usePostPrice = () => useState<number>('post_price', () => 600)
 export const useSdekMskPrice = () => useState<number>('sdek_msk', () => 395)
 export const useSdekSpbPrice = () => useState<number>('sdek_spb', () => 395)

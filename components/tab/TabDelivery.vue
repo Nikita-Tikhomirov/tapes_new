@@ -23,6 +23,8 @@ const allAdultPrice = useAllAdultPrice()
 
 const mails = useMails()
 
+const isPolicy = ref(false)
+
 const subtitleSdek = computed(()=> {
   if (delivery.value.name === 'sdek') {
     return `${ (totalPrice.value - delivery.value.price) / 2 }р. предоплата (За ваш заказ)<br>Остаток 50% и сумму за доставку (${delivery.value.price}р.) вы оплачиваете в пункте выдачи СДЭК, адрес которого вы указываете`
@@ -162,6 +164,11 @@ function deliverySdek() {
 }
 
 function order() {
+  if (!isPolicy.value) {
+    alert('Согласитесь с политикой обработки персональных данных')
+    return
+  }
+
   if (!delivery.value.name) {
     alert('Выберите способ доставки!')
     return
@@ -532,11 +539,21 @@ function listPeople (item, isName, title, mail) {
   )
 
   .next_button.text-right
-    button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="order")
+    Radio(
+      :active="isPolicy"
+      title='<span>Я согласен(сна) на <a href="https://maytimelenta.ru/policy/" target="_blank" rel="noopener noreferrer">обработку персональных данных</a></span>'
+      @click="isPolicy = !isPolicy"
+    )
+    button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(
+      @click="order"
+    )
       span Заказать
 </template>
 
 <style scoped>
+.btn {
+  margin-top: 24px;
+}
 .block {
   padding-bottom: 4px;
   border-bottom: 1px solid #000;

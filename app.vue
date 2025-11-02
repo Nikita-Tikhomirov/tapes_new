@@ -18,6 +18,9 @@ const colors = useColors()
 const print = usePrint()
 const isShowCash = ref(false)
 
+const trueText = useTrueText()
+const trueText2 = useTrueText2()
+
 colors.value = data.value.acf.color
 print.value = data.value.acf.color_print
 postPrice.value = +data.value.acf.post_price
@@ -28,6 +31,9 @@ if (data.value.acf.sdek_spb) sdekSpbPrice.value = +data.value.acf.sdek_spb
 if (data.value.acf.sdek_prices) sdekPrices.value = data.value.acf.sdek_prices
 if (data.value.acf.sdek_prices_new) sdekPricesNew.value = data.value.acf.new_prices
 if (data.value.acf.sdek_prices_extra_percent) sdekPricesExtraPercent.value = +data.value.acf.extra_percent
+
+if (data.value.acf.true_text) trueText.value = data.value.acf.true_text
+if (data.value.acf.true_text_2) trueText2.value = data.value.acf.true_text_2
 
 onBeforeMount(()=> {
   getTapesPrices()

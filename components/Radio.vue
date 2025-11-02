@@ -10,8 +10,11 @@ defineProps<{
 .customRadio(:class="{ 'active' : active}")
   .customRadio__checkbox
   .customRadio__text
-    .customRadio__title {{ title }}
-    .customRadio__subtitle(v-if="subtitle" v-html="subtitle")
+    .customRadio__title(v-html="title")
+    .customRadio__subtitle(
+      v-if="subtitle"
+      v-html="subtitle"
+    )
 </template>
 
 <style scoped lang="stylus">
@@ -45,6 +48,8 @@ defineProps<{
         background-color #0055fb
 
   &__title
+    text-align left
+    padding-left 0
     font-weight 600
     font-size 20px
 

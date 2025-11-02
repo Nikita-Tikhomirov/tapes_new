@@ -10,8 +10,12 @@ const fastPrint = useFastPrint()
 const totalPrice = useTotalPrice()
 const selectedAcs = useSelectedAcs()
 
+const trueText = useTrueText()
+const trueText2 = useTrueText2()
+
 const error = ref(false)
 const isTrue = ref(false)
+const isTrue2 = ref(false)
 
 const showIsTrue = computed(() => {
   if (tab.value !== 'delivery' && tab.value !== 'start' && tab.value !== 'acs' && tab.value !== 'thanks') { 
@@ -63,7 +67,7 @@ function next() {
       return
     }
 
-    if (!isTrue.value) {
+    if (!isTrue.value || !isTrue2.value) {
       alert('Подвердите правильность данных в заказе')
       return
     }
@@ -86,12 +90,22 @@ function next() {
       v-if="showIsTrue"
       :active="isTrue"
       title="Все данные в заказе указаны верно"
-      subtitle="Огромная просьба проверить правильность написания имён, наименование школы и т.д. так как мы копируем Ваши данные и вставляем в программу для печати"
+      :subtitle="trueText"
       @click="isTrue = !isTrue"
+    )
+    Radio(
+      v-if="showIsTrue"
+      :active="isTrue2"
+      title=""
+      :subtitle="trueText2"
+      @click="isTrue2 = !isTrue2"
     )
 
     .next_button.text-right(v-if="tab !== 'start' && tab !== 'delivery'")
-      button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(@click="next" v-if="tab !== 'thanks'")
+      button.btn.thm_btn.red_btn.next_tab.gender-button.buttonsToStepWithAcs(
+        v-if="tab !== 'thanks'"
+        @click="next"
+      )
         span(v-if="tab !== 'delivery'") Дальше
         span(v-if="tab === 'delivery'") Заказать
         i.arrow_right(v-if="tab !== 'delivery'")
