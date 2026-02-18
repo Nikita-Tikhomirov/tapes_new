@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const { data } = await useFetch<any>('https://maytimelenta.ru/wp-json/acf/v3/options/options/')
 
+const dataValue = data.value?.acf
+
 const postPrice = usePostPrice()
 const sdekMskPrice = useSdekMskPrice()
 const sdekSpbPrice = useSdekSpbPrice()
@@ -16,24 +18,26 @@ const selectedAcs = useSelectedAcs()
 const addressee = useAddressee()
 const colors = useColors()
 const print = usePrint()
+const printPrice = usePrintPrice()
 const isShowCash = ref(false)
 
 const trueText = useTrueText()
 const trueText2 = useTrueText2()
 
-colors.value = data.value.acf.color
-print.value = data.value.acf.color_print
-postPrice.value = +data.value.acf.post_price
+colors.value = dataValue.color
+print.value = dataValue.color_print
+postPrice.value = +dataValue.post_price
+printPrice.value = +dataValue.print_price
 
-if (data.value.acf.sdek_msk) sdekMskPrice.value = +data.value.acf.sdek_msk
-if (data.value.acf.sdek_spb) sdekSpbPrice.value = +data.value.acf.sdek_spb
+if (dataValue.sdek_msk) sdekMskPrice.value = +dataValue.sdek_msk
+if (dataValue.sdek_spb) sdekSpbPrice.value = +dataValue.sdek_spb
 
-if (data.value.acf.sdek_prices) sdekPrices.value = data.value.acf.sdek_prices
-if (data.value.acf.sdek_prices_new) sdekPricesNew.value = data.value.acf.new_prices
-if (data.value.acf.sdek_prices_extra_percent) sdekPricesExtraPercent.value = +data.value.acf.extra_percent
+if (dataValue.sdek_prices) sdekPrices.value = dataValue.sdek_prices
+if (dataValue.sdek_prices_new) sdekPricesNew.value = dataValue.new_prices
+if (dataValue.sdek_prices_extra_percent) sdekPricesExtraPercent.value = +dataValue.extra_percent
 
-if (data.value.acf.true_text) trueText.value = data.value.acf.true_text
-if (data.value.acf.true_text_2) trueText2.value = data.value.acf.true_text_2
+if (dataValue.true_text) trueText.value = dataValue.true_text
+if (dataValue.true_text_2) trueText2.value = dataValue.true_text_2
 
 onBeforeMount(()=> {
   getTapesPrices()

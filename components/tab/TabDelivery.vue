@@ -327,21 +327,24 @@ function mail() {
 
   // =============== - =============== //
 
-  if (adultCount) formData += `\nВзрослых лент: ${adultCount}шт. * ${allAdultPrice.value/allTapes.value}р. = ${allAdultPrice.value/allTapes.value * adultCount}р.\n`
-  if (childCount) formData += `\nДетских лент: ${childCount}шт. * ${allChildPrice.value/allTapes.value}р. = ${allChildPrice.value/allTapes.value * childCount}р.\n`
+  if (adultCount) formData += `\nВзрослых лент: ${adultCount}шт. * ${allAdultPrice.value/allTapes.value}руб. = ${allAdultPrice.value/allTapes.value * adultCount}руб.\n`
+  if (childCount) formData += `\nДетских лент: ${childCount}шт. * ${allChildPrice.value/allTapes.value}руб. = ${allChildPrice.value/allTapes.value * childCount}руб.\n`
 
   // formData += delivery.value.name === 'post' ? '\nОтправка: Почта России' : 'Отправка: СДЕК\n'
   // formData += `\nЦена доставки: ${delivery.value.price}р.\n`
-  if (fastPrint.value) formData += `Экспресс печать: ${fastPrintPrice.value}р.\n`
+  if (fastPrint.value) formData += `Экспресс печать: ${fastPrintPrice.value}руб.\n`
   if (delivery.value.name != 'post') {
-    formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} р.\n`
+    formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} руб.\n`
     formData += `\nПредоплата: 50%\n`
     formData += `Оплата при получении(наложенный платеж): 50%\n`
-    formData += `+ Стоимость доставки СДЕК до ${addressee.value.city} ${delivery.value.price} рублей (оплачивается при получении посылки в СДЕК) \n`
-    formData += `\nИтого к оплате (с доставкой): ${totalPrice.value} р.\n`
+    // formData += `+ Стоимость доставки СДЕК до ${addressee.value.city} ${delivery.value.price} рублей (оплачивается при получении посылки в СДЕК) \n`
+    // formData += `\nИтого к оплате (с доставкой): ${totalPrice.value} руб.\n`
+    formData += `+ Стоимость доставки СДЕК до г. ${addressee.value.city} ориентировочно ${delivery.value.price} руб. (оплачивается при получении посылки в СДЕК)\n`
+    formData += `\nТочную стоимость доставки озвучит СДЕК при выдаче посылки, после взвешивания готового заказа с учетом упаковки.`
   } else {
-    formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} р. (100% ная оплата за заказ)\n`
+    formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} руб. (100% ная оплата за заказ)\n`
     formData += `\n+ Стоимость доставки Почтой России ${delivery.value.price} рублей (Оплачивается при получении посылки)\n`
+    formData += `\nТочную стоимость доставки озвучит Почта при выдаче посылки, после взвешивания готового заказа с учетом упаковки.\n`
   }
 
   formData += '\n=============================================\n'

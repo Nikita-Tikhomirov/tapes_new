@@ -1,4 +1,4 @@
-import type { TypeRequest, TypeMails } from "./types"
+import type { TypeRequest, TypeMails, TypeTabsDesc } from "./types"
 
 //-------------------- Табы --------------------//
 
@@ -53,7 +53,14 @@ export const useSdekPrices = () => useState<{price: string}[]>('sdek_prices', ()
 export const useSdekPricesNew = () => useState<{price: string}[]>('sdek_prices_new', () => [{price: '250'}, {price: '300'}, {price: '350'}, {price: '395'}, {price: '600'}])
 export const useSdekPricesExtraPercent = () => useState<string>('sdek_prices_extra_percent', () => '0.03')
 
-export const useTabsDesc = () => useState<{}>('tabsDesc', () => ({}))
+export const useTabsDesc = () => useState<TypeTabsDesc>('tabsDesc', () => ({
+  acs: '',
+  vipuskniki: '',
+  school: '',
+  todlers: '',
+  firstclass: '',
+  award: ''
+}))
 
 //-------------------- Цены на ленты --------------------//
 
@@ -78,6 +85,7 @@ export const useAllAdultPrice = () => useState<number>('adultPrice', () => 0)
 
 export const useColors = () => useState<[{name:string, price:boolean}?]>('colors', () => [])
 export const usePrint = () => useState<[{name:string, price:boolean}?]>('print', () => [])
+export const usePrintPrice = () => useState<number>('printPrice', () => 40)
 
 //-------------------- Дополнительные товары --------------------//
 

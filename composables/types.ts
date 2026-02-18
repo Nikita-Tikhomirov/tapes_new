@@ -52,3 +52,12 @@ export interface TypeMails {
   date: string
   place: string
 }
+
+export interface TypeTabsDesc {
+  acs: string
+  vipuskniki: string
+  school: string
+  todlers: string
+  firstclass: string
+  award: string
+}

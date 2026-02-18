@@ -8,6 +8,7 @@ const props = defineProps<{
 
 const colors = useColors()
 const print = usePrint()
+const printPrice = usePrintPrice()
 
 const activeTab = useActiveTab()
 
@@ -103,7 +104,7 @@ function selectPrint(e:Event) {
           v-for="color in print"
           :value="color.color"
           :data-color="`${color.price}`"
-        ) {{ color.color }}
+        ) {{ color.price ? `${color.color} + ${printPrice}руб.` : color.color }}
 
   inputEL.col-md-12(
     style="margin-bottom: 24px"

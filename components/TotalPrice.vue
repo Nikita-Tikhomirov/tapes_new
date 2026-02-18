@@ -9,6 +9,7 @@ const fastPrintPricesDiscount = useFastPrintDiscount()
 const allTapes = useAllTapes()
 const totalPrice = useTotalPrice()
 const delivery = useDelivery()
+const printPrice = usePrintPrice()
 
 //-------------------- Цена за ленты --------------------//
 
@@ -51,8 +52,8 @@ const tapesPrice = computed(()=> {
     const tapes = request.adultCount + request.childCount
     
     if (request.print.isPrice) {
-      adultOnePrice += 25
-      childOnePrice += 25
+      adultOnePrice += printPrice.value
+      childOnePrice += printPrice.value
     }
 
     if (request.color.isPrice) {
