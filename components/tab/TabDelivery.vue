@@ -281,7 +281,7 @@ function mail() {
   let acs = ''
   selectedAcs.value.forEach(item => {
     if (item.count > 0) {
-      acs += `${item.title}: ${item.count} шт. * ${item.price/item.count}р. = ${item.price}р.\n`
+      acs += `${item.title}: ${item.count} шт. * ${item.price/item.count} руб. = ${item.price} руб.\n`
     }
   })
 
@@ -298,20 +298,20 @@ function mail() {
 
   if (mails.value.standartLastCall.count || mails.value.standartFinal.count) {
     mailsText += 'Пригласительные "Стандарт":\n'
-    if (mails.value.standartLastCall.count) mailsText += `На последний звонок: ${mails.value.standartLastCall.count}шт. * ${mails.value.standartLastCall.price}р. = ${mails.value.standartLastCall.count * mails.value.standartLastCall.price}р.\n`
-    if (mails.value.standartFinal.count) mailsText += `На выпускной: ${mails.value.standartFinal.count}шт. * ${mails.value.standartFinal.price}р. = ${mails.value.standartFinal.count * mails.value.standartFinal.price}р.\n`
+    if (mails.value.standartLastCall.count) mailsText += `На последний звонок: ${mails.value.standartLastCall.count}шт. * ${mails.value.standartLastCall.price} руб. = ${mails.value.standartLastCall.count * mails.value.standartLastCall.price} руб.\n`
+    if (mails.value.standartFinal.count) mailsText += `На выпускной: ${mails.value.standartFinal.count}шт. * ${mails.value.standartFinal.price} руб. = ${mails.value.standartFinal.count * mails.value.standartFinal.price} руб.\n`
   }
 
   if (mails.value.editLastCall.count || mails.value.editFinal.count) {
     mailsText += 'Пригласительные с доп. текстом:\n'
-    if (mails.value.editLastCall.count) mailsText += `На последний звонок: ${mails.value.editLastCall.count}шт. * ${mails.value.editLastCall.price}р. = ${mails.value.editLastCall.count * mails.value.editLastCall.price}р.\n`
-    if (mails.value.editFinal.count) mailsText += `На выпускной: ${mails.value.editFinal.count}шт. * ${mails.value.editFinal.price}р. = ${mails.value.editFinal.count * mails.value.editFinal.price}р.\n`
+    if (mails.value.editLastCall.count) mailsText += `На последний звонок: ${mails.value.editLastCall.count}шт. * ${mails.value.editLastCall.price} руб. = ${mails.value.editLastCall.count * mails.value.editLastCall.price} руб.\n`
+    if (mails.value.editFinal.count) mailsText += `На выпускной: ${mails.value.editFinal.count}шт. * ${mails.value.editFinal.price} руб. = ${mails.value.editFinal.count * mails.value.editFinal.price} руб.\n`
   }
 
   if (mails.value.namesLastCall.count || mails.value.namesFinal.count) {
     mailsText += 'Именные пригласительные:\n'
-    if (mails.value.namesLastCall.count) mailsText += `На последний звонок: ${mails.value.namesLastCall.count}шт. * ${mails.value.namesLastCall.price}р. = ${mails.value.namesLastCall.count * mails.value.namesLastCall.price}р.\n`
-    if (mails.value.namesFinal.count) mailsText += `На выпускной: ${mails.value.namesFinal.count}шт. * ${mails.value.namesFinal.price}р. = ${mails.value.namesFinal.count * mails.value.namesFinal.price}р.\n`
+    if (mails.value.namesLastCall.count) mailsText += `На последний звонок: ${mails.value.namesLastCall.count}шт. * ${mails.value.namesLastCall.price} руб. = ${mails.value.namesLastCall.count * mails.value.namesLastCall.price} руб.\n`
+    if (mails.value.namesFinal.count) mailsText += `На выпускной: ${mails.value.namesFinal.count}шт. * ${mails.value.namesFinal.price} руб. = ${mails.value.namesFinal.count * mails.value.namesFinal.price} руб.\n`
   }
 
   if (mails.value.editText) mailsText += `Доп. текст:\n${mails.value.editText}\n`
@@ -327,12 +327,12 @@ function mail() {
 
   // =============== - =============== //
 
-  if (adultCount) formData += `\nВзрослых лент: ${adultCount}шт. * ${allAdultPrice.value/allTapes.value}руб. = ${allAdultPrice.value/allTapes.value * adultCount}руб.\n`
-  if (childCount) formData += `\nДетских лент: ${childCount}шт. * ${allChildPrice.value/allTapes.value}руб. = ${allChildPrice.value/allTapes.value * childCount}руб.\n`
+  if (adultCount) formData += `\nВзрослых лент: ${adultCount}шт. * ${allAdultPrice.value/allTapes.value} руб. = ${allAdultPrice.value/allTapes.value * adultCount}руб.\n`
+  if (childCount) formData += `\nДетских лент: ${childCount}шт. * ${allChildPrice.value/allTapes.value} руб. = ${allChildPrice.value/allTapes.value * childCount} руб.\n`
 
   // formData += delivery.value.name === 'post' ? '\nОтправка: Почта России' : 'Отправка: СДЕК\n'
   // formData += `\nЦена доставки: ${delivery.value.price}р.\n`
-  if (fastPrint.value) formData += `Экспресс печать: ${fastPrintPrice.value}руб.\n`
+  if (fastPrint.value) formData += `Экспресс печать: ${fastPrintPrice.value} руб.\n`
   if (delivery.value.name != 'post') {
     formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} руб.\n`
     formData += `\nПредоплата: 50%\n`
@@ -343,7 +343,7 @@ function mail() {
     formData += `\nТочную стоимость доставки озвучит СДЕК при выдаче посылки, после взвешивания готового заказа с учетом упаковки.`
   } else {
     formData += `\nИтого (без доставки): ${totalPrice.value - delivery.value.price} руб. (100% ная оплата за заказ)\n`
-    formData += `\n+ Стоимость доставки Почтой России ${delivery.value.price} рублей (Оплачивается при получении посылки)\n`
+    formData += `\n+ Стоимость доставки Почтой России ориентировочно ${delivery.value.price} рублей (Оплачивается при получении посылки)\n`
     formData += `\nТочную стоимость доставки озвучит Почта при выдаче посылки, после взвешивания готового заказа с учетом упаковки.\n`
   }
 
